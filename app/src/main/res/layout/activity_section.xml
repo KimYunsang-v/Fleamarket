@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="sectionView"
+            type="com.example.skuniv.fleamarket2.viewmodel.SectionViewModel"/>
+        <variable
+            name="sectionModel"
+            type="com.example.skuniv.fleamarket2.model.SectionModel"/>
+        <variable
+            name="shopModel"
+            type="com.example.skuniv.fleamarket2.viewmodel.ShopsViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.SectionActivity">
+
+        <TextView
+            android:id="@+id/topTextId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{sectionModel.section}"/>
+
+        <Button
+            android:id="@+id/mapId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="map"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/selectId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="select"/>
+
+            <ListView
+                android:id="@+id/listId"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:items="@{shopModel.shops}">
+
+            </ListView>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

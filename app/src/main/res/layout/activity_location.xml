@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.LocationActivity"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+                <Button
+                    android:id="@+id/sectionE_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="E"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="5">
+            <Button
+                android:id="@+id/sectionA_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="A"/>
+            <Button
+                android:id="@+id/sectionB_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="B"/>
+            <Button
+                android:id="@+id/sectionC_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="C"/>
+            <Button
+                android:id="@+id/sectionD_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="D"/>
+
+        </LinearLayout>
+</LinearLayout>
+</layout>
