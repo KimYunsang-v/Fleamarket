@@ -50,7 +50,7 @@ public class SelectItemListAdapter extends BaseAdapter{
             binding = (ShopSelectDialogItemBinding) view.getTag();
         }
 
-        //binding.setShop(items.get(i));
+        binding.setSelect(items.get(i));
 
         return view;
     }
