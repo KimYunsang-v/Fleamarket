@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.example.skuniv.fleamarket2.R;
-import com.example.skuniv.fleamarket2.databinding.ShopItemBinding;
 import com.example.skuniv.fleamarket2.databinding.ShopSelectDialogItemBinding;
 import com.example.skuniv.fleamarket2.viewmodel.SelectDialogItemModel;
-import com.example.skuniv.fleamarket2.viewmodel.ShopViewModel;
 
 public class SelectItemListAdapter extends BaseAdapter{
 

@@ -6,12 +6,9 @@ import android.databinding.ObservableArrayList;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ListView;
 
 import com.example.skuniv.fleamarket2.R;
@@ -19,6 +16,7 @@ import com.example.skuniv.fleamarket2.adapter.ShopListAdapter;
 import com.example.skuniv.fleamarket2.databinding.ActivitySectionBinding;
 import com.example.skuniv.fleamarket2.databinding.ShopSelectDialogBinding;
 import com.example.skuniv.fleamarket2.model.SectionModel;
+import com.example.skuniv.fleamarket2.viewmodel.SectionCommand;
 import com.example.skuniv.fleamarket2.viewmodel.ShopViewModel;
 import com.example.skuniv.fleamarket2.viewmodel.ShopsViewModel;
 
@@ -27,6 +25,7 @@ public class SectionActivity extends AppCompatActivity {
 
     private ShopSelectDialogBinding dialogBinding;
     private ShopSelectDialog dialog;
+    SectionCommand sectionCommand;
 
     ActivitySectionBinding sectionBinding;
     SectionModel sectionModel;
@@ -38,13 +37,14 @@ public class SectionActivity extends AppCompatActivity {
 
         // section model객체 생성
         // 나중에 각 세션별로 값 다르게 넣어야 함
-        sectionModel = new SectionModel("A");
+        sectionModel = new SectionModel("a",1);
+
+        //sectionCommand 객체 생성
+        sectionCommand = new SectionCommand(sectionModel, sectionBinding);
 
         shopsViewModel.setShops();
         // activity_section의 sectionModel 변수에 sectionModel 넣음
         sectionBinding.setSectionModel(sectionModel);
-
-        //shopsViewModel.shops.add(new ShopViewModel("a","12"));
 
         // activity_section의 ShopModel 변수에 shopsViewModel 넣음
         sectionBinding.setShopModel(shopsViewModel);
@@ -54,10 +54,6 @@ public class SectionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog = new ShopSelectDialog(SectionActivity.this,sectionModel);
-
-
-
-
                 dialog.show();
 
                 //디스플레이의 해상도를 가져옴
@@ -74,6 +70,8 @@ public class SectionActivity extends AppCompatActivity {
                 window.setLayout(x,y);
             }
         });
+
+        sectionCommand.getShopList();
     }
 
     //listView adapter 생성

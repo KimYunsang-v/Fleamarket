@@ -1,6 +1,6 @@
 package com.example.skuniv.fleamarket2.view;
 
-import android.app.Activity;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.databinding.BindingAdapter;

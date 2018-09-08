@@ -22,6 +22,8 @@
                     android:id="@+id/sectionE_btn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="#eeeeee"
+                    android:layout_margin="5dp"
                     android:text="E"/>
         </LinearLayout>
 
@@ -29,26 +31,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="center"
             android:layout_weight="5">
             <Button
                 android:id="@+id/sectionA_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="#eeeeee"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:text="A"/>
             <Button
                 android:id="@+id/sectionB_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="#eeeeee"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:text="B"/>
             <Button
                 android:id="@+id/sectionC_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="#eeeeee"
+                android:layout_weight="1"
                 android:text="C"/>
             <Button
                 android:id="@+id/sectionD_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="#eeeeee"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:text="D"/>
 
         </LinearLayout>
