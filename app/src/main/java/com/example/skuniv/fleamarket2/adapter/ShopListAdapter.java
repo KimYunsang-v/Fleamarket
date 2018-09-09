@@ -48,7 +48,7 @@ public class ShopListAdapter extends BaseAdapter{
             binding = (ShopItemBinding) view.getTag();
         }
 
-        binding.setShop(shops.get(i));
+        binding.setShopItem(shops.get(i));
 
         return view;
     }

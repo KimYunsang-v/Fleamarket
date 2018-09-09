@@ -2,9 +2,9 @@ package com.example.skuniv.fleamarket2.model;
 
 public class SectionModel {
     String section;
-    int sectionNum;
+    String sectionNum;
 
-    public SectionModel(String section, int sectionNum){
+    public SectionModel(String section, String sectionNum){
         this.section = section;
         this.sectionNum = sectionNum;
     }
@@ -13,11 +13,11 @@ public class SectionModel {
         return section;
     }
 
-    public int getSectionNum() {
+    public String getSectionNum() {
         return sectionNum;
     }
 
-    public void setSectionNum(int sectionNum) {
+    public void setSectionNum(String sectionNum) {
         this.sectionNum = sectionNum;
     }
 

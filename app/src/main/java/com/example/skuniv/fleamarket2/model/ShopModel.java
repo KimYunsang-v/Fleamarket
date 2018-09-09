@@ -2,9 +2,11 @@ package com.example.skuniv.fleamarket2.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ShopModel {
+public class ShopModel implements Serializable{
     @SerializedName("no")
     int no;
     @SerializedName("location")
@@ -12,9 +14,9 @@ public class ShopModel {
     @SerializedName("shop")
     String shop;
     @SerializedName("goods")
-    ArrayList<Goods> goods;
+    List<Goods> goods;
 
-    public ShopModel(int no, String location, String shop, ArrayList<Goods> goods){
+    public ShopModel(int no, String location, String shop, List<Goods> goods){
         this.no = no;
         this.location = location;
         this.shop = shop;
@@ -45,11 +47,11 @@ public class ShopModel {
         this.shop = shop;
     }
 
-    public ArrayList<Goods> getGoods() {
+    public List<Goods> getGoods() {
         return goods;
     }
 
-    public void setGoods(ArrayList<Goods> goods) {
+    public void setGoods(List<Goods> goods) {
         this.goods = goods;
     }
 }
