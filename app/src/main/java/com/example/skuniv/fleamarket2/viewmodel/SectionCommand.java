@@ -31,13 +31,15 @@ public class SectionCommand {
     ActivitySectionBinding sectionBinding;
     ShopsViewModel shopsViewModel;
     ShopData shopData;
-    //ArrayList<ShopModel> shops = new ArrayList<ShopModel>();
+    List<ShopModel> shops = new ArrayList<ShopModel>();
+    Gson gson = new Gson();
 
 
 
-    public SectionCommand(SectionModel sectionModel, ActivitySectionBinding sectionBinding) {
+    public SectionCommand(SectionModel sectionModel, ActivitySectionBinding sectionBinding,ShopsViewModel shopsViewModel) {
         this.sectionModel = sectionModel;
         this.sectionBinding = sectionBinding;
+        this.shopsViewModel = shopsViewModel;
     }
 
    /* public void selectDialog(View view) {
@@ -45,28 +47,29 @@ public class SectionCommand {
         shopSelectDialog.show();
     }*/
 
-    public void getShopList() {
+    public List<ShopModel> getShopList() {
         if (!(sectionModel.getSection().isEmpty()) && !sectionModel.getSectionNum().isEmpty()) {
-            Call<ShopData> res = NetRetrofit.getInstance().getService().getListRepos(sectionModel.getSection(),sectionModel.getSectionNum());
+            Call<List<ShopModel>> res = NetRetrofit.getInstance().getService().getListRepos(sectionModel.getSection(),sectionModel.getSectionNum());
             Log.i("getShopList",""+res);
-            res.enqueue(new Callback<ShopData>() {
+            res.enqueue(new Callback<List<ShopModel>>() {
                 @Override
-                public void onResponse(Call<ShopData> call, Response<ShopData> response) {
-                    Log.d("Retrofit", response.toString());
+                public void onResponse(Call<List<ShopModel>> call, Response<List<ShopModel>> response) {
+                    Log.i("Retrofit", response.toString());
                     if (response.body() != null) {
-                        shopData = response.body();
-                        //shopData.setShops(response.body());
-                        //Log.i("getShopList",""+response.body());
+                        shops = response.body();
+                        Log.i("getShopList",""+gson.toJson(response.body()));
+                        shopsViewModel.setShops(shops);
                     }
                 }
                 @Override
-                public void onFailure(Call<ShopData> call, Throwable t) {
-                    Log.e("Err", t.getMessage());
+                public void onFailure(Call<List<ShopModel>> call, Throwable t) {
+                    Log.e("에러", t.getMessage());
                 }
             });
         } else {
             Log.e("getShopList","getShopList error");
         }
+        return shops;
     }
 
     public List<ShopModel> jsonPaser(String jsonObject){

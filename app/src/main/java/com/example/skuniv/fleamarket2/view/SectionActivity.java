@@ -33,6 +33,8 @@ import com.example.skuniv.fleamarket2.viewmodel.ShopsViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Response;
+
 public class SectionActivity extends AppCompatActivity {
     ShopsViewModel shopsViewModel = new ShopsViewModel();
 
@@ -44,7 +46,7 @@ public class SectionActivity extends AppCompatActivity {
     ShopItemBinding shopItemBinding;
     SectionModel sectionModel;
     String json;
-    List<ShopModel> shops = new ArrayList<ShopModel>();
+    List<ShopModel> shops;
     List<Goods> goodsArrayList;
     GoodsListViewModel goodsListViewModel;
     GoodsListAdapter goodsListAdapter;
@@ -54,13 +56,13 @@ public class SectionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // activity_section과 databiding할 객체 생성
         sectionBinding = DataBindingUtil.setContentView(this, R.layout.activity_section);
-
+        Log.i("section","==========="+getIntent().getStringExtra("section"));
         // section model객체 생성
-        // 나중에 각 세션별로 값 다르게 넣어야 함
-        sectionModel = new SectionModel("a","1");
+        // 나중에 각 섹션별로 값 다르게 넣어야 함
+        sectionModel = new SectionModel(getIntent().getStringExtra("section"),"1");
 
         //sectionCommand 객체 생성
-        sectionCommand = new SectionCommand(sectionModel, sectionBinding);
+        sectionCommand = new SectionCommand(sectionModel, sectionBinding,shopsViewModel);
 
         // activity_section의 sectionModel 변수에 sectionModel 넣음
         sectionBinding.setSectionModel(sectionModel);
@@ -94,11 +96,7 @@ public class SectionActivity extends AppCompatActivity {
             }
         });
 
-        json = getJson();
-        shops = sectionCommand.jsonPaser(json);
-        Log.i("shops",shops.get(1).getGoods().get(0).getImage());
-        shopsViewModel.setShops(shops);
-        //sectionCommand.getShopList();
+        sectionCommand.getShopList();
 
         sectionBinding.listId.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -125,11 +123,8 @@ public class SectionActivity extends AppCompatActivity {
             adapter = (ShopListAdapter) listView.getAdapter();
         }
         adapter.addAll(shops);
+       //Log.i("adapter", shops.get(0).getGoods().get(0).getImage());
     }
-
-
-
-
 
     public String getJson(){
         String jsonObject;

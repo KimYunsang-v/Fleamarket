@@ -15,16 +15,16 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.MainActivity">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".view.LocationActivity" />
         <activity android:name=".view.CategoryActivity" />
         <activity android:name=".view.NoticeActivity" />
         <activity android:name=".view.SectionActivity" />
-
+        <activity android:name=".view.CategoryListActivity"></activity>
     </application>
 
 </manifest>

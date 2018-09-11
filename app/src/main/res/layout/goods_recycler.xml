@@ -16,14 +16,17 @@
 
 
 <LinearLayout
-     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="100dp"
+    android:orientation="vertical"
+    >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recylcerId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         app:items="@{goodsList}">
 
     </android.support.v7.widget.RecyclerView>
