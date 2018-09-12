@@ -19,7 +19,7 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     public void categoryClickListener(String category){
-        Intent intent = new Intent(getApplicationContext(),SectionActivity.class);
+        Intent intent = new Intent(getApplicationContext(),CategoryListActivity.class);
         intent.putExtra("category",category);
         startActivity(intent);
     }

@@ -8,6 +8,7 @@
             name="section"
             type="com.example.skuniv.fleamarket2.view.LocationActivity"/>
     </data>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"

@@ -47,7 +47,7 @@ public class SectionCommand {
         shopSelectDialog.show();
     }*/
 
-    public List<ShopModel> getShopList() {
+    public void getShopList() {
         if (!(sectionModel.getSection().isEmpty()) && !sectionModel.getSectionNum().isEmpty()) {
             Call<List<ShopModel>> res = NetRetrofit.getInstance().getService().getListRepos(sectionModel.getSection(),sectionModel.getSectionNum());
             Log.i("getShopList",""+res);
@@ -69,7 +69,6 @@ public class SectionCommand {
         } else {
             Log.e("getShopList","getShopList error");
         }
-        return shops;
     }
 
     public List<ShopModel> jsonPaser(String jsonObject){

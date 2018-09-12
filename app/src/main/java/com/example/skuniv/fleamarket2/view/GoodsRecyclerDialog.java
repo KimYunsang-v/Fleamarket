@@ -58,8 +58,8 @@ public class GoodsRecyclerDialog extends Dialog{
 
         mAdapter = new GoodsListAdapter(goodsList, getContext());
 
-        binding.recylcerId.setLayoutManager(llm);
-        binding.recylcerId.setAdapter(mAdapter);
+        binding.recyclerId.setLayoutManager(llm);
+        binding.recyclerId.setAdapter(mAdapter);
         binding.setGoodsList(goodsList);
     }
 

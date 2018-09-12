@@ -2,18 +2,27 @@ package com.example.skuniv.fleamarket2.model;
 
 public class CategoryModel {
 
-    String categoty;
+    public String category;
+    public int pageNum;
+
+    public CategoryModel(String category, int pageNum){
+        this.category = category;
+        this.pageNum = pageNum;
+    }
 
     public String getCategoty() {
-        return categoty;
+        return category;
     }
 
     public void setCategoty(String categoty) {
-        this.categoty = categoty;
+        this.category = categoty;
     }
 
-    public CategoryModel(String categoty){
-        this.categoty = categoty;
+    public int getPageNum() {
+        return pageNum;
+    }
 
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 }

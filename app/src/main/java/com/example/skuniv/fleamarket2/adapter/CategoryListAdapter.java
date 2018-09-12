@@ -2,36 +2,33 @@ package com.example.skuniv.fleamarket2.adapter;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.support.v7.widget.RecyclerView;
-
+import com.example.skuniv.fleamarket2.databinding.CategoryItemBinding;
 import com.bumptech.glide.Glide;
-import com.example.skuniv.fleamarket2.databinding.GoodsItemBinding;
 import com.example.skuniv.fleamarket2.viewmodel.GoodsViewModel;
 
-import java.util.List;
-
-public class GoodsListAdapter extends RecyclerView.Adapter<GoodsViewHolder>{
+public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder>{
 
     public ObservableArrayList<GoodsViewModel> goodsList;
     Context context;
 
-    public GoodsListAdapter(ObservableArrayList<GoodsViewModel> goodsList, Context context){
+    public CategoryListAdapter(ObservableArrayList<GoodsViewModel> goodsList, Context context){
         this.goodsList = goodsList;
         this.context = context;
     }
 
     @Override
-    public GoodsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        GoodsItemBinding binding = GoodsItemBinding.
+    public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        CategoryItemBinding binding = CategoryItemBinding.
                 inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        return new GoodsViewHolder(binding, context);
+        return new CategoryViewHolder(binding, context);
     }
 
     @Override
-    public void onBindViewHolder(GoodsViewHolder holder, int position) {
+    public void onBindViewHolder(CategoryViewHolder holder, int position) {
         GoodsViewModel goods = goodsList.get(position);
         holder.bind(goods);
     }
@@ -50,21 +47,20 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsViewHolder>{
     }
 }
 
-class GoodsViewHolder extends RecyclerView.ViewHolder{
-    GoodsItemBinding binding;
+class CategoryViewHolder extends RecyclerView.ViewHolder {
+    CategoryItemBinding binding;
     Context context;
+
     //ViewHolder 생성
-    public GoodsViewHolder(GoodsItemBinding binding, Context context) {
+    public CategoryViewHolder(CategoryItemBinding binding, Context context) {
         super(binding.getRoot());
         this.binding = binding;
         this.context = context;
     }
 
     void bind(GoodsViewModel goods) {
-        Log.i("bind","======="+goods.getImage().get());
-        Glide.with(context).load(goods.getImage().get()).override(300,300).into(binding.imageId);
+        Log.i("bind", "=======" + goods.getImage().get());
+        //Glide.with(context).load(goods.getImage().get()).override(300, 300).into(binding.imageId);
         binding.setGoods(goods);
-        //binding.setVariable(BR.goods, goods);
     }
 }
-

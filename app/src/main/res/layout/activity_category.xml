@@ -7,8 +7,6 @@
         <variable
             name="category"
             type="com.example.skuniv.fleamarket2.view.CategoryActivity"/>
-
-
     </data>
 <LinearLayout
     android:layout_width="match_parent"
@@ -29,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="cloth"
-            android:onClick="@{() -> categorey.categoryClickListener(&quot;cloth&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;cloth&quot;)}"/>
 
         <Button
             android:id="@+id/digitalId"
@@ -37,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="digital"
-            android:onClick="@{() -> categorey.categoryClickListener(&quot;digital&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;digital&quot;)}"/>
 
     </LinearLayout>
 
@@ -53,7 +51,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="fancy"
-            android:onClick="@{() -> categorey.categoryClickListener(&quot;fancy&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;fancy&quot;)}"/>
 
         <Button
             android:id="@+id/accId"
@@ -61,7 +59,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="acc"
-            android:onClick="@{() -> categorey.categoryClickListener(&quot;acc&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;acc&quot;)}"/>
 
     </LinearLayout>
 
@@ -77,7 +75,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="book"
-            android:onClick="@{() -> categorey.categoryClickListener(&quot;book&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;book&quot;)}"/>
 
         <Button
             android:id="@+id/etcId"
@@ -85,7 +83,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="etc"
-            android:onClick="@{() -> categorey.categoryClickListener(&quot;etc&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;etc&quot;)}"/>
     </LinearLayout>
 
 </LinearLayout>

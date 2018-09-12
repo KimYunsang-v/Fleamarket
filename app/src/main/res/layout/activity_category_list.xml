@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="categoryModel"
+            type="com.example.skuniv.fleamarket2.model.CategoryModel"/>
+        <variable
+            name="goodsL"
+            type="android.databinding.ObservableArrayList&lt;com.example.skuniv.fleamarket2.viewmodel.GoodsViewModel&gt;"/>
     </data>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.CategoryListActivity">
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.CategoryListActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{categoryModel.category}"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerId2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:items="@{goodsL}">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </LinearLayout>
 </layout>
