@@ -8,42 +8,47 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.example.skuniv.fleamarket2.databinding.CategoryItemBinding;
 import com.bumptech.glide.Glide;
-import com.example.skuniv.fleamarket2.viewmodel.GoodsViewModel;
+import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryCommand;
+import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryShopViewModel;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder>{
 
-    public ObservableArrayList<GoodsViewModel> goodsList;
+    public ObservableArrayList<CategoryShopViewModel> shopsList;
     Context context;
+    CategoryCommand categoryCommand;
 
-    public CategoryListAdapter(ObservableArrayList<GoodsViewModel> goodsList, Context context){
-        this.goodsList = goodsList;
+    public CategoryListAdapter(ObservableArrayList<CategoryShopViewModel> shopsList, Context context, CategoryCommand categoryCommand){
+        this.shopsList = shopsList;
         this.context = context;
+        this.categoryCommand = categoryCommand;
+//        System.out.println("==============="+shopsList.get(1));
     }
 
     @Override
     public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CategoryItemBinding binding = CategoryItemBinding.
                 inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        binding.setCommand(categoryCommand);
         return new CategoryViewHolder(binding, context);
     }
 
     @Override
     public void onBindViewHolder(CategoryViewHolder holder, int position) {
-        GoodsViewModel goods = goodsList.get(position);
-        holder.bind(goods);
+        CategoryShopViewModel shop = shopsList.get(position);
+        holder.bind(shop);
     }
 
-    void setItem(ObservableArrayList<GoodsViewModel> goodsList) {
+    void setItem(ObservableArrayList<CategoryShopViewModel> goodsList) {
         if (goodsList == null) {
             return;
         }
-        this.goodsList = goodsList;
+        this.shopsList = goodsList;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return goodsList.size();
+        return shopsList.size();
     }
 }
 
@@ -58,9 +63,9 @@ class CategoryViewHolder extends RecyclerView.ViewHolder {
         this.context = context;
     }
 
-    void bind(GoodsViewModel goods) {
-        Log.i("bind", "=======" + goods.getImage().get());
-        //Glide.with(context).load(goods.getImage().get()).override(300, 300).into(binding.imageId);
-        binding.setGoods(goods);
+    void bind(CategoryShopViewModel shop) {
+        Log.i("bind", "=======" + shop.goods.get().getImage());
+        Glide.with(context).load(shop.goods.get().getImage()).override(300, 300).into(binding.imageId);
+        binding.setShop(shop);
     }
 }

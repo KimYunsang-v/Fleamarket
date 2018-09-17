@@ -6,17 +6,17 @@
     <data>
         <variable
             name="sectionModel"
-            type="com.example.skuniv.fleamarket2.model.SectionModel"/>
+            type="com.example.skuniv.fleamarket2.model.locatonModel.SectionModel"/>
         <variable
             name="shopModel"
-            type="com.example.skuniv.fleamarket2.viewmodel.ShopsViewModel"/>
+            type="com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopsViewModel"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.SectionActivity">
+        tools:context=".view.locationView.SectionActivity">
 
         <TextView
             android:id="@+id/topTextId"

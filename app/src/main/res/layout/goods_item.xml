@@ -4,7 +4,7 @@
 <data>
     <variable
         name="goods"
-        type="com.example.skuniv.fleamarket2.viewmodel.GoodsViewModel"/>
+        type="com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel"/>
 </data>
 
 
@@ -28,7 +28,7 @@
         android:id="@+id/nameId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{goods.name}"/>
+        android:text="@{goods.name.get()}"/>
 
 
     <TextView
@@ -49,7 +49,7 @@
         android:id="@+id/categoryId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{goods.category}"/>
+        android:text="@{goods.category.get()}"/>
 
 </LinearLayout>
 </LinearLayout>

@@ -8,26 +8,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.example.skuniv.fleamarket2.R;
-import com.example.skuniv.fleamarket2.databinding.ShopItemBinding;
-import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
+import com.example.skuniv.fleamarket2.databinding.ShopSelectDialogItemBinding;
+import com.example.skuniv.fleamarket2.viewModel.locationViewModel.SelectDialogItemModel;
 
-public class ShopListAdapter extends BaseAdapter{
+public class SelectShopListAdapter extends BaseAdapter{
 
-    private ObservableArrayList<ShopViewModel> shops = new ObservableArrayList<>();
+    private ObservableArrayList<SelectDialogItemModel> items = new ObservableArrayList<>();
 
-    public void addAll(ObservableArrayList<ShopViewModel> shops){
-        this.shops = shops;
+    public void addAll(ObservableArrayList<SelectDialogItemModel> items){
+        this.items = items;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return shops.size();
+        return items.size();
     }
 
     @Override
-    public ShopViewModel getItem(int i) {
-        return shops.get(i);
+    public SelectDialogItemModel getItem(int i) {
+        return items.get(i);
     }
 
     @Override
@@ -37,18 +37,18 @@ public class ShopListAdapter extends BaseAdapter{
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ShopItemBinding binding;
+        ShopSelectDialogItemBinding binding;
 
         if(view == null){
             LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-            binding = DataBindingUtil.inflate(inflater, R.layout.shop_item, viewGroup, false);
+            binding = DataBindingUtil.inflate(inflater, R.layout.shop_select_dialog_item, viewGroup, false);
             view = binding.getRoot();
             view.setTag(binding);
         } else {
-            binding = (ShopItemBinding) view.getTag();
+            binding = (ShopSelectDialogItemBinding) view.getTag();
         }
 
-        binding.setShopItem(shops.get(i));
+        binding.setSelect(items.get(i));
 
         return view;
     }

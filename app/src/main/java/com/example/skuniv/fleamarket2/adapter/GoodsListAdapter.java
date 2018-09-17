@@ -9,9 +9,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.skuniv.fleamarket2.databinding.GoodsItemBinding;
-import com.example.skuniv.fleamarket2.viewmodel.GoodsViewModel;
-
-import java.util.List;
+import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
 
 public class GoodsListAdapter extends RecyclerView.Adapter<GoodsViewHolder>{
 

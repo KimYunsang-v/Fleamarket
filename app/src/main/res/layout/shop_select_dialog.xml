@@ -6,7 +6,7 @@
     <data>
         <variable
             name="Model"
-            type="com.example.skuniv.fleamarket2.viewmodel.SelectDialogItemsModel"/>
+            type="com.example.skuniv.fleamarket2.viewModel.locationViewModel.SelectDialogItemsModel"/>
     </data>
 
 <LinearLayout

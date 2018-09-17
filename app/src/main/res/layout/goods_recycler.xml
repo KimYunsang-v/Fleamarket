@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <data>
 
-    <import type="com.example.skuniv.fleamarket2.viewmodel.GoodsViewModel"/>
+    <import type="com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel"/>
     <import type="android.databinding.ObservableArrayList" />
 
     <variable
         name="goodsList"
-        type="android.databinding.ObservableArrayList&lt;com.example.skuniv.fleamarket2.viewmodel.GoodsViewModel&gt;"/>
+        type="android.databinding.ObservableArrayList&lt;com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel&gt;"/>
 
 </data>
 <LinearLayout
@@ -23,7 +23,6 @@
         android:id="@+id/recyclerId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:items="@{goodsList}">
 
     </android.support.v7.widget.RecyclerView>

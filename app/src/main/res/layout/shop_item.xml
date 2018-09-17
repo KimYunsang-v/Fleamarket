@@ -5,10 +5,7 @@
     <data>
         <variable
             name="shopItem"
-            type="com.example.skuniv.fleamarket2.viewmodel.ShopViewModel"/>
-        <variable
-            name="handler"
-            type="com.example.skuniv.fleamarket2.Myhandler"/>
+            type="com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel"/>
     </data>
 
 <LinearLayout
