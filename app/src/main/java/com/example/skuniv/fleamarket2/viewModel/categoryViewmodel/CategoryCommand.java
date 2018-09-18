@@ -3,6 +3,7 @@ package com.example.skuniv.fleamarket2.viewModel.categoryViewmodel;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
 import com.example.skuniv.fleamarket2.adapter.CategoryListAdapter;
 import com.example.skuniv.fleamarket2.databinding.ActivityCategoryListBinding;
@@ -12,6 +13,8 @@ import com.example.skuniv.fleamarket2.model.categoryModel.CategoryShopModel;
 import com.example.skuniv.fleamarket2.view.locationView.ShopMapDialog;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -55,11 +58,12 @@ public class CategoryCommand {
                         Log.i("getShopList",""+gson.toJson(categoryShopList));
                         categoryShopsViewModel.setCategoryShopsViewModel(categoryShopList);
                         System.out.println(categoryShopsViewModel);
-                        mAdapter = new CategoryListAdapter(categoryShopsViewModel.getShops(), context,categoryCommand);
                         System.out.println(categoryShopsViewModel.getShops());
+                        //mAdapter = new CategoryListAdapter(categoryShopsViewModel.getShops(), context,categoryCommand);
 
 
-                        categoryListBinding.recyclerId2.setAdapter(mAdapter);
+
+                        //categoryListBinding.recyclerId2.setAdapter(mAdapter);
                         //getAdapter();
                     }
                 }
@@ -79,8 +83,22 @@ public class CategoryCommand {
         dialog.show();
     }
 
+    public void scrollListener(){
+        //카테고리 페이징 넘버를 증가 시킴
+        categoryModel.setPageNum(categoryModel.getPageNum() + 1);
+        //getGoodsList();
+    }
 
+    public List<CategoryShopModel> jsonPaser(String jsonObject){
 
+        Gson gson = new Gson();
+        CategoryShopModel[] shopList = gson.fromJson(jsonObject,  CategoryShopModel[].class);
 
+        List<CategoryShopModel> categoryShops = new ArrayList<>(Arrays.asList(shopList));
+        categoryShopsViewModel.setCategoryShopsViewModel(categoryShops);
+        // shops = shopData.getShops();
+        System.out.println("jsonPaser===========");
+        return categoryShops;
+    }
 
 }
