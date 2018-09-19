@@ -1,15 +1,21 @@
 package com.example.skuniv.fleamarket2.view.noticeView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.adapter.CategoryListAdapter;
@@ -30,6 +36,7 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
     static Context context;
     static NoticeCommand noticeCommand;
     static NoticeListAdapter.OnLoadMoreListener onLoadMoreListener;
+    private GestureDetector gestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,41 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
 
         noticeCommand.jsonPaser(getJson(noticeListModel.getPage()));
 
+        /*// 클릭 리스너
+        gestureDetector = new GestureDetector(getApplicationContext(),new GestureDetector.SimpleOnGestureListener() {
+            //누르고 뗄 때 한번만 인식하도록 하기위해서
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+        });
+
+        binding.recyclerId3.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {
+                //손으로 터치한 곳의 좌표를 토대로 해당 Item의 View를 가져옴
+                View childView = recyclerView.findChildViewUnder(motionEvent.getX(),motionEvent.getY());
+
+                //터치한 곳의 View가 RecyclerView 안의 아이템이고 그 아이템의 View가 null이 아니라
+                //정확한 Item의 View를 가져왔고, gestureDetector에서 한번만 누르면 true를 넘기게 구현했으니
+                //한번만 눌려서 그 값이 true가 넘어왔다면
+                if(childView != null && gestureDetector.onTouchEvent(motionEvent)){
+                    //현재 터치된 곳의 position을 가져오고
+                    int currentPosition = recyclerView.getChildAdapterPosition(childView);
+                    //해당 위치의 Data를 가져옴
+                    //Student currentItemStudent = arrayListOfStudent.get(currentPosition);
+                    NoticeItemViewModel noticeItemViewModel = noticeItemsViewModel.noticeList.get(currentPosition);
+                    Intent intent = new Intent();
+                    intent.putExtra("notice",noticeItemViewModel);
+                    return true;
+                }
+                return false;
+            }
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView recyclerView, @NonNull MotionEvent motionEvent) {  }
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean b) { }
+        });*/
     }
 
     @Override

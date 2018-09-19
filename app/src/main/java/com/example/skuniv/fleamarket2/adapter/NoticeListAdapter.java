@@ -7,9 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.skuniv.fleamarket2.databinding.NoticeItemBinding;
+import com.example.skuniv.fleamarket2.databinding.NoticeListItemBinding;
+import com.example.skuniv.fleamarket2.view.noticeView.NoticeItemDialog;
 import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeCommand;
 import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeItemViewModel;
 
@@ -79,9 +82,9 @@ public class NoticeListAdapter extends RecyclerView.Adapter<NoticeViewHolder> {
     public NoticeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //만약 타입이 view_item이면 아이템 추가
         //if(viewType == VIEW_ITEM)
-        NoticeItemBinding binding = NoticeItemBinding.
+        NoticeListItemBinding binding = NoticeListItemBinding.
                 inflate(LayoutInflater.from(parent.getContext()), parent, false);
-        //binding.setCommand(categoryCommand);
+
         return new NoticeViewHolder(binding, context);
         //아니면 프로그레스바 아이템 추가
         //else{
@@ -93,8 +96,15 @@ public class NoticeListAdapter extends RecyclerView.Adapter<NoticeViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(NoticeViewHolder holder, int position) {
-        NoticeItemViewModel notice = noticeList.get(position);
+    public void onBindViewHolder(final NoticeViewHolder holder, int position) {
+        final NoticeItemViewModel notice = noticeList.get(position);
+        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NoticeItemDialog dialog = new NoticeItemDialog(context,notice);
+                dialog.show();
+            }
+        });
         holder.bind(notice);
     }
 
@@ -118,11 +128,11 @@ public class NoticeListAdapter extends RecyclerView.Adapter<NoticeViewHolder> {
 
 
 class NoticeViewHolder extends RecyclerView.ViewHolder {
-    NoticeItemBinding binding;
+    NoticeListItemBinding binding;
     Context context;
 
     //ViewHolder 생성
-    public NoticeViewHolder(NoticeItemBinding binding, Context context) {
+    public NoticeViewHolder(NoticeListItemBinding binding, Context context) {
         super(binding.getRoot());
         this.binding = binding;
         this.context = context;
