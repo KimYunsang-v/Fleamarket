@@ -1,0 +1,136 @@
+package com.example.skuniv.fleamarket2.adapter;
+
+import android.content.Context;
+import android.databinding.ObservableArrayList;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import com.example.skuniv.fleamarket2.databinding.NoticeItemBinding;
+import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeCommand;
+import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeItemViewModel;
+
+public class NoticeListAdapter extends RecyclerView.Adapter<NoticeViewHolder> {
+    private final int VIEW_ITEM = 1;
+    private final int VIEW_PROG =0;
+    private OnLoadMoreListener onLoadMoreListener;
+    private LinearLayoutManager linearLayoutManager;
+
+    private boolean isMoreLoading = false;
+    private int visibleThreshold = 1;
+    int firstVisibleItem, visibleItemCount, totalItemCount, lastVisibleItem;
+
+    public ObservableArrayList<NoticeItemViewModel> noticeList;
+    Context context;
+    NoticeCommand noticeCommand;
+
+    public interface OnLoadMoreListener{
+        void onLoadMore();
+    }
+
+    public void setLinearLayoutManager(LinearLayoutManager linearLayoutManager) {
+        this.linearLayoutManager = linearLayoutManager;
+    }
+
+    public NoticeListAdapter(ObservableArrayList<NoticeItemViewModel> noticeList, Context context, NoticeCommand noticeCommand, OnLoadMoreListener onLoadMoreListener){
+        this.noticeList = noticeList;
+        this.context = context;
+        this.noticeCommand = noticeCommand;
+        this.onLoadMoreListener = onLoadMoreListener;
+//        System.out.println("==============="+shopsList.get(1));
+    }
+
+    public void setRecyclerView(RecyclerView mView){
+        mView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                visibleItemCount = recyclerView.getChildCount();
+                totalItemCount = linearLayoutManager.getItemCount();
+                firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+                lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+                Log.d("total", totalItemCount + "");
+                Log.d("visible", visibleItemCount + "");
+
+                Log.d("first", firstVisibleItem + "");
+                Log.d("last", lastVisibleItem + "");
+
+                if (!isMoreLoading && (totalItemCount - visibleItemCount)<= (firstVisibleItem + visibleThreshold)) {
+                    if (onLoadMoreListener != null) {
+                        onLoadMoreListener.onLoadMore();
+                        System.out.println("onLoadMore()------");
+                    }
+                    isMoreLoading = true;
+                }
+            }
+        });
+    }
+
+    // 현재 로딩중이면 프로그레스바 리턴 or 아니면 아이템 리턴
+    /*@Override
+    public int getItemViewType(int position) {
+        return itemList.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+    }*/
+
+    @Override
+    public NoticeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //만약 타입이 view_item이면 아이템 추가
+        //if(viewType == VIEW_ITEM)
+        NoticeItemBinding binding = NoticeItemBinding.
+                inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        //binding.setCommand(categoryCommand);
+        return new NoticeViewHolder(binding, context);
+        //아니면 프로그레스바 아이템 추가
+        //else{
+    }
+
+    public void setNoiceList(ObservableArrayList<NoticeItemViewModel> noticeList) {
+        this.noticeList = noticeList;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void onBindViewHolder(NoticeViewHolder holder, int position) {
+        NoticeItemViewModel notice = noticeList.get(position);
+        holder.bind(notice);
+    }
+
+    public void setMoreLoading(boolean isMoreLoading) {
+        this.isMoreLoading=isMoreLoading;
+    }
+
+    void setItem(ObservableArrayList<NoticeItemViewModel> noticeList) {
+        if (noticeList == null) {
+            return;
+        }
+        this.noticeList = noticeList;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemCount() {
+        return noticeList.size();
+    }
+}
+
+
+class NoticeViewHolder extends RecyclerView.ViewHolder {
+    NoticeItemBinding binding;
+    Context context;
+
+    //ViewHolder 생성
+    public NoticeViewHolder(NoticeItemBinding binding, Context context) {
+        super(binding.getRoot());
+        this.binding = binding;
+        this.context = context;
+    }
+
+    void bind(NoticeItemViewModel notice) {
+        Log.i("bind", "=======" + notice.title.get());
+        //Glide.with(context).load(shop.goods.get().getImage()).override(300, 300).into(binding.imageId);
+        binding.setNotice(notice);
+    }
+}

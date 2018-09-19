@@ -1,4 +1,4 @@
-package com.example.skuniv.fleamarket2.view.locationView;
+package com.example.skuniv.fleamarket2.view;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -9,6 +9,8 @@ import android.view.View;
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.view.categoryView.CategoryActivity;
 import com.example.skuniv.fleamarket2.databinding.ActivityMainBinding;
+import com.example.skuniv.fleamarket2.view.locationView.LocationActivity;
+import com.example.skuniv.fleamarket2.view.noticeView.NoticeActivity;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;

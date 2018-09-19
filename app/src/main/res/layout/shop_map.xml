@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+<data>
+    <variable
+        name="map"
+        type="com.example.skuniv.fleamarket2.view.categoryView.ShopMapDialog"/>
+</data>
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -19,118 +24,148 @@
             android:id="@+id/id0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{map::setBackground}"
             android:text="0"/>
+
         <TextView
             android:id="@+id/id1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{map::setBackground}"
             android:text="1"/>
+
         <TextView
             android:id="@+id/id2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{map::setBackground}"
             android:text="2"/>
+
         <TextView
             android:id="@+id/id3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="3"/>
+
+
         <TextView
             android:id="@+id/id4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="4"/>
+
+
         <TextView
             android:id="@+id/id5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="5"/>
+
+
         <TextView
             android:id="@+id/id6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="6"/>
+
+
         <TextView
             android:id="@+id/id7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="7"/>
+
+
         <TextView
             android:id="@+id/id8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="8"/>
+
+
         <TextView
             android:id="@+id/id9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="9"/>
+
+
         <TextView
             android:id="@+id/id10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="10"/>
+
+
         <TextView
             android:id="@+id/id11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="11"/>
+
         <TextView
             android:id="@+id/id12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="12"/>
+
         <TextView
             android:id="@+id/id13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="13"/>
+
         <TextView
             android:id="@+id/id14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="14"/>
+
         <TextView
             android:id="@+id/id15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="15"/>
+
         <TextView
             android:id="@+id/id16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="16"/>
+
         <TextView
             android:id="@+id/id17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="17"/>
+
         <TextView
             android:id="@+id/id18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="18"/>
+
         <TextView
             android:id="@+id/id19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="19"/>
 
     </LinearLayout>
@@ -147,121 +182,121 @@
             android:id="@+id/id20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="20"/>
         <TextView
             android:id="@+id/id21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="21"/>
         <TextView
             android:id="@+id/id22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="22"/>
         <TextView
             android:id="@+id/id23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="23"/>
         <TextView
             android:id="@+id/id24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="24"/>
         <TextView
             android:id="@+id/id25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="25"/>
         <TextView
             android:id="@+id/id26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="26"/>
         <TextView
             android:id="@+id/id27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="27"/>
         <TextView
             android:id="@+id/id28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="28"/>
         <TextView
             android:id="@+id/id29"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="29"/>
         <TextView
             android:id="@+id/id30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="30"/>
         <TextView
             android:id="@+id/id31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="31"/>
         <TextView
             android:id="@+id/id32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="32"/>
         <TextView
             android:id="@+id/id33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="33"/>
         <TextView
             android:id="@+id/id34"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="34"/>
         <TextView
             android:id="@+id/id35"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="35"/>
         <TextView
             android:id="@+id/id36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="36"/>
         <TextView
             android:id="@+id/id37"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="37"/>
         <TextView
             android:id="@+id/id38"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="38"/>
         <TextView
             android:id="@+id/id39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="39"/>
 
     </LinearLayout>
@@ -279,121 +314,121 @@
             android:id="@+id/id40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="40"/>
         <TextView
             android:id="@+id/id41"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="41"/>
         <TextView
             android:id="@+id/id42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="42"/>
         <TextView
             android:id="@+id/id43"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="43"/>
         <TextView
             android:id="@+id/id44"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="44"/>
         <TextView
             android:id="@+id/id45"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="45"/>
         <TextView
             android:id="@+id/id46"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="46"/>
         <TextView
             android:id="@+id/id47"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="47"/>
         <TextView
             android:id="@+id/id48"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="48"/>
         <TextView
             android:id="@+id/id49"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="49"/>
         <TextView
             android:id="@+id/id50"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="50"/>
         <TextView
             android:id="@+id/id51"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="51"/>
         <TextView
             android:id="@+id/id52"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="52"/>
         <TextView
             android:id="@+id/id53"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="53"/>
         <TextView
             android:id="@+id/id54"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="54"/>
         <TextView
             android:id="@+id/id55"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="55"/>
         <TextView
             android:id="@+id/id56"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="56"/>
         <TextView
             android:id="@+id/id57"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="57"/>
         <TextView
             android:id="@+id/id58"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="58"/>
         <TextView
             android:id="@+id/id59"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="59"/>
 
     </LinearLayout>
@@ -411,121 +446,121 @@
             android:id="@+id/id60"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="60"/>
         <TextView
             android:id="@+id/id61"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="61"/>
         <TextView
             android:id="@+id/id62"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="62"/>
         <TextView
             android:id="@+id/id63"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="63"/>
         <TextView
             android:id="@+id/id64"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="64"/>
         <TextView
             android:id="@+id/id65"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="65"/>
         <TextView
             android:id="@+id/id66"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="66"/>
         <TextView
             android:id="@+id/id67"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="67"/>
         <TextView
             android:id="@+id/id68"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="68"/>
         <TextView
             android:id="@+id/id69"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="69"/>
         <TextView
             android:id="@+id/id70"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="70"/>
         <TextView
             android:id="@+id/id71"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="71"/>
         <TextView
             android:id="@+id/id72"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="72"/>
         <TextView
             android:id="@+id/id73"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="73"/>
         <TextView
             android:id="@+id/id74"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="74"/>
         <TextView
             android:id="@+id/id75"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="75"/>
         <TextView
             android:id="@+id/id76"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="76"/>
         <TextView
             android:id="@+id/id77"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="77"/>
         <TextView
             android:id="@+id/id78"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="78"/>
         <TextView
             android:id="@+id/id79"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="79"/>
 
     </LinearLayout>
@@ -543,121 +578,121 @@
             android:id="@+id/id80"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="80"/>
         <TextView
             android:id="@+id/id81"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="81"/>
         <TextView
             android:id="@+id/id82"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="82"/>
         <TextView
             android:id="@+id/id83"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="83"/>
         <TextView
             android:id="@+id/id84"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="84"/>
         <TextView
             android:id="@+id/id85"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="85"/>
         <TextView
             android:id="@+id/id86"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="86"/>
         <TextView
             android:id="@+id/id87"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="87"/>
         <TextView
             android:id="@+id/id88"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="88"/>
         <TextView
             android:id="@+id/id89"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="89"/>
         <TextView
             android:id="@+id/id90"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="90"/>
         <TextView
             android:id="@+id/id91"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="91"/>
         <TextView
             android:id="@+id/id92"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="92"/>
         <TextView
             android:id="@+id/id93"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="93"/>
         <TextView
             android:id="@+id/id94"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="94"/>
         <TextView
             android:id="@+id/id95"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="95"/>
         <TextView
             android:id="@+id/id96"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="96"/>
         <TextView
             android:id="@+id/id97"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="97"/>
         <TextView
             android:id="@+id/id98"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="98"/>
         <TextView
             android:id="@+id/id99"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="99"/>
 
     </LinearLayout>
@@ -674,117 +709,123 @@
             android:id="@+id/id100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="100"/>
+            android:onClick="@{map::setBackground}"
+            android:text="100" />
         <TextView
             android:id="@+id/id101"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="101"/>
         <TextView
             android:id="@+id/id102"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="102"/>
         <TextView
             android:id="@+id/id103"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="103"/>
         <TextView
             android:id="@+id/id104"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="104"/>
         <TextView
             android:id="@+id/id105"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="105"/>
         <TextView
             android:id="@+id/id106"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="106"/>
         <TextView
             android:id="@+id/id107"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="107"/>
         <TextView
             android:id="@+id/id108"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="108"/>
+
         <TextView
             android:id="@+id/id109"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="109"/>
         <TextView
             android:id="@+id/id110"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="110"/>
         <TextView
             android:id="@+id/id111"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="111"/>
         <TextView
             android:id="@+id/id112"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="112"/>
         <TextView
             android:id="@+id/id113"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="113"/>
         <TextView
             android:id="@+id/id114"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="114"/>
         <TextView
             android:id="@+id/id115"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:onClick="@{map::setBackground}"
             android:text="115"/>
         <TextView
             android:id="@+id/id116"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{map::setBackground}"
             android:text="116"/>
+
         <TextView
             android:id="@+id/id117"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{map::setBackground}"
             android:text="117"/>
         <TextView
             android:id="@+id/id118"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{map::setBackground}"
             android:text="118"/>
         <TextView
             android:id="@+id/id119"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{map::setBackground}"
             android:text="119"/>
 
     </LinearLayout>

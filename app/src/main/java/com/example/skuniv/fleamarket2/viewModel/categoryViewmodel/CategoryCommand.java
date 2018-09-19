@@ -3,14 +3,13 @@ package com.example.skuniv.fleamarket2.viewModel.categoryViewmodel;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
 import com.example.skuniv.fleamarket2.adapter.CategoryListAdapter;
 import com.example.skuniv.fleamarket2.databinding.ActivityCategoryListBinding;
 import com.example.skuniv.fleamarket2.databinding.CategoryItemBinding;
 import com.example.skuniv.fleamarket2.model.categoryModel.CategoryModel;
 import com.example.skuniv.fleamarket2.model.categoryModel.CategoryShopModel;
-import com.example.skuniv.fleamarket2.view.locationView.ShopMapDialog;
+import com.example.skuniv.fleamarket2.view.categoryView.ShopMapDialog;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -42,7 +41,6 @@ public class CategoryCommand {
         this.categoryModel = categoryModel;
         this.categoryShopsViewModel = categoryShopsViewModel;
         categoryCommand = this;
-
     }
 
     public void getGoodsList(){
@@ -60,9 +58,6 @@ public class CategoryCommand {
                         System.out.println(categoryShopsViewModel);
                         System.out.println(categoryShopsViewModel.getShops());
                         //mAdapter = new CategoryListAdapter(categoryShopsViewModel.getShops(), context,categoryCommand);
-
-
-
                         //categoryListBinding.recyclerId2.setAdapter(mAdapter);
                         //getAdapter();
                     }

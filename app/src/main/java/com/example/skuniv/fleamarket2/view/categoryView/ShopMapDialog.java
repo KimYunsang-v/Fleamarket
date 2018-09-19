@@ -1,11 +1,14 @@
-package com.example.skuniv.fleamarket2.view.locationView;
+package com.example.skuniv.fleamarket2.view.categoryView;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryShopViewModel;
@@ -21,8 +24,6 @@ public class ShopMapDialog extends Dialog {
     String section;
     Integer shopNum;
     Boolean[] setBack;
-
-
 
     public ShopMapDialog(Context context, CategoryShopViewModel categoryShopViewModel) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
@@ -47,18 +48,22 @@ public class ShopMapDialog extends Dialog {
                 DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.shop_map, null, false);
         setContentView(dialogBinding.getRoot());
 
+        dialogBinding.setMap(this);
+
         //DialogBinding.setSelect(shopNum);
         //setBack = new Boolean[120];
         //setBack[shopNum] = true;
         //dialogBinding.setShopList(setBack);
     }
-    /*@BindingAdapter({"bind:setColor"})
-    public static void setBackground(TextView view, Integer select) {
-        if(view.getText().equals(Integer.toString(select))){
-            view.setTextColor(Color.parseColor("#000000"));
+    //@BindingAdapter({"bind:setColor"})
+    public void setBackground(View view) {
+        /*if(view.getText().equals(Integer.toString(select))){
+            //view.setTextColor(Color.parseColor("#000000"));
         }
         else{
 
-        }
-    }*/
+        }*/
+        view.getId();
+        System.out.println("select shop map==="+view.getId());
+    }
 }
