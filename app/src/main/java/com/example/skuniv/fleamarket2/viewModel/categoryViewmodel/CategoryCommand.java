@@ -3,6 +3,7 @@ package com.example.skuniv.fleamarket2.viewModel.categoryViewmodel;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.skuniv.fleamarket2.model.categoryModel.CategoryData;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
 import com.example.skuniv.fleamarket2.adapter.CategoryListAdapter;
 import com.example.skuniv.fleamarket2.databinding.ActivityCategoryListBinding;
@@ -29,41 +30,45 @@ public class CategoryCommand {
     List<CategoryShopModel> categoryShopList;
     CategoryShopsViewModel categoryShopsViewModel;
     Gson gson = new Gson();
-    CategoryItemBinding categoryItemBinding;
     ShopMapDialog dialog;
-    CategoryListAdapter mAdapter;
     CategoryCommand categoryCommand;
+    CategoryData categoryData;
+    CategoryMetaViewModel categoryMetaViewModel;
 
 
-    public CategoryCommand(Context context, ActivityCategoryListBinding categoryListBinding, CategoryModel categoryModel, CategoryShopsViewModel categoryShopsViewModel){
+    public CategoryCommand(Context context, ActivityCategoryListBinding categoryListBinding, CategoryModel categoryModel,
+                           CategoryShopsViewModel categoryShopsViewModel,CategoryData categoryData, CategoryMetaViewModel categoryMetaViewModel){
         this.context = context;
         this.categoryListBinding = categoryListBinding;
         this.categoryModel = categoryModel;
         this.categoryShopsViewModel = categoryShopsViewModel;
         categoryCommand = this;
+        this.categoryData = categoryData;
+        this.categoryMetaViewModel = categoryMetaViewModel;
     }
 
     public void getGoodsList(){
         if (!(categoryModel.getCategoty().isEmpty()) && categoryModel.getPageNum() >= 0) {
-            Call<List<CategoryShopModel>> res = NetRetrofit.getInstance().getService().getGoodsRepos(categoryModel.getCategoty(),categoryModel.getPageNum());
+            Call<CategoryData> res = NetRetrofit.getInstance().getService().getGoodsRepos(categoryModel.getCategoty(),categoryModel.getPageNum());
             Log.i("getGoodsList",""+res);
-            res.enqueue(new Callback<List<CategoryShopModel>>() {
+            res.enqueue(new Callback<CategoryData>() {
                 @Override
-                public void onResponse(Call<List<CategoryShopModel>> call, Response<List<CategoryShopModel>> response) {
+                public void onResponse(Call<CategoryData> call, Response<CategoryData> response) {
                     Log.i("Retrofit", response.toString());
                     if (response.body() != null) {
-                        categoryShopList = response.body();
-                        Log.i("getShopList",""+gson.toJson(categoryShopList));
-                        categoryShopsViewModel.setCategoryShopsViewModel(categoryShopList);
+                        categoryData = response.body();
+                        Log.i("getCategoryData",""+gson.toJson(categoryData));
+                        categoryShopsViewModel.setCategoryShopsViewModel(categoryData.getItems());
                         System.out.println(categoryShopsViewModel);
                         System.out.println(categoryShopsViewModel.getShops());
+                        categoryMetaViewModel.count.set(categoryData.getMeta().getCount());
                         //mAdapter = new CategoryListAdapter(categoryShopsViewModel.getShops(), context,categoryCommand);
                         //categoryListBinding.recyclerId2.setAdapter(mAdapter);
                         //getAdapter();
                     }
                 }
                 @Override
-                public void onFailure(Call<List<CategoryShopModel>> call, Throwable t) {
+                public void onFailure(Call<CategoryData> call, Throwable t) {
                     Log.e("에러", t.getMessage());
                 }
             });
@@ -78,22 +83,17 @@ public class CategoryCommand {
         dialog.show();
     }
 
-    public void scrollListener(){
-        //카테고리 페이징 넘버를 증가 시킴
-        categoryModel.setPageNum(categoryModel.getPageNum() + 1);
-        //getGoodsList();
-    }
-
-    public List<CategoryShopModel> jsonPaser(String jsonObject){
+    public void jsonPaser(String jsonObject){
 
         Gson gson = new Gson();
-        CategoryShopModel[] shopList = gson.fromJson(jsonObject,  CategoryShopModel[].class);
+        categoryData = gson.fromJson(jsonObject,  CategoryData.class);
+        categoryShopsViewModel.setCategoryShopsViewModel(categoryData.getItems());
+        categoryMetaViewModel.count.set(categoryData.getMeta().getCount());
 
-        List<CategoryShopModel> categoryShops = new ArrayList<>(Arrays.asList(shopList));
-        categoryShopsViewModel.setCategoryShopsViewModel(categoryShops);
+        //List<CategoryShopModel> categoryShops = new ArrayList<>(Arrays.asList(shopList));
+        //categoryShopsViewModel.setCategoryShopsViewModel(categoryShops);
         // shops = shopData.getShops();
         System.out.println("jsonPaser===========");
-        return categoryShops;
     }
 
 }

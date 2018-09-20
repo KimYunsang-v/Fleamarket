@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.example.skuniv.fleamarket2.databinding.ActivityNoticeBinding;
+import com.example.skuniv.fleamarket2.model.noticeModel.NoticeData;
 import com.example.skuniv.fleamarket2.model.noticeModel.NoticeListModel;
 import com.example.skuniv.fleamarket2.model.noticeModel.NoticeModel;
 import com.example.skuniv.fleamarket2.retrofit.FileDownloadService;
@@ -45,27 +46,34 @@ public class NoticeCommand {
     List<NoticeModel> noticeList;
     Gson gson = new Gson();
     String fileUrl;
+    NoticeMetaViewModel noticeMetaViewModel;
+    NoticeData noticeData;
 
-    public NoticeCommand(Context context, ActivityNoticeBinding categoryListBinding, NoticeListModel noticeListModel, NoticeItemsViewModel noticeItemsViewModel){
+    public NoticeCommand(Context context, ActivityNoticeBinding categoryListBinding, NoticeListModel noticeListModel, NoticeItemsViewModel noticeItemsViewModel,
+                         NoticeMetaViewModel noticeMetaViewModel,NoticeData noticeData){
         this.context = context;
         this.categoryListBinding = categoryListBinding;
         this.noticeListModel = noticeListModel;
         this.noticeItemsViewModel = noticeItemsViewModel;
+        this.noticeMetaViewModel = noticeMetaViewModel;
+        this.noticeData = noticeData;
         noticeCommand = this;
+
     }
 
     public void getNoticeList(){
         if (!(noticeListModel.getPage() <= 0)) {
-            Call<List<NoticeModel>> res = NetRetrofit.getInstance().getService().getNoticeRepos(noticeListModel.getPage());
+            Call<NoticeData> res = NetRetrofit.getInstance().getService().getNoticeRepos(noticeListModel.getPage());
             Log.i("getGoodsList",""+res);
-            res.enqueue(new Callback<List<NoticeModel>>() {
+            res.enqueue(new Callback<NoticeData>() {
                 @Override
-                public void onResponse(Call<List<NoticeModel>> call, Response<List<NoticeModel>> response) {
+                public void onResponse(Call<NoticeData> call, Response<NoticeData> response) {
                     Log.i("Retrofit", response.toString());
                     if (response.body() != null) {
-                        noticeList = response.body();
+                        noticeData = response.body();
                         Log.i("getShopList",""+gson.toJson(noticeList));
-                        noticeItemsViewModel.setNoticeList(noticeList);
+                        noticeItemsViewModel.setNoticeList(noticeData.getItems());
+                        noticeMetaViewModel.count.set(noticeData.getMeta().getCount());
                         System.out.println(noticeItemsViewModel);
                         System.out.println(noticeItemsViewModel.getNoticeList());
                         //mAdapter = new CategoryListAdapter(categoryShopsViewModel.getShops(), context,categoryCommand);
@@ -74,7 +82,7 @@ public class NoticeCommand {
                     }
                 }
                 @Override
-                public void onFailure(Call<List<NoticeModel>> call, Throwable t) {
+                public void onFailure(Call<NoticeData> call, Throwable t) {
                     Log.e("에러", t.getMessage());
                 }
             });
@@ -83,16 +91,14 @@ public class NoticeCommand {
         }
     }
 
-    public List<NoticeModel> jsonPaser(String jsonObject){
+    public void jsonPaser(String jsonObject){
 
         Gson gson = new Gson();
-        NoticeModel[] notice = gson.fromJson(jsonObject,  NoticeModel[].class);
+        noticeData = gson.fromJson(jsonObject,  NoticeData.class);
 
-        List<NoticeModel> noticeList = new ArrayList<>(Arrays.asList(notice));
-        noticeItemsViewModel.setNoticeList(noticeList);
-        // shops = shopData.getShops();
+        noticeItemsViewModel.setNoticeList(noticeData.getItems());
+        noticeMetaViewModel.count.set(noticeData.getMeta().getCount());
         System.out.println("jsonPaser===========");
-        return noticeList;
     }
 
     public void downlaodFile(String fileUrl){

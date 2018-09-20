@@ -25,22 +25,25 @@ import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.adapter.CategoryListAdapter;
 import com.example.skuniv.fleamarket2.adapter.NoticeListAdapter;
 import com.example.skuniv.fleamarket2.databinding.ActivityNoticeBinding;
+import com.example.skuniv.fleamarket2.model.noticeModel.NoticeData;
 import com.example.skuniv.fleamarket2.model.noticeModel.NoticeListModel;
 import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryShopViewModel;
 import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeCommand;
 import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeItemViewModel;
 import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeItemsViewModel;
+import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeMetaViewModel;
 
 public class NoticeActivity extends AppCompatActivity implements NoticeListAdapter.OnLoadMoreListener{
     static ActivityNoticeBinding binding;
     static NoticeItemsViewModel noticeItemsViewModel;
-    static NoticeListModel noticeListModel;
+    NoticeListModel noticeListModel;
     static NoticeListAdapter adapter;
     static LinearLayoutManager llm;
     static Context context;
     static NoticeCommand noticeCommand;
     static NoticeListAdapter.OnLoadMoreListener onLoadMoreListener;
-    private GestureDetector gestureDetector;
+    static NoticeMetaViewModel noticeMetaViewModel;
+    NoticeData noticeData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,12 +51,13 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
 
         noticeListModel = new NoticeListModel(1);
         noticeItemsViewModel = new NoticeItemsViewModel();
+        noticeMetaViewModel = new NoticeMetaViewModel();
 
         binding.setNoticeList(noticeItemsViewModel);
 
         context = this;
 
-        noticeCommand = new NoticeCommand(context, binding, noticeListModel, noticeItemsViewModel);
+        noticeCommand = new NoticeCommand(context, binding, noticeListModel, noticeItemsViewModel, noticeMetaViewModel, noticeData);
 
         onLoadMoreListener = this;
 
@@ -62,7 +66,8 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
 
         binding.recyclerId3.setLayoutManager(llm);
 
-        noticeCommand.jsonPaser(getJson(noticeListModel.getPage()));
+        noticeCommand.getNoticeList();
+        //noticeCommand.jsonPaser(getJson(noticeListModel.getPage()));
     }
 
     @Override
@@ -71,11 +76,10 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 ///////이부분에을 자신의 프로젝트에 맞게 설정하면 됨
                 //다음 페이지? 내용을 불러오는 부분
                 //categoryCommand.scrollListener();
-                NoticeListModel.page += 1;
+                noticeListModel.setPage(noticeListModel.getPage()+1);
                 noticeCommand.jsonPaser(getJson(noticeListModel.getPage()));
                 adapter.setMoreLoading(false);
                 //////////////////////////////////////////////////
@@ -93,7 +97,7 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
         System.out.println("setShopList=============");
         if(recyclerView.getAdapter() == null){
             System.out.println("new categoryListAdapter");
-            adapter = new NoticeListAdapter(noticeItemsViewModel.getNoticeList(),context,noticeCommand,onLoadMoreListener);
+            adapter = new NoticeListAdapter(noticeItemsViewModel.getNoticeList(),context,noticeCommand,onLoadMoreListener,noticeMetaViewModel);
             adapter.setLinearLayoutManager(llm);
             recyclerView.setAdapter(adapter);
             adapter.setRecyclerView(binding.recyclerId3);
@@ -111,421 +115,521 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
     public String getJson(int page){
         String json="";
         if(page == 1){
-            json = "[\n" +
-                    "  {\n" +
-                    "    \"no\": 1,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 2,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 3,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 4,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 5,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 6,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 7,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 8,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 9,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 10,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  }\n" +
-                    "]";
+            json = "{\n" +
+                    "\"items\": [\n" +
+                    "{\n" +
+                    "\"no\": 1,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 2,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 3,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 4,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 5,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 6,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 7,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 8,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 9,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 10,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"meta\": {\n" +
+                    "\"count\": 16\n" +
+                    "}\n" +
+                    "}";
         }
         else if(page == 2){
-            json = "[\n" +
-                    "  {\n" +
-                    "    \"no\": 11,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 12,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 13,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 14,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 15,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 16,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 17,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 18,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 19,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 20,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  }\n" +
-                    "]";
+            json = "{\n" +
+                    "\"items\": [\n" +
+                    "{\n" +
+                    "\"no\": 1,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 2,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 3,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 4,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 5,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 6,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 7,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 8,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 9,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 10,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"meta\": {\n" +
+                    "\"count\": 16\n" +
+                    "}\n" +
+                    "}";
         }
         else if(page == 3){
-            json = "[\n" +
-                    "  {\n" +
-                    "    \"no\": 21,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 22,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 23,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 24,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 25,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 26,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 27,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 28,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 29,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 30,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  }\n" +
-                    "]";
+            json = "{\n" +
+                    "\"items\": [\n" +
+                    "{\n" +
+                    "\"no\": 1,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 2,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 3,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 4,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 5,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 6,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 7,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 8,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 9,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 10,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"meta\": {\n" +
+                    "\"count\": 16\n" +
+                    "}\n" +
+                    "}";
         }
 
         if(page ==4){
-            json = "[\n" +
-                    "  {\n" +
-                    "    \"no\": 31,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 32,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 33,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 34,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 35,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 36,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 37,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 38,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 39,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"no\": 40,\n" +
-                    "    \"title\": \"this is title\",\n" +
-                    "    \"date\": \"2018-09-20\",\n" +
-                    "    \"contents\": \"this is contents\",\n" +
-                    "    \"files\": [{\n" +
-                    "      \"fName\": \"polo 카라티\",\n" +
-                    "      \"fPath\": \"this is file path\"\n" +
-                    "    }]\n" +
-                    "  }\n" +
-                    "]";
+            json = "{\n" +
+                    "\"items\": [\n" +
+                    "{\n" +
+                    "\"no\": 1,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 2,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 3,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 4,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 5,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 6,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 7,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 8,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 9,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"no\": 10,\n" +
+                    "\"title\": \"윤상 아~\",\n" +
+                    "\"files\": [\n" +
+                    "{\n" +
+                    "\"fName\": \"채지연 아~\",\n" +
+                    "\"fPath\": \"http://13.125.128.130/static/files/sample.txt\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"contents\": \"좋아\",\n" +
+                    "\"date\": \"2018-09-20\"\n" +
+                    "}\n" +
+                    "],\n" +
+                    "\"meta\": {\n" +
+                    "\"count\": 16\n" +
+                    "}\n" +
+                    "}";
         }
         return json;
     }

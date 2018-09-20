@@ -16,10 +16,12 @@ import android.widget.ListView;
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.adapter.SelectShopListAdapter;
 import com.example.skuniv.fleamarket2.model.locatonModel.SectionModel;
+import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.SectionCommand;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.SelectDialogItemModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.SelectDialogItemsModel;
 import com.example.skuniv.fleamarket2.databinding.ShopSelectDialogBinding;
+import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopMetaViewModel;
 
 public class ShopSelectDialog extends Dialog {
 
@@ -28,12 +30,14 @@ public class ShopSelectDialog extends Dialog {
     SelectDialogItemsModel selectDialogItemsModel;
     private ShopSelectDialogBinding dialogBinding;
     SectionCommand sectionCommand;
+    ShopMetaViewModel shopMetaViewModel;
 
 
-    public ShopSelectDialog(Context context, SectionModel sectionModel, SectionCommand sectionCommand) {
+    public ShopSelectDialog(Context context, SectionModel sectionModel, SectionCommand sectionCommand,ShopMetaViewModel shopMetaViewModel) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.sectionModel = sectionModel;
         this.sectionCommand =sectionCommand;
+        this.shopMetaViewModel = shopMetaViewModel;
     }
 
     @Override
@@ -50,7 +54,7 @@ public class ShopSelectDialog extends Dialog {
         dialogBinding = (ShopSelectDialogBinding)
                 DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.shop_select_dialog, null, false);
         setContentView(dialogBinding.getRoot());
-        selectDialogItemsModel.setItems();
+        selectDialogItemsModel.setItems(shopMetaViewModel.getCount().get());
         //selectDialogItemsModel.items.add(new SelectDialogItemModel("10","20"));
         dialogBinding.setModel(selectDialogItemsModel);
 

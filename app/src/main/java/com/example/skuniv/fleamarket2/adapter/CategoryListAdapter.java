@@ -9,10 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.skuniv.fleamarket2.databinding.CategoryItemBinding;
 import com.bumptech.glide.Glide;
 import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryCommand;
+import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryMetaViewModel;
 import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryShopViewModel;
 
 public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder>{
@@ -28,6 +30,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
     public ObservableArrayList<CategoryShopViewModel> shopsList;
     Context context;
     CategoryCommand categoryCommand;
+    CategoryMetaViewModel categoryMetaViewModel;
 
     public interface OnLoadMoreListener{
         void onLoadMore();
@@ -37,11 +40,13 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
         this.linearLayoutManager = linearLayoutManager;
     }
 
-    public CategoryListAdapter(ObservableArrayList<CategoryShopViewModel> shopsList, Context context, CategoryCommand categoryCommand, OnLoadMoreListener onLoadMoreListener){
+    public CategoryListAdapter(ObservableArrayList<CategoryShopViewModel> shopsList, Context context, CategoryCommand categoryCommand, OnLoadMoreListener onLoadMoreListener,
+                               CategoryMetaViewModel categoryMetaViewModel){
         this.shopsList = shopsList;
         this.context = context;
         this.categoryCommand = categoryCommand;
         this.onLoadMoreListener = onLoadMoreListener;
+        this.categoryMetaViewModel = categoryMetaViewModel;
 //        System.out.println("==============="+shopsList.get(1));
     }
 
@@ -59,13 +64,14 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
 
                 Log.d("first", firstVisibleItem + "");
                 Log.d("last", lastVisibleItem + "");
-
-                if (!isMoreLoading && (totalItemCount - visibleItemCount)<= (firstVisibleItem + visibleThreshold)) {
-                    if (onLoadMoreListener != null) {
-                        onLoadMoreListener.onLoadMore();
-                        System.out.println("onLoadMore()------");
+                if (totalItemCount < categoryMetaViewModel.getCount().get()) {
+                    if (!isMoreLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                        if (onLoadMoreListener != null) {
+                            onLoadMoreListener.onLoadMore();
+                            System.out.println("onLoadMore()------");
+                        }
+                        isMoreLoading = true;
                     }
-                    isMoreLoading = true;
                 }
             }
         });

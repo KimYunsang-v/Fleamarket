@@ -1,10 +1,11 @@
 package com.example.skuniv.fleamarket2.viewModel.locationViewModel;
 
 import android.util.Log;
+
+import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
 import com.example.skuniv.fleamarket2.databinding.ActivitySectionBinding;
 import com.example.skuniv.fleamarket2.model.locatonModel.SectionModel;
-import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.view.locationView.ShopSelectDialog;
 import com.google.gson.Gson;
@@ -24,15 +25,16 @@ public class SectionCommand {
     ActivitySectionBinding sectionBinding;
     ShopsViewModel shopsViewModel;
     ShopData shopData;
-    List<ShopModel> shops = new ArrayList<ShopModel>();
+    List<ShopModel> shops;
+    ShopMetaViewModel shopMetaViewModel;
     Gson gson = new Gson();
 
-
-
-    public SectionCommand(SectionModel sectionModel, ActivitySectionBinding sectionBinding,ShopsViewModel shopsViewModel) {
+    public SectionCommand(SectionModel sectionModel, ActivitySectionBinding sectionBinding,ShopsViewModel shopsViewModel,ShopData shopData,ShopMetaViewModel shopMetaViewModel) {
         this.sectionModel = sectionModel;
         this.sectionBinding = sectionBinding;
         this.shopsViewModel = shopsViewModel;
+        this.shopData = shopData;
+        this.shopMetaViewModel = shopMetaViewModel;
     }
 
    /* public void selectDialog(View view) {
@@ -42,20 +44,21 @@ public class SectionCommand {
 
     public void getShopList() {
         if (!(sectionModel.getSection().isEmpty()) && !sectionModel.getSectionNum().isEmpty()) {
-            Call<List<ShopModel>> res = NetRetrofit.getInstance().getService().getListRepos(sectionModel.getSection(),sectionModel.getSectionNum());
+            Call<ShopData> res = NetRetrofit.getInstance().getService().getListRepos(sectionModel.getSection(),sectionModel.getSectionNum());
             Log.i("getShopList",""+res);
-            res.enqueue(new Callback<List<ShopModel>>() {
+            res.enqueue(new Callback<ShopData>() {
                 @Override
-                public void onResponse(Call<List<ShopModel>> call, Response<List<ShopModel>> response) {
+                public void onResponse(Call<ShopData> call, Response<ShopData> response) {
                     Log.i("Retrofit", response.toString());
                     if (response.body() != null) {
-                        shops = response.body();
+                        shopData = response.body();
                         Log.i("getShopList",""+gson.toJson(response.body()));
-                        shopsViewModel.setShops(shops);
+                        shopsViewModel.setShops(shopData.getShops());
+                        shopMetaViewModel.count.set(shopData.getMeta().getShopCount());
                     }
                 }
                 @Override
-                public void onFailure(Call<List<ShopModel>> call, Throwable t) {
+                public void onFailure(Call<ShopData> call, Throwable t) {
                     Log.e("에러", t.getMessage());
                 }
             });
@@ -67,12 +70,10 @@ public class SectionCommand {
     public List<ShopModel> jsonPaser(String jsonObject){
 
         Gson gson = new Gson();
-        ShopModel[] shopList = gson.fromJson(jsonObject,  ShopModel[].class);
-
-        List<ShopModel> shops = new ArrayList<>(Arrays.asList(shopList));
-
-        // shops = shopData.getShops();
-
+        shopData = gson.fromJson(jsonObject,  ShopData.class);
+        shopsViewModel.setShops(shopData.getShops());
+        System.out.println("====shop count" + shopData.getMeta().getShopCount());
+        shopMetaViewModel.count.set(shopData.getMeta().getShopCount());
         return shops;
     }
 

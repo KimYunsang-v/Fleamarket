@@ -22,9 +22,11 @@ import com.example.skuniv.fleamarket2.databinding.ShopItemBinding;
 import com.example.skuniv.fleamarket2.databinding.ShopSelectDialogBinding;
 import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.model.locatonModel.SectionModel;
+import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsListViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.SectionCommand;
+import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopMetaViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopsViewModel;
 
@@ -42,11 +44,9 @@ public class SectionActivity extends AppCompatActivity {
     ShopItemBinding shopItemBinding;
     SectionModel sectionModel;
     String json;
-    List<ShopModel> shops;
-    List<Goods> goodsArrayList;
-    GoodsListViewModel goodsListViewModel;
-    GoodsListAdapter goodsListAdapter;
+    ShopData shopData;
     GoodsRecyclerDialog recyclerDialog;
+    ShopMetaViewModel shopMetaViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +54,14 @@ public class SectionActivity extends AppCompatActivity {
         sectionBinding = DataBindingUtil.setContentView(this, R.layout.activity_section);
         Log.i("section","==========="+getIntent().getStringExtra("section"));
 
+        shopData = new ShopData();
+        shopMetaViewModel = new ShopMetaViewModel();
+
         // section model객체 생성
         sectionModel = new SectionModel(getIntent().getStringExtra("section"),"1");
 
         //sectionCommand 객체 생성
-        sectionCommand = new SectionCommand(sectionModel, sectionBinding,shopsViewModel);
+        sectionCommand = new SectionCommand(sectionModel, sectionBinding,shopsViewModel,shopData,shopMetaViewModel);
 
         // activity_section의 sectionModel 변수에 sectionModel 넣음
         sectionBinding.setSectionModel(sectionModel);
@@ -70,11 +73,14 @@ public class SectionActivity extends AppCompatActivity {
         Myhandler myhandler = new Myhandler(this,shopItemBinding);
         shopItemBinding.setHandler(myhandler);*/
 
+        sectionCommand.getShopList();
+        //sectionCommand.jsonPaser(getJson());
+
         //select diaolg 띄우기
         sectionBinding.selectId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = new ShopSelectDialog(SectionActivity.this,sectionModel,sectionCommand);
+                dialog = new ShopSelectDialog(SectionActivity.this,sectionModel,sectionCommand,shopMetaViewModel);
                 dialog.show();
 
                 //디스플레이의 해상도를 가져옴
@@ -91,8 +97,6 @@ public class SectionActivity extends AppCompatActivity {
                 window.setLayout(x,y);
             }
         });
-
-        sectionCommand.getShopList();
 
         sectionBinding.listId.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -125,218 +129,230 @@ public class SectionActivity extends AppCompatActivity {
     public String getJson(){
         String jsonObject;
 
-        jsonObject = "[\n" +
-                "    {\n" +
-                "        \"no\": 1,\n" +
-                "        \"location\": \"a\",\n" +
-                "        \"shop\": \"A01\",\n" +
-                "        \"goods\": [\n" +
-                "            {\n" +
-                "                \"name\": \"polo 카라티\",\n" +
-                "                \"price\": 5000,\n" +
-                "                \"quantity\": 2,\n" +
-                "                \"category\": \"옷\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_01.jpg\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Tepal 다리미\",\n" +
-                "                \"price\": 25000,\n" +
-                "                \"quantity\": 1,\n" +
-                "                \"category\": \"디지털/가전\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_02.jpg\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"no\": 2,\n" +
-                "        \"location\": \"a\",\n" +
-                "        \"shop\": \"A02\",\n" +
-                "        \"goods\": [\n" +
-                "            {\n" +
-                "                \"name\": \"polo 카라티\",\n" +
-                "                \"price\": 5000,\n" +
-                "                \"quantity\": 2,\n" +
-                "                \"category\": \"옷\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_01.jpg\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Tepal 다리미\",\n" +
-                "                \"price\": 25000,\n" +
-                "                \"quantity\": 1,\n" +
-                "                \"category\": \"디지털/가전\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_02.jpg\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"no\": 3,\n" +
-                "        \"location\": \"a\",\n" +
-                "        \"shop\": \"A03\",\n" +
-                "        \"goods\": [\n" +
-                "            {\n" +
-                "                \"name\": \"polo 카라티\",\n" +
-                "                \"price\": 5000,\n" +
-                "                \"quantity\": 2,\n" +
-                "                \"category\": \"옷\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_01.jpg\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Tepal 다리미\",\n" +
-                "                \"price\": 25000,\n" +
-                "                \"quantity\": 1,\n" +
-                "                \"category\": \"디지털/가전\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_02.jpg\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"no\": 4,\n" +
-                "        \"location\": \"a\",\n" +
-                "        \"shop\": \"A04\",\n" +
-                "        \"goods\": [\n" +
-                "            {\n" +
-                "                \"name\": \"polo 카라티\",\n" +
-                "                \"price\": 5000,\n" +
-                "                \"quantity\": 2,\n" +
-                "                \"category\": \"옷\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_01.jpg\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Tepal 다리미\",\n" +
-                "                \"price\": 25000,\n" +
-                "                \"quantity\": 1,\n" +
-                "                \"category\": \"디지털/가전\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_02.jpg\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"no\": 5,\n" +
-                "        \"location\": \"a\",\n" +
-                "        \"shop\": \"A05\",\n" +
-                "        \"goods\": [\n" +
-                "            {\n" +
-                "                \"name\": \"polo 카라티\",\n" +
-                "                \"price\": 5000,\n" +
-                "                \"quantity\": 2,\n" +
-                "                \"category\": \"옷\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_01.jpg\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Tepal 다리미\",\n" +
-                "                \"price\": 25000,\n" +
-                "                \"quantity\": 1,\n" +
-                "                \"category\": \"디지털/가전\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_02.jpg\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"no\": 6,\n" +
-                "        \"location\": \"a\",\n" +
-                "        \"shop\": \"A06\",\n" +
-                "        \"goods\": [\n" +
-                "            {\n" +
-                "                \"name\": \"polo 카라티\",\n" +
-                "                \"price\": 5000,\n" +
-                "                \"quantity\": 2,\n" +
-                "                \"category\": \"옷\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_01.jpg\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Tepal 다리미\",\n" +
-                "                \"price\": 25000,\n" +
-                "                \"quantity\": 1,\n" +
-                "                \"category\": \"디지털/가전\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_02.jpg\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"no\": 7,\n" +
-                "        \"location\": \"a\",\n" +
-                "        \"shop\": \"A07\",\n" +
-                "        \"goods\": [\n" +
-                "            {\n" +
-                "                \"name\": \"polo 카라티\",\n" +
-                "                \"price\": 5000,\n" +
-                "                \"quantity\": 2,\n" +
-                "                \"category\": \"옷\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_01.jpg\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Tepal 다리미\",\n" +
-                "                \"price\": 25000,\n" +
-                "                \"quantity\": 1,\n" +
-                "                \"category\": \"디지털/가전\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_02.jpg\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"no\": 8,\n" +
-                "        \"location\": \"a\",\n" +
-                "        \"shop\": \"A08\",\n" +
-                "        \"goods\": [\n" +
-                "            {\n" +
-                "                \"name\": \"polo 카라티\",\n" +
-                "                \"price\": 5000,\n" +
-                "                \"quantity\": 2,\n" +
-                "                \"category\": \"옷\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_01.jpg\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Tepal 다리미\",\n" +
-                "                \"price\": 25000,\n" +
-                "                \"quantity\": 1,\n" +
-                "                \"category\": \"디지털/가전\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_02.jpg\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"no\": 9,\n" +
-                "        \"location\": \"a\",\n" +
-                "        \"shop\": \"A09\",\n" +
-                "        \"goods\": [\n" +
-                "            {\n" +
-                "                \"name\": \"polo 카라티\",\n" +
-                "                \"price\": 5000,\n" +
-                "                \"quantity\": 2,\n" +
-                "                \"category\": \"옷\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_01.jpg\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Tepal 다리미\",\n" +
-                "                \"price\": 25000,\n" +
-                "                \"quantity\": 1,\n" +
-                "                \"category\": \"디지털/가전\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_02.jpg\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    {\n" +
-                "        \"no\": 10,\n" +
-                "        \"location\": \"a\",\n" +
-                "        \"shop\": \"A10\",\n" +
-                "        \"goods\": [\n" +
-                "            {\n" +
-                "                \"name\": \"polo 카라티\",\n" +
-                "                \"price\": 5000,\n" +
-                "                \"quantity\": 2,\n" +
-                "                \"category\": \"옷\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_01.jpg\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"name\": \"Tepal 다리미\",\n" +
-                "                \"price\": 25000,\n" +
-                "                \"quantity\": 1,\n" +
-                "                \"category\": \"디지털/가전\",\n" +
-                "                \"image\": \"http://13.125.128.130/static/bazaar_img/image_02.jpg\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    }\n" +
-                "]";
+        jsonObject = "{\n" +
+                "\"items\": [\n" +
+                "{\n" +
+                "\"no\": 1.0,\n" +
+                "\"location\": \"a\",\n" +
+                "\"shop\": \"A01\",\n" +
+                "\"goods\": [\n" +
+                "{\n" +
+                "\"name\": \"polo 카라티\",\n" +
+                "\"price\": 5000.0,\n" +
+                "\"quantity\": 2.0,\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-1.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"Tepal 다리미\",\n" +
+                "\"price\": 25000.0,\n" +
+                "\"quantity\": 1.0,\n" +
+                "\"category\": \"6\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-2.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"반팔티\",\n" +
+                "\"price\": \"3000\",\n" +
+                "\"quantity\": \"2\",\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/d/1-1.jpg\"\n" +
+                "}\n" +
+                "]\n" +
+                "},\n" +
+                "{\n" +
+                "\"no\": 2.0,\n" +
+                "\"location\": \"a\",\n" +
+                "\"shop\": \"A02\",\n" +
+                "\"goods\": [\n" +
+                "{\n" +
+                "\"name\": \"polo 카라티\",\n" +
+                "\"price\": 5000.0,\n" +
+                "\"quantity\": 2.0,\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-1.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"Tepal 다리미\",\n" +
+                "\"price\": 25000.0,\n" +
+                "\"quantity\": 1.0,\n" +
+                "\"category\": \"6\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-2.jpg\"\n" +
+                "}\n" +
+                "]\n" +
+                "},\n" +
+                "{\n" +
+                "\"no\": 3.0,\n" +
+                "\"location\": \"a\",\n" +
+                "\"shop\": \"A03\",\n" +
+                "\"goods\": [\n" +
+                "{\n" +
+                "\"name\": \"polo 카라티\",\n" +
+                "\"price\": 5000.0,\n" +
+                "\"quantity\": 2.0,\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-1.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"Tepal 다리미\",\n" +
+                "\"price\": 25000.0,\n" +
+                "\"quantity\": 1.0,\n" +
+                "\"category\": \"6\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-2.jpg\"\n" +
+                "}\n" +
+                "]\n" +
+                "},\n" +
+                "{\n" +
+                "\"no\": 4.0,\n" +
+                "\"location\": \"a\",\n" +
+                "\"shop\": \"A04\",\n" +
+                "\"goods\": [\n" +
+                "{\n" +
+                "\"name\": \"polo 카라티\",\n" +
+                "\"price\": 5000.0,\n" +
+                "\"quantity\": 2.0,\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-1.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"Tepal 다리미\",\n" +
+                "\"price\": 25000.0,\n" +
+                "\"quantity\": 1.0,\n" +
+                "\"category\": \"6\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-2.jpg\"\n" +
+                "}\n" +
+                "]\n" +
+                "},\n" +
+                "{\n" +
+                "\"no\": 5.0,\n" +
+                "\"location\": \"a\",\n" +
+                "\"shop\": \"A05\",\n" +
+                "\"goods\": [\n" +
+                "{\n" +
+                "\"name\": \"polo 카라티\",\n" +
+                "\"price\": 5000.0,\n" +
+                "\"quantity\": 2.0,\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-1.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"Tepal 다리미\",\n" +
+                "\"price\": 25000.0,\n" +
+                "\"quantity\": 1.0,\n" +
+                "\"category\": \"6\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-2.jpg\"\n" +
+                "}\n" +
+                "]\n" +
+                "},\n" +
+                "{\n" +
+                "\"no\": 6.0,\n" +
+                "\"location\": \"a\",\n" +
+                "\"shop\": \"A06\",\n" +
+                "\"goods\": [\n" +
+                "{\n" +
+                "\"name\": \"polo 카라티\",\n" +
+                "\"price\": 5000.0,\n" +
+                "\"quantity\": 2.0,\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-1.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"Tepal 다리미\",\n" +
+                "\"price\": 25000.0,\n" +
+                "\"quantity\": 1.0,\n" +
+                "\"category\": \"6\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-2.jpg\"\n" +
+                "}\n" +
+                "]\n" +
+                "},\n" +
+                "{\n" +
+                "\"no\": 7.0,\n" +
+                "\"location\": \"a\",\n" +
+                "\"shop\": \"A07\",\n" +
+                "\"goods\": [\n" +
+                "{\n" +
+                "\"name\": \"polo 카라티\",\n" +
+                "\"price\": 5000.0,\n" +
+                "\"quantity\": 2.0,\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-1.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"Tepal 다리미\",\n" +
+                "\"price\": 25000.0,\n" +
+                "\"quantity\": 1.0,\n" +
+                "\"category\": \"6\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-2.jpg\"\n" +
+                "}\n" +
+                "]\n" +
+                "},\n" +
+                "{\n" +
+                "\"no\": 8.0,\n" +
+                "\"location\": \"a\",\n" +
+                "\"shop\": \"A08\",\n" +
+                "\"goods\": [\n" +
+                "{\n" +
+                "\"name\": \"polo 카라티\",\n" +
+                "\"price\": 5000.0,\n" +
+                "\"quantity\": 2.0,\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-1.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"Tepal 다리미\",\n" +
+                "\"price\": 25000.0,\n" +
+                "\"quantity\": 1.0,\n" +
+                "\"category\": \"6\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-2.jpg\"\n" +
+                "}\n" +
+                "]\n" +
+                "},\n" +
+                "{\n" +
+                "\"no\": 9.0,\n" +
+                "\"location\": \"a\",\n" +
+                "\"shop\": \"A09\",\n" +
+                "\"goods\": [\n" +
+                "{\n" +
+                "\"name\": \"polo 카라티\",\n" +
+                "\"price\": 5000.0,\n" +
+                "\"quantity\": 2.0,\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-1.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"Tepal 다리미\",\n" +
+                "\"price\": 25000.0,\n" +
+                "\"quantity\": 1.0,\n" +
+                "\"category\": \"6\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-2.jpg\"\n" +
+                "}\n" +
+                "]\n" +
+                "},\n" +
+                "{\n" +
+                "\"no\": 10.0,\n" +
+                "\"location\": \"a\",\n" +
+                "\"shop\": \"A10\",\n" +
+                "\"goods\": [\n" +
+                "{\n" +
+                "\"name\": \"polo 카라티\",\n" +
+                "\"price\": 5000.0,\n" +
+                "\"quantity\": 2.0,\n" +
+                "\"category\": \"1\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-1.jpg\"\n" +
+                "},\n" +
+                "{\n" +
+                "\"name\": \"Tepal 다리미\",\n" +
+                "\"price\": 25000.0,\n" +
+                "\"quantity\": 1.0,\n" +
+                "\"category\": \"6\",\n" +
+                "\"image\": \"http://13.125.128.130/static/bazaar_img/a/1-2.jpg\"\n" +
+                "}\n" +
+                "]\n" +
+                "}\n" +
+                "],\n" +
+                "\"meta\": {\n" +
+                "\"count\": 75\n" +
+                "}\n" +
+                "}";
 
         return jsonObject;
     }

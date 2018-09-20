@@ -18,7 +18,6 @@ public class GoodsViewModel {
         this.image.set(image);
     }
 
-
     public ObservableField<String> getName() {
         return name;
     }

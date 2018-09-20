@@ -15,6 +15,7 @@ import com.example.skuniv.fleamarket2.databinding.NoticeListItemBinding;
 import com.example.skuniv.fleamarket2.view.noticeView.NoticeItemDialog;
 import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeCommand;
 import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeItemViewModel;
+import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeMetaViewModel;
 
 public class NoticeListAdapter extends RecyclerView.Adapter<NoticeViewHolder> {
     private final int VIEW_ITEM = 1;
@@ -29,6 +30,7 @@ public class NoticeListAdapter extends RecyclerView.Adapter<NoticeViewHolder> {
     public ObservableArrayList<NoticeItemViewModel> noticeList;
     Context context;
     NoticeCommand noticeCommand;
+    NoticeMetaViewModel noticeMetaViewModel;
 
     public interface OnLoadMoreListener{
         void onLoadMore();
@@ -38,11 +40,13 @@ public class NoticeListAdapter extends RecyclerView.Adapter<NoticeViewHolder> {
         this.linearLayoutManager = linearLayoutManager;
     }
 
-    public NoticeListAdapter(ObservableArrayList<NoticeItemViewModel> noticeList, Context context, NoticeCommand noticeCommand, OnLoadMoreListener onLoadMoreListener){
+    public NoticeListAdapter(ObservableArrayList<NoticeItemViewModel> noticeList, Context context, NoticeCommand noticeCommand,
+                             OnLoadMoreListener onLoadMoreListener,NoticeMetaViewModel noticeMetaViewModel){
         this.noticeList = noticeList;
         this.context = context;
         this.noticeCommand = noticeCommand;
         this.onLoadMoreListener = onLoadMoreListener;
+        this.noticeMetaViewModel = noticeMetaViewModel;
 //        System.out.println("==============="+shopsList.get(1));
     }
 
@@ -61,12 +65,14 @@ public class NoticeListAdapter extends RecyclerView.Adapter<NoticeViewHolder> {
                 Log.d("first", firstVisibleItem + "");
                 Log.d("last", lastVisibleItem + "");
 
-                if (!isMoreLoading && (totalItemCount - visibleItemCount)<= (firstVisibleItem + visibleThreshold)) {
-                    if (onLoadMoreListener != null) {
-                        onLoadMoreListener.onLoadMore();
-                        System.out.println("onLoadMore()------");
+                if (noticeMetaViewModel.getCount().get() > totalItemCount) {
+                    if (!isMoreLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+                        if (onLoadMoreListener != null) {
+                            onLoadMoreListener.onLoadMore();
+                            System.out.println("onLoadMore()------");
+                        }
+                        isMoreLoading = true;
                     }
-                    isMoreLoading = true;
                 }
             }
         });
