@@ -9,24 +9,29 @@
     </data>
 
 <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="no"/>
+            android:text="no"
+            android:gravity="center"
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/noId"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
             android:text="@{Integer.toString(notice.no.get())}"
             />
     </LinearLayout>
@@ -34,17 +39,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="title"/>
 
         <TextView
             android:id="@+id/titleId"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
             android:text="@{notice.title.get()}"
             />
     </LinearLayout>
@@ -52,17 +62,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="date"/>
 
         <TextView
             android:id="@+id/dateId"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
             android:text="@{notice.date.get()}"
             />
     </LinearLayout>
@@ -70,17 +85,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="6">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="contents"/>
 
         <TextView
             android:id="@+id/contentId"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
             android:text="@{notice.contents.get()}"
             />
     </LinearLayout>
@@ -88,18 +108,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="attachment"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="files"/>
 
-        <TextView
-            android:id="@+id/attachmentId"
+        <android.support.v7.widget.AppCompatSpinner
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:spinnerMode="dropdown"
+            android:entries="@{notice.files}">
+
+        </android.support.v7.widget.AppCompatSpinner>
+
+        <Button
+            android:id="@+id/downId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

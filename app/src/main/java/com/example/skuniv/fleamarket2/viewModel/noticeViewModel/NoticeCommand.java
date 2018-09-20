@@ -1,21 +1,40 @@
 package com.example.skuniv.fleamarket2.viewModel.noticeViewModel;
 
+import android.app.DownloadManager;
 import android.content.Context;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 
 import com.example.skuniv.fleamarket2.databinding.ActivityNoticeBinding;
 import com.example.skuniv.fleamarket2.model.noticeModel.NoticeListModel;
 import com.example.skuniv.fleamarket2.model.noticeModel.NoticeModel;
+import com.example.skuniv.fleamarket2.retrofit.FileDownloadService;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
+import com.example.skuniv.fleamarket2.retrofit.RetrofitService;
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+
+import static android.content.Context.DOWNLOAD_SERVICE;
+import static android.support.constraint.Constraints.TAG;
 
 public class NoticeCommand {
     Context context;
@@ -25,6 +44,7 @@ public class NoticeCommand {
     NoticeCommand noticeCommand;
     List<NoticeModel> noticeList;
     Gson gson = new Gson();
+    String fileUrl;
 
     public NoticeCommand(Context context, ActivityNoticeBinding categoryListBinding, NoticeListModel noticeListModel, NoticeItemsViewModel noticeItemsViewModel){
         this.context = context;
@@ -73,5 +93,119 @@ public class NoticeCommand {
         // shops = shopData.getShops();
         System.out.println("jsonPaser===========");
         return noticeList;
+    }
+
+    public void downlaodFile(String fileUrl){
+        Retrofit.Builder builder = new Retrofit.Builder().baseUrl("http://13.125.128.130/");
+        Retrofit retrofit = builder.build();
+        FileDownloadService fileDownloadService = retrofit.create(FileDownloadService.class);
+
+        this.fileUrl = fileUrl;
+
+        Call<ResponseBody> call = fileDownloadService.downloadFileWithDynamicUrlAsync(fileUrl);
+        System.out.println("======url===" + fileUrl);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, final Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "server contacted and has file");
+
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... voids) {
+                            boolean writtenToDisk = writeResponseBodyToDisk(response.body());
+                            System.out.println("response body--------" + gson.toJson(response));
+
+                            Log.d(TAG, "file download was a success? " + writtenToDisk);
+                            return null;
+                        }
+                    }.execute();
+                }
+                else {
+                    Log.d(TAG, "server contact failed");
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e(TAG, "error");
+            }
+        });
+    }
+
+    private boolean writeResponseBodyToDisk(ResponseBody body) {
+
+        try {
+            String sdcard = Environment.getExternalStorageState();
+            //System.out.println(context.getExternalFilesDir(null) + File.separator);
+            // todo change the file location/name according to your needs
+            String dirPath="";
+            File futureStudioIconFile = null;
+            //File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) +"/notice");
+
+            /*if(!file.exists())
+                file.mkdirs();*/
+            if ( !sdcard.equals(Environment.MEDIA_MOUNTED))
+            {
+                // SD카드가 마운트되어있지 않음
+                futureStudioIconFile = Environment.getRootDirectory();
+            }
+            else
+            {
+                // SD카드가 마운트되어있음
+                futureStudioIconFile = Environment.getExternalStorageDirectory();
+            }
+            String dir = futureStudioIconFile.getAbsolutePath() + "/notice";
+            futureStudioIconFile = new File(dir);
+            System.out.println("========"+dir);
+
+            if(!futureStudioIconFile.exists()) {
+                futureStudioIconFile.mkdirs();
+                System.out.println("make dir============"+futureStudioIconFile.mkdirs());
+            }
+
+            String fileName = fileName = fileUrl.substring(fileUrl.lastIndexOf("/"),fileUrl.lastIndexOf("."));
+
+            futureStudioIconFile = new File(dir + File.separator +fileName);
+
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
+
+            try {
+                byte[] fileReader = new byte[4096];
+
+                long fileSize = body.contentLength();
+                long fileSizeDownloaded = 0;
+
+                inputStream = body.byteStream();
+                outputStream = new FileOutputStream(futureStudioIconFile);
+
+                while (true) {
+                    int read = inputStream.read(fileReader);
+
+                    if (read == -1) {
+                        break;
+                    }
+                    outputStream.write(fileReader, 0, read);
+                    fileSizeDownloaded += read;
+                    Log.d(TAG, "file download: " + fileSizeDownloaded + " of " + fileSize);
+                }
+
+                outputStream.flush();
+
+                return true;
+            } catch (IOException e) {
+                return false;
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+
+                if (outputStream != null) {
+                    outputStream.close();
+                }
+            }
+        } catch (IOException e) {
+            return false;
+        }
     }
 }

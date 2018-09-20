@@ -53,8 +53,8 @@ public class SectionActivity extends AppCompatActivity {
         // activity_section과 databiding할 객체 생성
         sectionBinding = DataBindingUtil.setContentView(this, R.layout.activity_section);
         Log.i("section","==========="+getIntent().getStringExtra("section"));
+
         // section model객체 생성
-        // 나중에 각 섹션별로 값 다르게 넣어야 함
         sectionModel = new SectionModel(getIntent().getStringExtra("section"),"1");
 
         //sectionCommand 객체 생성

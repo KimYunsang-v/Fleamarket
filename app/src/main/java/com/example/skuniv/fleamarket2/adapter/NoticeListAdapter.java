@@ -101,7 +101,7 @@ public class NoticeListAdapter extends RecyclerView.Adapter<NoticeViewHolder> {
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NoticeItemDialog dialog = new NoticeItemDialog(context,notice);
+                NoticeItemDialog dialog = new NoticeItemDialog(context,notice,noticeCommand);
                 dialog.show();
             }
         });

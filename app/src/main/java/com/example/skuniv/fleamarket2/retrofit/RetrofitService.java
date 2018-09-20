@@ -6,9 +6,12 @@ import com.example.skuniv.fleamarket2.model.noticeModel.NoticeModel;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
 
 public interface RetrofitService {
     @GET("location/section/{section}/{sectionNum}")
@@ -19,4 +22,7 @@ public interface RetrofitService {
 
     @GET("notice/select/{pageNum}")
     Call<List<NoticeModel>> getNoticeRepos(@Path("pageNum") int pageNum);
+
+
+
 }
