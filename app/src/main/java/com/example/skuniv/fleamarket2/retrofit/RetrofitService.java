@@ -26,6 +26,9 @@ public interface RetrofitService {
     @GET("notice/select/{pageNum}")
     Call<NoticeData> getNoticeRepos(@Path("pageNum") int pageNum);
 
+    @GET("notice/search/{type}/{keyword}")
+    Call<NoticeData> getNoticeSearchRepos(@Path("type") String type,@Path("keyword") String keyword);
+
 
 
 }

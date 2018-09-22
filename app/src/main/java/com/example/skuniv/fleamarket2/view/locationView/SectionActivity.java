@@ -73,8 +73,8 @@ public class SectionActivity extends AppCompatActivity {
         Myhandler myhandler = new Myhandler(this,shopItemBinding);
         shopItemBinding.setHandler(myhandler);*/
 
-        sectionCommand.getShopList();
-        //sectionCommand.jsonPaser(getJson());
+        //sectionCommand.getShopList();
+        sectionCommand.jsonPaser(getJson());
 
         //select diaolg 띄우기
         sectionBinding.selectId.setOnClickListener(new View.OnClickListener() {

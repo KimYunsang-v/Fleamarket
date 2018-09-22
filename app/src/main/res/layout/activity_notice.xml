@@ -12,11 +12,11 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.noticeView.NoticeActivity"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView
@@ -39,6 +39,12 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:orientation="vertical">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerId3"
         android:layout_width="match_parent"
@@ -46,5 +52,35 @@
         app:items="@{noticeList.noticeList}">
 
     </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spinnerId"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:entries="@array/noticeType"/>
+
+        <EditText
+            android:id="@+id/searchTextId"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="search"/>
+
+        <Button
+            android:id="@+id/searchBtnId"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="search"/>
+
+
+    </LinearLayout>
 </LinearLayout>
 </layout>

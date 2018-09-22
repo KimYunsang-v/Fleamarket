@@ -64,7 +64,7 @@ public class NoticeCommand {
     public void getNoticeList(){
         if (!(noticeListModel.getPage() <= 0)) {
             Call<NoticeData> res = NetRetrofit.getInstance().getService().getNoticeRepos(noticeListModel.getPage());
-            Log.i("getGoodsList",""+res);
+            Log.i("getNoticeList",""+res);
             res.enqueue(new Callback<NoticeData>() {
                 @Override
                 public void onResponse(Call<NoticeData> call, Response<NoticeData> response) {
@@ -91,8 +91,38 @@ public class NoticeCommand {
         }
     }
 
-    public void jsonPaser(String jsonObject){
+    public void getSearchList(String type,String keyword){
+        if (!(keyword.equals("")) && !(type.equals(""))) {
+            Call<NoticeData> res = NetRetrofit.getInstance().getService().getNoticeSearchRepos(type, keyword);
+            Log.i("getSearchList",""+res);
+            res.enqueue(new Callback<NoticeData>() {
+                @Override
+                public void onResponse(Call<NoticeData> call, Response<NoticeData> response) {
+                    Log.i("Retrofit", response.toString());
+                    if (response.body() != null) {
+                        noticeData = response.body();
+                        Log.i("getShopList",""+gson.toJson(noticeList));
+                        noticeItemsViewModel.noticeList.clear();
+                        noticeItemsViewModel.setNoticeList(noticeData.getItems());
+                        noticeMetaViewModel.count.set(noticeData.getMeta().getCount());
+                        System.out.println(noticeItemsViewModel);
+                        System.out.println(noticeItemsViewModel.getNoticeList());
+                        //mAdapter = new CategoryListAdapter(categoryShopsViewModel.getShops(), context,categoryCommand);
+                        //categoryListBinding.recyclerId2.setAdapter(mAdapter);
+                        //getAdapter();
+                    }
+                }
+                @Override
+                public void onFailure(Call<NoticeData> call, Throwable t) {
+                    Log.e("에러", t.getMessage());
+                }
+            });
+        } else {
+            Log.e("getNoticeList","getNoticeList error");
+        }
+    }
 
+    public void jsonPaser(String jsonObject){
         Gson gson = new Gson();
         noticeData = gson.fromJson(jsonObject,  NoticeData.class);
 
@@ -142,14 +172,9 @@ public class NoticeCommand {
 
         try {
             String sdcard = Environment.getExternalStorageState();
-            //System.out.println(context.getExternalFilesDir(null) + File.separator);
             // todo change the file location/name according to your needs
-            String dirPath="";
             File futureStudioIconFile = null;
-            //File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) +"/notice");
 
-            /*if(!file.exists())
-                file.mkdirs();*/
             if ( !sdcard.equals(Environment.MEDIA_MOUNTED))
             {
                 // SD카드가 마운트되어있지 않음
@@ -169,7 +194,7 @@ public class NoticeCommand {
                 System.out.println("make dir============"+futureStudioIconFile.mkdirs());
             }
 
-            String fileName = fileName = fileUrl.substring(fileUrl.lastIndexOf("/"),fileUrl.lastIndexOf("."));
+            String fileName = fileUrl.substring(fileUrl.lastIndexOf("/"),fileUrl.lastIndexOf("."));
 
             futureStudioIconFile = new File(dir + File.separator +fileName);
 

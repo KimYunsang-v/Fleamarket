@@ -67,8 +67,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
 
             }
                });*/
-        categoryCommand.getGoodsList();
-        //categoryCommand.jsonPaser(getJson(categoryModel.getPageNum()));
+        //categoryCommand.getGoodsList();
+        categoryCommand.jsonPaser(getJson(categoryModel.getPageNum()));
     }
 
     @Override

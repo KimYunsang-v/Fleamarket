@@ -14,6 +14,7 @@ import com.example.skuniv.fleamarket2.databinding.NoticeItemBinding;
 import com.example.skuniv.fleamarket2.databinding.NoticeListItemBinding;
 import com.example.skuniv.fleamarket2.view.noticeView.NoticeItemDialog;
 import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeCommand;
+import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeFilesViewModel;
 import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeItemViewModel;
 import com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeMetaViewModel;
 
@@ -26,6 +27,8 @@ public class NoticeListAdapter extends RecyclerView.Adapter<NoticeViewHolder> {
     private boolean isMoreLoading = false;
     private int visibleThreshold = 1;
     int firstVisibleItem, visibleItemCount, totalItemCount, lastVisibleItem;
+    NoticeFilesViewModel noticeFilesViewModel;
+
 
     public ObservableArrayList<NoticeItemViewModel> noticeList;
     Context context;
