@@ -20,8 +20,8 @@ public interface RetrofitService {
     @GET("location/section/{section}/{sectionNum}")
     Call<ShopData> getListRepos(@Path("section") String section, @Path("sectionNum") String sectionNum);
 
-    @GET("category/{category}/{pageNum}")
-    Call<CategoryData> getGoodsRepos(@Path("category") String category, @Path("pageNum") int pageNum);
+    @GET("category/{mainCategory}/{middleCategory}/{pageNum}")
+    Call<CategoryData> getGoodsRepos(@Path("mainCategory") int mainCategory,@Path("middleCategory") int middleCategory ,@Path("pageNum") int pageNum);
 
     @GET("notice/select/{pageNum}")
     Call<NoticeData> getNoticeRepos(@Path("pageNum") int pageNum);

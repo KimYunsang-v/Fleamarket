@@ -1,6 +1,7 @@
 package com.example.skuniv.fleamarket2.view.categoryView;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
@@ -10,8 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.engine.Resource;
 import com.example.skuniv.fleamarket2.adapter.CategoryListAdapter;
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.ActivityCategoryListBinding;
@@ -25,6 +30,8 @@ import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryShopsV
 
 
 public class CategoryListActivity extends AppCompatActivity implements CategoryListAdapter.OnLoadMoreListener{
+
+
     static ActivityCategoryListBinding categoryListBinding;
     CategoryModel categoryModel;
     static Context context;
@@ -35,13 +42,16 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
     static CategoryListAdapter.OnLoadMoreListener onLoadMoreListener;
     static CategoryData categoryData;
     static CategoryMetaViewModel categoryMetaViewModel;
+    ArrayAdapter spinnerAdapter;
+    String categoryStr="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         categoryListBinding = DataBindingUtil.setContentView(this, R.layout.activity_category_list);
 
-        categoryModel = new CategoryModel(getIntent().getStringExtra("category"),1);
+        categoryStr = getIntent().getStringExtra("category");
+        categoryModel = new CategoryModel(categoryStr,1);
         categoryData = new CategoryData();
 
         categoryShopsViewModel = new CategoryShopsViewModel();
@@ -69,6 +79,27 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
                });*/
         //categoryCommand.getGoodsList();
         categoryCommand.jsonPaser(getJson(categoryModel.getPageNum()));
+
+        // Initializing an ArrayAdapter
+        spinnerAdapter = new ArrayAdapter(
+                this,android.R.layout.simple_spinner_item, getList());
+
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categoryListBinding.spinnerId.setAdapter(spinnerAdapter);
+
+        categoryListBinding.spinnerId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                categoryModel.setMiddleCategory(adapterView.getItemAtPosition(i).toString());
+                System.out.println("main === " + categoryModel.getMainCategoryStr() + " " + categoryModel.getMainCategory() +
+                        "middle === " + categoryModel.getMiddleCategoryStr() + " " + categoryModel.getMiddleCategory());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override
@@ -115,6 +146,23 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
         }
         //adapter.addAll(shops);
         //Log.i("adapter", shops.get(0).getGoods().get(0).getImage());
+    }
+
+    private String[] getList(){
+        if(categoryStr.equals("cloth")){
+            return getResources().getStringArray(R.array.cloth);
+        }else if(categoryStr.equals("digital")){
+            return getResources().getStringArray(R.array.digital);
+        }else if(categoryStr.equals("fancy")){
+            return getResources().getStringArray(R.array.fancy);
+        }else if(categoryStr.equals("acc")){
+            return getResources().getStringArray(R.array.acc);
+        }else if(categoryStr.equals("book")){
+            return getResources().getStringArray(R.array.book);
+        }else if(categoryStr.equals("etc")){
+            return getResources().getStringArray(R.array.etc);
+        }
+        return null;
     }
 
     public String getJson(int page){

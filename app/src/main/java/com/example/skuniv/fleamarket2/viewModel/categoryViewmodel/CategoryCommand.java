@@ -48,8 +48,8 @@ public class CategoryCommand {
     }
 
     public void getGoodsList(){
-        if (!(categoryModel.getCategoty().isEmpty()) && categoryModel.getPageNum() >= 0) {
-            Call<CategoryData> res = NetRetrofit.getInstance().getService().getGoodsRepos(categoryModel.getCategoty(),categoryModel.getPageNum());
+        if (categoryModel.getMainCategory() >= 0 && categoryModel.getMiddleCategory() >= 0 && categoryModel.getPageNum() >= 0) {
+            Call<CategoryData> res = NetRetrofit.getInstance().getService().getGoodsRepos(categoryModel.getMainCategory(),categoryModel.getMiddleCategory(),categoryModel.getPageNum());
             Log.i("getGoodsList",""+res);
             res.enqueue(new Callback<CategoryData>() {
                 @Override
@@ -62,9 +62,6 @@ public class CategoryCommand {
                         System.out.println(categoryShopsViewModel);
                         System.out.println(categoryShopsViewModel.getShops());
                         categoryMetaViewModel.count.set(categoryData.getMeta().getCount());
-                        //mAdapter = new CategoryListAdapter(categoryShopsViewModel.getShops(), context,categoryCommand);
-                        //categoryListBinding.recyclerId2.setAdapter(mAdapter);
-                        //getAdapter();
                     }
                 }
                 @Override
