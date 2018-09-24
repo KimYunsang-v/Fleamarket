@@ -1,5 +1,6 @@
 package com.example.skuniv.fleamarket2.retrofit;
 
+import com.example.skuniv.fleamarket2.model.SellerModel;
 import com.example.skuniv.fleamarket2.model.categoryModel.CategoryData;
 import com.example.skuniv.fleamarket2.model.categoryModel.CategoryShopModel;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
@@ -11,7 +12,9 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
@@ -28,4 +31,13 @@ public interface RetrofitService {
 
     @GET("notice/search/{type}/{keyword}/{page}")
     Call<NoticeData> getNoticeSearchRepos(@Path("type") String type,@Path("keyword") String keyword, @Path("page") int page);
+
+    @POST("user/signin")
+    Call<SellerModel> getSignInRepos(@Field("id") String id, @Field("pw") String pw);
+
+    @POST("user/signup")
+    Call<String> getSignUnRepos(@Field("id") String id, @Field("pw") String pw, @Field("name") String name, @Field("sex") String sex, @Field("email") String email);
+
+    @POST("user/findid")
+    Call<SellerModel> findIdRepos(@Field("name") String name, @Field("email") String email);
 }
