@@ -1,20 +1,25 @@
 package com.example.skuniv.fleamarket2.viewModel.locationViewModel;
 
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
+
+import java.util.List;
 
 public class GoodsViewModel {
 
     public final ObservableField<String> name = new ObservableField<>();
     public final ObservableField<Integer> price = new ObservableField<>();
     public final ObservableField<Integer> quantity = new ObservableField<>();
-    public final ObservableField<String> category = new ObservableField<>();
+    public final ObservableField<Integer> MainCategory = new ObservableField<>();
+    public final ObservableField<Integer> MiddleCategory = new ObservableField<>();
     public final ObservableField<String> image = new ObservableField<>();
 
-    public GoodsViewModel(String name, Integer price, Integer quantity,String category, String image) {
+    public GoodsViewModel(String name, Integer price, Integer quantity, Integer MainCategory,Integer MiddleCategory, String image) {
         this.name.set(name);
         this.price.set(price);
         this.quantity.set(quantity);
-        this.category.set(category);
+        this.MainCategory.set(MainCategory);
+        this.MiddleCategory.set(MiddleCategory);
         this.image.set(image);
     }
 
@@ -30,8 +35,12 @@ public class GoodsViewModel {
         return quantity;
     }
 
-    public ObservableField<String> getCategory() {
-        return category;
+    public ObservableField<Integer> getMiddleCategory() {
+        return MiddleCategory;
+    }
+
+    public ObservableField<Integer> getMainCategory() {
+        return MainCategory;
     }
 
     public ObservableField<String> getImage() {

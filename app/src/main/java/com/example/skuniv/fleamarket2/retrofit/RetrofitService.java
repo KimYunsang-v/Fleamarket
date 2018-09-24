@@ -18,17 +18,14 @@ import retrofit2.http.Url;
 
 public interface RetrofitService {
     @GET("location/section/{section}/{sectionNum}")
-    Call<ShopData> getListRepos(@Path("section") String section, @Path("sectionNum") String sectionNum);
+    Call<ShopData> getListRepos(@Path("section") String section, @Path("sectionNum") int sectionNum);
 
-    @GET("category/{mainCategory}/{middleCategory}/{pageNum}")
-    Call<CategoryData> getGoodsRepos(@Path("mainCategory") int mainCategory,@Path("middleCategory") int middleCategory ,@Path("pageNum") int pageNum);
+    @GET("category/{middleCategory}/{pageNum}")
+    Call<CategoryData> getGoodsRepos(@Path("middleCategory") int middleCategory ,@Path("pageNum") int pageNum);
 
     @GET("notice/select/{pageNum}")
     Call<NoticeData> getNoticeRepos(@Path("pageNum") int pageNum);
 
-    @GET("notice/search/{type}/{keyword}")
-    Call<NoticeData> getNoticeSearchRepos(@Path("type") String type,@Path("keyword") String keyword);
-
-
-
+    @GET("notice/search/{type}/{keyword}/{page}")
+    Call<NoticeData> getNoticeSearchRepos(@Path("type") String type,@Path("keyword") String keyword, @Path("page") int page);
 }

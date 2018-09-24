@@ -19,7 +19,7 @@ public class ShopViewModel {
         this.shop.set(shopModel.getShop());
         for(int i =0; i<shopModel.getGoods().size() ;i++){
             goods.add(new GoodsViewModel(shopModel.getGoods().get(i).getName(), shopModel.getGoods().get(i).getPrice(),
-                    shopModel.getGoods().get(i).getQuantity(),shopModel.getGoods().get(i).getCategory(),shopModel.getGoods().get(i).getImage()));
+                    shopModel.getGoods().get(i).getQuantity(),shopModel.getGoods().get(i).getCategory().get(0),shopModel.getGoods().get(i).getCategory().get(1),shopModel.getGoods().get(i).getImage()));
         }
     }
 

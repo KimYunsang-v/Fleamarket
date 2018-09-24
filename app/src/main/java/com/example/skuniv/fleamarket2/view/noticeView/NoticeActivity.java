@@ -71,39 +71,42 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
         binding.recyclerId3.setLayoutManager(llm);
-        //noticeCommand.getNoticeList();
-        noticeCommand.jsonPaser(getJson(noticeListModel.getPage()));
+        noticeCommand.getNoticeList();
+        //noticeCommand.jsonPaser(getJson(noticeListModel.getPage()));
 
         binding.spinnerId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 type = "";
                 if(adapterView.getItemAtPosition(i).equals("제목")){
-                    type = "title";
+                    noticeListModel.setType("title");
                 }
                 else if(adapterView.getItemAtPosition(i).equals("내용")){
-                    type = "contents";
+                    noticeListModel.setType("contents");
                 }else if(adapterView.getItemAtPosition(i).equals("제목+내용")){
-                    type = "titlecontents";
+                    noticeListModel.setType("titlecontents");
                 }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {        }
         });
 
-
         binding.searchBtnId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String keyword = binding.searchTextId.getText().toString();
+                noticeListModel.setKeyword(keyword);
+                noticeListModel.setPage(1);
                 InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-
                 if(!keyword.equals("")){
+                    noticeItemsViewModel.noticeList.clear();
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    noticeCommand.getSearchList(type,keyword);
+                    noticeCommand.getSearchList();
                 }
                 else{
                     Toast.makeText(NoticeActivity.this, "키워드를 입력하세요", Toast.LENGTH_SHORT).show();
+                    noticeCommand.getNoticeList();
+
                 }
             }
         });
@@ -119,7 +122,11 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
                 //다음 페이지? 내용을 불러오는 부분
                 //categoryCommand.scrollListener();
                 noticeListModel.setPage(noticeListModel.getPage()+1);
-                noticeCommand.jsonPaser(getJson(noticeListModel.getPage()));
+                if(!noticeListModel.getKeyword().equals(""))
+                    noticeCommand.getSearchList();
+                else
+                    noticeCommand.getNoticeList();
+                //noticeCommand.jsonPaser(getJson(noticeListModel.getPage()));
                 adapter.setMoreLoading(false);
                 //////////////////////////////////////////////////
                 //mAdapter.setMoreLoading(false);

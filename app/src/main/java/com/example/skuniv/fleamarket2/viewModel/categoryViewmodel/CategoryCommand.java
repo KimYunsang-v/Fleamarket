@@ -49,7 +49,7 @@ public class CategoryCommand {
 
     public void getGoodsList(){
         if (categoryModel.getMainCategory() >= 0 && categoryModel.getMiddleCategory() >= 0 && categoryModel.getPageNum() >= 0) {
-            Call<CategoryData> res = NetRetrofit.getInstance().getService().getGoodsRepos(categoryModel.getMainCategory(),categoryModel.getMiddleCategory(),categoryModel.getPageNum());
+            Call<CategoryData> res = NetRetrofit.getInstance().getService().getGoodsRepos(categoryModel.getMiddleCategory(),categoryModel.getPageNum());
             Log.i("getGoodsList",""+res);
             res.enqueue(new Callback<CategoryData>() {
                 @Override

@@ -11,7 +11,8 @@ public class GoodsListViewModel {
 
     public void setGoodsList(List<Goods> goods){
         for(int i =0; i<goodsList.size() ;i++){
-            goodsList.add(new GoodsViewModel(goods.get(i).getName(),goods.get(i).getPrice(),goods.get(i).getQuantity(),goods.get(i).getCategory(),goods.get(i).getImage()));
+            goodsList.add(new GoodsViewModel(goods.get(i).getName(),goods.get(i).getPrice(),goods.get(i).getQuantity(),
+                    goods.get(i).getCategory().get(0),goods.get(i).getCategory().get(1),goods.get(i).getImage()));
         }
     }
 

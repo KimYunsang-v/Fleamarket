@@ -91,9 +91,10 @@ public class NoticeCommand {
         }
     }
 
-    public void getSearchList(String type,String keyword){
-        if (!(keyword.equals("")) && !(type.equals(""))) {
-            Call<NoticeData> res = NetRetrofit.getInstance().getService().getNoticeSearchRepos(type, keyword);
+    public void getSearchList(){
+        System.out.println("type =====" + noticeListModel.getType() + "  keyword====" + noticeListModel.getKeyword() + "   page====" + noticeListModel.getPage());
+        if (!(noticeListModel.getKeyword().equals("")) && !(noticeListModel.getType().equals(""))) {
+            Call<NoticeData> res = NetRetrofit.getInstance().getService().getNoticeSearchRepos(noticeListModel.getType(), noticeListModel.getKeyword(), noticeListModel.getPage());
             Log.i("getSearchList",""+res);
             res.enqueue(new Callback<NoticeData>() {
                 @Override
@@ -102,7 +103,6 @@ public class NoticeCommand {
                     if (response.body() != null) {
                         noticeData = response.body();
                         Log.i("getShopList",""+gson.toJson(noticeList));
-                        noticeItemsViewModel.noticeList.clear();
                         noticeItemsViewModel.setNoticeList(noticeData.getItems());
                         noticeMetaViewModel.count.set(noticeData.getMeta().getCount());
                         System.out.println(noticeItemsViewModel);

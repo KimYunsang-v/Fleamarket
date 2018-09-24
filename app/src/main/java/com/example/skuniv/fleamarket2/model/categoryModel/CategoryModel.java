@@ -93,12 +93,14 @@ public class CategoryModel {
             put("acc",5);
         }
     };
+
     public static final HashMap<String, Integer> middleMap = new HashMap<String, Integer>() {
         {
             put("신발", SHOES);
             put("상의", TOP);
             put("하의", BOTTOM);
             put("모자", CAP);
+            put("장갑",GLOVES);
             put("pc", PC);
             put("모바일", MOBILE);
             put("가전", APPLIANCES);

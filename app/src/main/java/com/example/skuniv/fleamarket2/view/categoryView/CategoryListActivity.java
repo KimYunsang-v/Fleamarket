@@ -77,8 +77,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
 
             }
                });*/
-        //categoryCommand.getGoodsList();
-        categoryCommand.jsonPaser(getJson(categoryModel.getPageNum()));
+
+        //categoryCommand.jsonPaser(getJson(categoryModel.getPageNum()));
 
         // Initializing an ArrayAdapter
         spinnerAdapter = new ArrayAdapter(
@@ -90,9 +90,11 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
         categoryListBinding.spinnerId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                categoryShopsViewModel.shops.clear();
                 categoryModel.setMiddleCategory(adapterView.getItemAtPosition(i).toString());
                 System.out.println("main === " + categoryModel.getMainCategoryStr() + " " + categoryModel.getMainCategory() +
                         "middle === " + categoryModel.getMiddleCategoryStr() + " " + categoryModel.getMiddleCategory());
+                categoryCommand.getGoodsList();
             }
 
             @Override
@@ -114,7 +116,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
                     //categoryCommand.scrollListener();
 
                     categoryModel.setPageNum(categoryModel.getPageNum() + 1);
-                    categoryCommand.jsonPaser(getJson(categoryModel.getPageNum()));
+                    categoryCommand.getGoodsList();
+                    //categoryCommand.jsonPaser(getJson(categoryModel.getPageNum()));
                     adapter.setMoreLoading(false);
                     //////////////////////////////////////////////////
                     //mAdapter.setMoreLoading(false);

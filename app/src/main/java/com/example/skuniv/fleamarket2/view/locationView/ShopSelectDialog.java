@@ -61,7 +61,7 @@ public class ShopSelectDialog extends Dialog {
         dialogBinding.listId.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                sectionModel.setSectionNum(""+(i+1));
+                sectionModel.setSectionNum(i+1);
                 System.out.println("sectionMode Number====" + sectionModel.getSectionNum());
                 sectionCommand.setSectionModel(sectionModel);
                 sectionCommand.getShopList();

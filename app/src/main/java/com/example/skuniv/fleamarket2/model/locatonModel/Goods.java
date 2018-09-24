@@ -2,6 +2,8 @@ package com.example.skuniv.fleamarket2.model.locatonModel;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Goods {
 
     @SerializedName("name")
@@ -11,11 +13,11 @@ public class Goods {
     @SerializedName("quantity")
     int quantity;
     @SerializedName("category")
-    String category;
+    List<Integer> category;
     @SerializedName("image")
     String image;
 
-    public Goods(String name,int price, int quantity, String category, String image){
+    public Goods(String name,int price, int quantity, List<Integer> category, String image){
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -47,11 +49,11 @@ public class Goods {
         this.quantity = quantity;
     }
 
-    public String getCategory() {
+    public List<Integer> getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(List<Integer> category) {
         this.category = category;
     }
 

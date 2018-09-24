@@ -58,7 +58,7 @@ public class SectionActivity extends AppCompatActivity {
         shopMetaViewModel = new ShopMetaViewModel();
 
         // section model객체 생성
-        sectionModel = new SectionModel(getIntent().getStringExtra("section"),"1");
+        sectionModel = new SectionModel(getIntent().getStringExtra("section"),1);
 
         //sectionCommand 객체 생성
         sectionCommand = new SectionCommand(sectionModel, sectionBinding,shopsViewModel,shopData,shopMetaViewModel);
@@ -73,8 +73,8 @@ public class SectionActivity extends AppCompatActivity {
         Myhandler myhandler = new Myhandler(this,shopItemBinding);
         shopItemBinding.setHandler(myhandler);*/
 
-        //sectionCommand.getShopList();
-        sectionCommand.jsonPaser(getJson());
+        sectionCommand.getShopList();
+        //sectionCommand.jsonPaser(getJson());
 
         //select diaolg 띄우기
         sectionBinding.selectId.setOnClickListener(new View.OnClickListener() {

@@ -43,7 +43,7 @@ public class SectionCommand {
     }*/
 
     public void getShopList() {
-        if (!(sectionModel.getSection().isEmpty()) && !sectionModel.getSectionNum().isEmpty()) {
+        if (!(sectionModel.getSection().isEmpty()) && sectionModel.getSectionNum() >= 0) {
             Call<ShopData> res = NetRetrofit.getInstance().getService().getListRepos(sectionModel.getSection(),sectionModel.getSectionNum());
             Log.i("getShopList",""+res);
             res.enqueue(new Callback<ShopData>() {

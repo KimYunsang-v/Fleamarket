@@ -13,7 +13,7 @@ public class NoticeItemsViewModel implements Serializable{
 
     public void setNoticeList(List<NoticeModel> noticeList){
         for(int i =0; i<noticeList.size();i++){
-            this.noticeList.add(new NoticeItemViewModel(noticeList.get(i).getNo(),noticeList.get(i).getTitle(),noticeList.get(i).getDate(),
+            this.noticeList.add(new NoticeItemViewModel(this.noticeList.size(),noticeList.get(i).getTitle(),noticeList.get(i).getDate(),
                     noticeList.get(i).getContents(),noticeList.get(i).getFiles()));
         }
     }

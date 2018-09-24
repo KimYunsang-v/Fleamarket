@@ -9,6 +9,9 @@ public class NoticeModel {
     String contents;
     List<FilesModel> files;
 
+
+
+
     public NoticeModel(int no, String title, String date, String contents, List<FilesModel> files){
         this.no = no;
         this.title = title;
