@@ -17,6 +17,7 @@ import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
 import com.example.skuniv.fleamarket2.view.MainActivity;
 import com.example.skuniv.fleamarket2.view.adminView.CurrentApplyView;
 import com.example.skuniv.fleamarket2.view.sellerView.FindIdDialog;
+import com.example.skuniv.fleamarket2.view.sellerView.SellerApplyDialog;
 import com.example.skuniv.fleamarket2.view.sellerView.SellerGoodsList;
 import com.example.skuniv.fleamarket2.view.sellerView.SignInDialog;
 import com.example.skuniv.fleamarket2.view.sellerView.SignUpDialog;
@@ -202,6 +203,12 @@ public class MainCommand {
         Intent intent = new Intent(mainActivity, SellerGoodsList.class);
         intent.putExtra("user",userModel);
         mainActivity.startActivity(intent);
+        mainActivity.result.closeDrawer();
+    }
+
+    public void sellerApply(){
+        SellerApplyDialog sellerApplyDialog = new SellerApplyDialog(context, userModel);
+        sellerApplyDialog.show();
         mainActivity.result.closeDrawer();
     }
 

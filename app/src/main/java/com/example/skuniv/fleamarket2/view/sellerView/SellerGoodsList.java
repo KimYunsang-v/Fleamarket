@@ -21,10 +21,11 @@ import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 public class SellerGoodsList extends AppCompatActivity {
     SellerGoodsListBinding sellerGoodsListBinding;
     UserModel userModel;
-    ShopViewModel shopViewModel;
+    static ShopViewModel shopViewModel;
     static Context context;
     SellerCommand sellerCommand;
     static GoodsListAdapter adapter;
+    SellerGoodsList sellerGoodsListview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +34,8 @@ public class SellerGoodsList extends AppCompatActivity {
         userModel = (UserModel) getIntent().getSerializableExtra("user");
         shopViewModel = new ShopViewModel();
         context = this;
-
-        sellerCommand = new SellerCommand(context, userModel, shopViewModel);
+        sellerGoodsListview = this;
+        sellerCommand = new SellerCommand(context, userModel, shopViewModel, sellerGoodsListview);
 
         sellerCommand.getShopModel();
 
@@ -67,7 +68,7 @@ public class SellerGoodsList extends AppCompatActivity {
         else {
             // 있으면 getAdapter
             adapter = (GoodsListAdapter) recyclerView.getAdapter();
-
+            adapter.setItem(shopViewModel.goods);
         }
     }
 }

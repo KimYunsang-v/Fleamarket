@@ -35,7 +35,7 @@ public class GoodsListAdapter extends RecyclerView.Adapter<GoodsViewHolder>{
         holder.bind(goods);
     }
 
-    void setItem(ObservableArrayList<GoodsViewModel> goodsList) {
+    public void setItem(ObservableArrayList<GoodsViewModel> goodsList) {
         if (goodsList == null) {
             return;
         }

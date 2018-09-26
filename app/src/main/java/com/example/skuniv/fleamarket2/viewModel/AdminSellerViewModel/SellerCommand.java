@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
+import com.example.skuniv.fleamarket2.view.sellerView.SellerGoodsList;
 import com.example.skuniv.fleamarket2.view.sellerView.SellerGoodsUpdateDialog;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 import com.google.gson.Gson;
@@ -19,12 +20,14 @@ public class SellerCommand {
     UserModel userModel;
     ShopViewModel shopViewModel;
     ShopModel shopModel;
+    SellerGoodsList sellerGoodsListView;
     Gson gson = new Gson();
 
-    public SellerCommand(Context context, UserModel userModel, ShopViewModel shopViewModel) {
+    public SellerCommand(Context context, UserModel userModel, ShopViewModel shopViewModel, SellerGoodsList sellerGoodsListView) {
         this.context = context;
         this.userModel = userModel;
         this.shopViewModel = shopViewModel;
+        this.sellerGoodsListView = sellerGoodsListView;
     }
 
     public void getShopModel() {

@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.ApplyListItemBinding;
 import com.example.skuniv.fleamarket2.view.adminView.ApplyDialog;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.AdminCommand;
@@ -51,6 +53,13 @@ public class ApplyListAdapter extends RecyclerView.Adapter<ApplyViewHolder> {
                 applyDialog.show();
             }
         });
+        if(apply.role.get() == 1){
+            holder.binding.getRoot().setBackgroundColor(context.getResources().getColor(R.color.red));
+        } else if (apply.role.get() == 2){
+            holder.binding.getRoot().setBackgroundColor(context.getResources().getColor(R.color.green));
+        }else if (apply.role.get() == 3){
+            holder.binding.getRoot().setBackgroundColor(context.getResources().getColor(R.color.yellow));
+        }
         holder.bind(apply);
     }
     @Override
