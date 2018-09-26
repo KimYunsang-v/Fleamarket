@@ -1,11 +1,19 @@
 package com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.model.jsonModel.ResponseJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SellerApplyJson;
+import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
 import com.example.skuniv.fleamarket2.view.sellerView.SellerGoodsList;
@@ -13,11 +21,16 @@ import com.example.skuniv.fleamarket2.view.sellerView.SellerGoodsUpdateDialog;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 import com.google.gson.Gson;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SellerCommand {
+import static android.app.Activity.RESULT_OK;
+
+public class SellerCommand extends SellerGoodsList {
     Context context;
     UserModel userModel;
     ShopViewModel shopViewModel;
@@ -56,8 +69,32 @@ public class SellerCommand {
         });
     }
 
-   public void addGoods(){
+   public void addGoods(Goods goods){
+       if(goods != null) {
+           Call<ResponseJson> res = NetRetrofit.getInstance().getService().sellerinsertGoodsRepos(goods);
+           Log.i("getShopList", "" + res);
+           res.enqueue(new Callback<ResponseJson>() {
+               @Override
+               public void onResponse(Call<ResponseJson> call, Response<ResponseJson> response) {
+                   Log.i("Retrofit", response.toString());
+                   if (response.body() != null) {
+                       ResponseJson responseJson = response.body();
+                       Log.i("getShopList", "" + gson.toJson(response.body()));
+                       if(responseJson.getResponse().equals("success")) {
+                           Log.i("sellerApply result", "success");
+                       }
+                       else{
+                           Log.i("sellerApply result", "fail");
+                       }
+                   }
+               }
 
+               @Override
+               public void onFailure(Call<ResponseJson> call, Throwable t) {
+                   Log.e("에러", t.getMessage());
+               }
+           });
+       }
    }
 
    public void sellerApply(SellerApplyJson sellerApplyJson){
@@ -79,7 +116,6 @@ public class SellerCommand {
                         }
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ResponseJson> call, Throwable t) {
                     Log.e("에러", t.getMessage());
@@ -87,5 +123,10 @@ public class SellerCommand {
             });
         }
    }
+
+
+
+
+
 }
 

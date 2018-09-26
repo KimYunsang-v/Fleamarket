@@ -34,7 +34,7 @@
         <activity android:name=".view.categoryView.CategoryListActivity" />
         <activity android:name=".view.adminView.CurrentApplyView" />
         <activity android:name=".view.sellerView.SellerGoodsList" />
-        <activity android:name=".view.sellerView.SellerGoodsUpdateDialog"></activity>
+        <activity android:name=".view.sellerView.SellerGoodsUpdateDialog"/>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import com.example.skuniv.fleamarket2.model.jsonModel.ResponseJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SellerApplyJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignInJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignUpJson;
+import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.model.noticeModel.NoticeData;
@@ -47,7 +48,7 @@ public interface RetrofitService {
     Call<ResponseJson> applySendOneRepos(@Body ApplyOneJson applyOneJson);
 
     @POST("seller/insert/goods")
-    Call<ResponseJson> sellerinsertGoodsRepos(@Body GoodsInsertJson goodsInsertJson);
+    Call<ResponseJson> sellerinsertGoodsRepos(@Body Goods goods);
 
     @POST("seller/apply")
     Call<ResponseJson> sellerApplyRepos(@Body SellerApplyJson sellerApplyJson);

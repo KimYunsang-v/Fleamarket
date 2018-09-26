@@ -1,8 +1,14 @@
 package com.example.skuniv.fleamarket2.view.sellerView;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,13 +16,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.skuniv.fleamarket2.databinding.SellerGoodsUpdateDialogBinding;
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
+import com.example.skuniv.fleamarket2.model.Category;
 import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerCommand;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 public class SellerGoodsUpdateDialog extends Dialog {
     SellerGoodsUpdateDialogBinding sellerGoodsUpdateDialogBinding;
@@ -27,12 +44,19 @@ public class SellerGoodsUpdateDialog extends Dialog {
     ArrayAdapter mainSpinner, middleSpinner;
     String[] mainC = {"cloth", "digital", "fancy", "acc", "book", "etc"};
     String mainCategory, middleCategory;
+    SellerGoodsList sellerGoodsListView;
+    SellerCommand sellerCommand;
+    Category category;
 
-    public SellerGoodsUpdateDialog(@NonNull Context context, UserModel userModel, ShopViewModel shopViewModel) {
+
+    public SellerGoodsUpdateDialog(@NonNull Context context, UserModel userModel, ShopViewModel shopViewModel,
+                                   SellerGoodsList sellerGoodsListView, SellerCommand sellerCommand) {
         super(context);
         this.context = context;
         this.userModel = userModel;
         this.shopViewModel = shopViewModel;
+        this.sellerGoodsListView = sellerGoodsListView;
+        this.sellerCommand = sellerCommand;
     }
 
     @Override
@@ -41,6 +65,8 @@ public class SellerGoodsUpdateDialog extends Dialog {
         sellerGoodsUpdateDialogBinding = (SellerGoodsUpdateDialogBinding)
                 DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.seller_goods_update_dialog, null, false);
         setContentView(sellerGoodsUpdateDialogBinding.getRoot());
+
+        category = new Category();
 
         // 스피너 셋팅
         mainSpinner = new ArrayAdapter(
@@ -71,8 +97,20 @@ public class SellerGoodsUpdateDialog extends Dialog {
         sellerGoodsUpdateDialogBinding.confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                Goods goods = new Goods(sellerGoodsUpdateDialogBinding.nameText.getText().toString(), Integer.valueOf(sellerGoodsUpdateDialogBinding.priceText.getText().toString()),
+                        Integer.valueOf(sellerGoodsUpdateDialogBinding.quantityText.getText().toString()));
+                ArrayList<Integer> categoryList = new ArrayList<Integer>();
+                categoryList.add(category.getCategoryNum(mainCategory));
+                categoryList.add(category.getCategoryNum(middleCategory));
+                goods.setCategory(categoryList);
+                sellerCommand.addGoods(goods);
+            }
+        });
 
+        sellerGoodsUpdateDialogBinding.imageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sellerGoodsListView.getImage();
             }
         });
     }
@@ -82,7 +120,6 @@ public class SellerGoodsUpdateDialog extends Dialog {
                 context,android.R.layout.simple_spinner_item, getList(mainCategory));
         middleSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sellerGoodsUpdateDialogBinding.middleSpinnerId.setAdapter(middleSpinner);
-
     }
 
     private String[] getList(String mainCategory){
