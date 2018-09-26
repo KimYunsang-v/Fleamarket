@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
+import com.example.skuniv.fleamarket2.model.jsonModel.ResponseJson;
+import com.example.skuniv.fleamarket2.model.jsonModel.SellerApplyJson;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
 import com.example.skuniv.fleamarket2.view.sellerView.SellerGoodsList;
@@ -30,6 +32,10 @@ public class SellerCommand {
         this.sellerGoodsListView = sellerGoodsListView;
     }
 
+    public SellerCommand(){
+
+    }
+
     public void getShopModel() {
         Call<ShopModel> res = NetRetrofit.getInstance().getService().getSellerGoodsRepos(userModel.getShop());
         Log.i("getShopList", "" + res);
@@ -52,9 +58,34 @@ public class SellerCommand {
 
    public void addGoods(){
 
+   }
 
+   public void sellerApply(SellerApplyJson sellerApplyJson){
+        if(sellerApplyJson != null) {
+            Call<ResponseJson> res = NetRetrofit.getInstance().getService().sellerApplyRepos(sellerApplyJson);
+            Log.i("getShopList", "" + res);
+            res.enqueue(new Callback<ResponseJson>() {
+                @Override
+                public void onResponse(Call<ResponseJson> call, Response<ResponseJson> response) {
+                    Log.i("Retrofit", response.toString());
+                    if (response.body() != null) {
+                        ResponseJson responseJson = response.body();
+                        Log.i("getShopList", "" + gson.toJson(response.body()));
+                        if(responseJson.getResponse().equals("success")) {
+                            Log.i("sellerApply result", "success");
+                        }
+                        else{
+                            Log.i("sellerApply result", "fail");
+                        }
+                    }
+                }
 
-
+                @Override
+                public void onFailure(Call<ResponseJson> call, Throwable t) {
+                    Log.e("에러", t.getMessage());
+                }
+            });
+        }
    }
 }
 

@@ -6,14 +6,19 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.SellerApplyBinding;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
+import com.example.skuniv.fleamarket2.model.jsonModel.SellerApplyJson;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerCommand;
 
 public class SellerApplyDialog extends Dialog{
     UserModel userModel;
     SellerApplyBinding sellerApplyBinding;
+    SellerCommand sellerCommand;
+    SellerApplyDialog sellerApplyDialog;
     public SellerApplyDialog(@NonNull Context context, UserModel userModel) {
         super(context);
         this.userModel = userModel;
@@ -29,7 +34,18 @@ public class SellerApplyDialog extends Dialog{
 
         sellerApplyBinding.idId.setText(userModel.getId());
         sellerApplyBinding.nameId.setText(userModel.getName());
+        sellerCommand = new SellerCommand();
+        sellerApplyDialog = this;
 
-
+        sellerApplyBinding.applyId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(sellerApplyBinding.titleId.getText().toString() != null && sellerApplyBinding.contentId.getText().toString() != null){
+                    SellerApplyJson sellerApplyJson = new SellerApplyJson(userModel.getId(),userModel.getName(),sellerApplyBinding.titleId.getText().toString(),sellerApplyBinding.contentId.getText().toString());
+                    sellerCommand.sellerApply(sellerApplyJson);
+                    sellerApplyDialog.cancel();
+                }
+            }
+        });
     }
 }

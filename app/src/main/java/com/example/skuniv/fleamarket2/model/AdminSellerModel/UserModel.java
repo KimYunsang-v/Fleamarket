@@ -23,6 +23,7 @@ public class UserModel implements Serializable{
     String response;
 
     public UserModel() {
+
     }
 
     public String getPw() {

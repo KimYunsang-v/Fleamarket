@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         }else if(drawerItem == goodsListItem){  // 상품 조회
                             mainCommand.moveGoodsList();
                         }else if(drawerItem == applyItem){  // 신청서 작성
-
+                            mainCommand.sellerApply();
                         }else if(drawerItem == signout){  // 로그아웃
                             mainCommand.signOut();
                         }

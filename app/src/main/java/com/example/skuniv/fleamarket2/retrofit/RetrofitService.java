@@ -5,7 +5,9 @@ import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.model.categoryModel.CategoryData;
 import com.example.skuniv.fleamarket2.model.jsonModel.ApplyOneJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.FindIdJson;
+import com.example.skuniv.fleamarket2.model.jsonModel.GoodsInsertJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.ResponseJson;
+import com.example.skuniv.fleamarket2.model.jsonModel.SellerApplyJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignInJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignUpJson;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
@@ -43,6 +45,12 @@ public interface RetrofitService {
 
     @POST("apply/one")
     Call<ResponseJson> applySendOneRepos(@Body ApplyOneJson applyOneJson);
+
+    @POST("seller/insert/goods")
+    Call<ResponseJson> sellerinsertGoodsRepos(@Body GoodsInsertJson goodsInsertJson);
+
+    @POST("seller/apply")
+    Call<ResponseJson> sellerApplyRepos(@Body SellerApplyJson sellerApplyJson);
 
     @GET("apply/select/{list_num}")
     Call<ApplyData> getApplyRepos(@Path("list_num") int list_num);
