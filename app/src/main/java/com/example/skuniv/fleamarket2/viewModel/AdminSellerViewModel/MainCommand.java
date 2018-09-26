@@ -116,7 +116,7 @@ public class MainCommand {
         }
     }
 
-    public void signUp(SignUpJson signUpJson) {
+    public void signUp(final SignUpJson signUpJson) {
         Call<UserModel> res = NetRetrofit.getInstance().getService().getSignUpRepos(signUpJson);
         Log.i("signUp", "" + res);
         res.enqueue(new Callback<UserModel>() {
@@ -129,6 +129,8 @@ public class MainCommand {
                     if (userModel.getResponse().equals("success")) {
                         signUpDialog.cancel();
                         signInDialog.show();
+                        signInBinding.idText.setText(signUpJson.getId());
+                        signInBinding.pwText.setText(signUpJson.getPw());
                     } else {
                         Toast.makeText(signInBinding.getRoot().getContext(), "회원가입 실패", Toast.LENGTH_SHORT).show();
                     }

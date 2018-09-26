@@ -7,7 +7,9 @@
             name="applyList"
             type="com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.ApplyItemsViewModel"/>
 
-
+        <variable
+            name="meta"
+            type="com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.ApplyMetaViewModel"/>
     </data>
 <LinearLayout
     android:layout_width="match_parent"
@@ -60,13 +62,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pageRecyclerId"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent"
+        app:items="@{meta.pageList}"/>
 
     </LinearLayout>
 

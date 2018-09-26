@@ -12,9 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.adapter.ApplyListAdapter;
+import com.example.skuniv.fleamarket2.adapter.ApplyPageAdapter;
 import com.example.skuniv.fleamarket2.databinding.CurrentApplyBinding;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.ApplyListModel;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
@@ -23,17 +25,21 @@ import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.ApplyItemVi
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.ApplyItemsViewModel;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.ApplyMetaViewModel;
 
-public class CurrentApplyView extends AppCompatActivity implements ApplyListAdapter.OnLoadMoreListener{
+import java.util.ArrayList;
+
+public class CurrentApplyView extends AppCompatActivity{
 
     static CurrentApplyBinding currentApplyBinding;
     static AdminCommand adminCommand;
     static ApplyListAdapter applyListAdapter;
     static LinearLayoutManager listLlm;
+    static ApplyPageAdapter applyPageAdapter;
+    static LinearLayoutManager pageLlm;
     static Context context;
     static ApplyItemsViewModel applyItemsViewModel;
-    static ApplyListAdapter.OnLoadMoreListener onLoadMoreListener;
     static ApplyMetaViewModel applyMetaViewModel;
-    ApplyListModel applyListModel;
+    static ArrayList<Integer> pageList;
+    static ApplyListModel applyListModel;
     UserModel userModel;
 
     @Override
@@ -47,56 +53,67 @@ public class CurrentApplyView extends AppCompatActivity implements ApplyListAdap
         applyListModel = new ApplyListModel();
         applyItemsViewModel = new ApplyItemsViewModel();
         applyMetaViewModel = new ApplyMetaViewModel();
+        pageList = new ArrayList<>();
         adminCommand = new AdminCommand(context, userModel, applyListModel, applyItemsViewModel, applyMetaViewModel);
-        onLoadMoreListener = this;
 
         listLlm = new LinearLayoutManager(this);
         listLlm.setOrientation(LinearLayoutManager.VERTICAL);
         currentApplyBinding.ListRecyclerId.setLayoutManager(listLlm);
 
+        pageLlm = new LinearLayoutManager(this);
+        pageLlm.setOrientation(LinearLayoutManager.HORIZONTAL);
+        currentApplyBinding.pageRecyclerId.setLayoutManager(pageLlm);
+
         currentApplyBinding.setApplyList(applyItemsViewModel);
+        currentApplyBinding.setMeta(applyMetaViewModel);
 
-        adminCommand.jsonPaser(getJson(applyListModel.getPage()));
+        //adminCommand.jsonPaser(getJson(applyListModel.getPage()));
+        adminCommand.getApply();
 
-    }
-
-    @Override
-    public void onLoadMore() {
-        Log.d("NoticeActivity_", "onLoadMore");
-        new Handler().postDelayed(new Runnable() {
+        currentApplyBinding.randomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                ///////이부분에을 자신의 프로젝트에 맞게 설정하면 됨
-                //다음 페이지? 내용을 불러오는 부분
-                applyListModel.setPage(applyListModel.getPage()+1);
-                adminCommand.jsonPaser(getJson(applyListModel.getPage()));
-                //noticeCommand.jsonPaser(getJson(noticeListModel.getPage()));
-                applyListAdapter.setMoreLoading(false);
-                //////////////////////////////////////////////////
-                //mAdapter.setMoreLoading(false);
+            public void onClick(View view) {
+                adminCommand.sendRandom();
             }
-        }, 2000);
-        /*categoryModel.setPageNum(categoryModel.getPageNum()+1);
-        categoryCommand.jsonPaser(getJson(categoryModel.getPageNum()));
-        adapter.setMoreLoading(false);*/
+        });
+
+        currentApplyBinding.comfirstBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adminCommand.sendFirstCome();
+            }
+        });
     }
 
     @BindingAdapter("app:items")
-    public static void setNoticeList(RecyclerView recyclerView, ObservableArrayList<ApplyItemViewModel> applyList){
+    public static void setApplyList(RecyclerView recyclerView, ObservableArrayList<ApplyItemViewModel> applyList){
         //adapter 없을 때 adapter 생성
-        System.out.println("setShopList=============");
         if(recyclerView.getAdapter() == null){
-            System.out.println("new categoryListAdapter");
-            applyListAdapter = new ApplyListAdapter(applyItemsViewModel.applyList, context, adminCommand, onLoadMoreListener, applyMetaViewModel);
-            applyListAdapter.setLinearLayoutManager(listLlm);
+            applyListAdapter = new ApplyListAdapter(applyItemsViewModel.applyList, context, adminCommand,applyMetaViewModel);
             recyclerView.setAdapter(applyListAdapter);
-            applyListAdapter.setRecyclerView(currentApplyBinding.ListRecyclerId);
         }
         else {
             // 있으면 getAdapter
             applyListAdapter = (ApplyListAdapter) recyclerView.getAdapter();
             applyListAdapter.setApplyList(applyItemsViewModel.getApplyList());
             System.out.println("get adapter");
+        }
+        //adapter.addAll(shops);
+        //Log.i("adapter", shops.get(0).getGoods().get(0).getImage());
+    }
+
+    @BindingAdapter("app:items")
+    public static void setPageList(RecyclerView recyclerView, ObservableArrayList<Integer> pageList){
+        //adapter 없을 때 adapter 생성
+        if(recyclerView.getAdapter() == null){
+            applyPageAdapter = new ApplyPageAdapter(context, adminCommand, applyListModel,applyMetaViewModel);
+            recyclerView.setAdapter(applyPageAdapter);
+        }
+        else {
+            // 있으면 getAdapter
+            applyPageAdapter = (ApplyPageAdapter) recyclerView.getAdapter();
+            System.out.println("get adapter");
+            applyPageAdapter.setPageList(applyMetaViewModel.pageList);
         }
         //adapter.addAll(shops);
         //Log.i("adapter", shops.get(0).getGoods().get(0).getImage());

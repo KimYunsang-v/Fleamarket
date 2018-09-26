@@ -47,9 +47,11 @@ public class SellerCommand {
         });
     }
 
-    public void addGoodsDialog(){
+   public void addGoods(){
 
-        //SellerGoodsUpdateDialog sellerGoodsUpdateDialog = new SellerGoodsUpdateDialog();
-    }
+
+
+
+   }
 }
 

@@ -67,6 +67,7 @@ public class SellerGoodsList extends AppCompatActivity {
         else {
             // 있으면 getAdapter
             adapter = (GoodsListAdapter) recyclerView.getAdapter();
+
         }
     }
 }

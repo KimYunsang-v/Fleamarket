@@ -6,8 +6,13 @@ import android.util.Log;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.ApplyData;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.ApplyListModel;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
+import com.example.skuniv.fleamarket2.model.jsonModel.ApplyOneJson;
+import com.example.skuniv.fleamarket2.model.jsonModel.ResponseJson;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
+import com.example.skuniv.fleamarket2.view.adminView.ApplyDialog;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,6 +25,8 @@ public class AdminCommand {
     ApplyData applyData;
     ApplyItemsViewModel applyItemsViewModel;
     ApplyMetaViewModel applyMetaViewModel;
+    ApplyDialog applyDialog;
+
     Gson gson = new Gson();
     public AdminCommand(Context context, UserModel userModel, ApplyListModel applyListModel,
                         ApplyItemsViewModel applyItemsViewModel, ApplyMetaViewModel applyMetaViewModel) {
@@ -42,8 +49,11 @@ public class AdminCommand {
                         applyData = new ApplyData();
                         applyData = response.body();
                         Log.i("getApplyList",""+gson.toJson(applyData));
+                        applyItemsViewModel.applyList.clear();
                         applyItemsViewModel.setApplyList(applyData.getItems());
+                        applyMetaViewModel.pageList.clear();
                         applyMetaViewModel.count.set(applyData.getMeta().getCount());
+                        applyMetaViewModel.setPageList();
                         System.out.println(applyItemsViewModel);
                         System.out.println(applyItemsViewModel.getApplyList());
                     }
@@ -56,6 +66,109 @@ public class AdminCommand {
         } else {
             Log.e("getApplyList","getApplyList error");
         }
+    }
+
+    public void applySendOne(String id, int role){
+        final int tempRole = role;
+        ApplyOneJson applyOneJson = new ApplyOneJson(id, role);
+        if (applyOneJson != null) {
+            Call<ResponseJson> res = NetRetrofit.getInstance().getService().applySendOneRepos(applyOneJson);
+            Log.i("getApplyList",""+res);
+            res.enqueue(new Callback<ResponseJson>() {
+                @Override
+                public void onResponse(Call<ResponseJson> call, Response<ResponseJson> response) {
+                    Log.i("Retrofit", response.toString());
+                    if (response.body() != null) {
+                        ResponseJson responseJson = response.body();
+                        Log.i("applySendOne",""+gson.toJson(responseJson));
+                        if(responseJson.getResponse().equals("success")){
+                            applyDialog.applyItemViewModel.role.set(tempRole);
+                            if(applyDialog.applyItemViewModel.role.get() == 2){
+                                applyListModel.setPage(applyListModel.getApplyCount() - 1);
+                            }
+                        } else if (responseJson.getResponse().equals("fail")){
+                            Log.i("respose",responseJson.getResponse());
+                        }
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseJson> call, Throwable t) {
+                    Log.e("에러", t.getMessage());
+                }
+            });
+        } else {
+            Log.e("getApplyList","getApplyList error");
+        }
+    }
+
+    public void sendRandom(){
+        if (applyListModel.getPage() > 0) {
+            Call<ApplyData> res = NetRetrofit.getInstance().getService().randomApplyRepos(applyListModel.getApplyCount(),applyListModel.getPage());
+            Log.i("getApplyList",""+res);
+            res.enqueue(new Callback<ApplyData>() {
+                @Override
+                public void onResponse(Call<ApplyData> call, Response<ApplyData> response) {
+                    Log.i("Retrofit", response.toString());
+                    if (response.body() != null) {
+                        applyData = new ApplyData();
+                        applyData = response.body();
+                        Log.i("getApplyList",""+gson.toJson(applyData));
+                        applyItemsViewModel.applyList.clear();
+                        applyItemsViewModel.setApplyList(applyData.getItems());
+                        applyMetaViewModel.pageList.clear();
+                        applyMetaViewModel.count.set(applyData.getMeta().getCount());
+                        applyMetaViewModel.setPageList();
+                        System.out.println(applyItemsViewModel);
+                        System.out.println(applyItemsViewModel.getApplyList());
+                    }
+                }
+                @Override
+                public void onFailure(Call<ApplyData> call, Throwable t) {
+                    Log.e("에러", t.getMessage());
+                }
+            });
+        } else {
+            Log.e("getApplyList","getApplyList error");
+        }
+    }
+
+    public void sendFirstCome(){
+        if (applyListModel.getPage() > 0) {
+            Call<ApplyData> res = NetRetrofit.getInstance().getService().firstcomeApplyRepos(applyListModel.getApplyCount(),applyListModel.getPage());
+            Log.i("getApplyList",""+res);
+            res.enqueue(new Callback<ApplyData>() {
+                @Override
+                public void onResponse(Call<ApplyData> call, Response<ApplyData> response) {
+                    Log.i("Retrofit", response.toString());
+                    if (response.body() != null) {
+                        applyData = new ApplyData();
+                        applyData = response.body();
+                        Log.i("getApplyList",""+gson.toJson(applyData));
+                        applyItemsViewModel.applyList.clear();
+                        applyItemsViewModel.setApplyList(applyData.getItems());
+                        applyMetaViewModel.pageList.clear();
+                        applyMetaViewModel.count.set(applyData.getMeta().getCount());
+                        applyMetaViewModel.setPageList();
+                        System.out.println(applyItemsViewModel);
+                        System.out.println(applyItemsViewModel.getApplyList());
+                    }
+                }
+                @Override
+                public void onFailure(Call<ApplyData> call, Throwable t) {
+                    Log.e("에러", t.getMessage());
+                }
+            });
+        } else {
+            Log.e("getApplyList","getApplyList error");
+        }
+    }
+
+
+
+
+
+    public void setApplyDialog(ApplyDialog applyDialog) {
+        this.applyDialog = applyDialog;
     }
 
     public void jsonPaser(String jsonObject){

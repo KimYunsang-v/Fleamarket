@@ -4,17 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class ApplyModel {
     @SerializedName("id")
-    String id;
+    String id="";
     @SerializedName("name")
-    String name;
+    String name="";
     @SerializedName("title")
-    String title;
+    String title="";
     @SerializedName("contents")
-    String contents;
+    String contents="";
     @SerializedName("role")
-    int role;
+    int role=-1;
     @SerializedName("date")
-    String date;
+    String date="";
+
 
     public String getId() {
         return id;

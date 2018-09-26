@@ -42,8 +42,6 @@ public class SellerGoodsUpdateDialog extends Dialog {
                 DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.seller_goods_update_dialog, null, false);
         setContentView(sellerGoodsUpdateDialogBinding.getRoot());
 
-
-
         // 스피너 셋팅
         mainSpinner = new ArrayAdapter(
                 context,android.R.layout.simple_spinner_item, mainC);
@@ -72,7 +70,10 @@ public class SellerGoodsUpdateDialog extends Dialog {
 
         sellerGoodsUpdateDialogBinding.confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {   }
+            public void onClick(View view) {
+                
+
+            }
         });
     }
 

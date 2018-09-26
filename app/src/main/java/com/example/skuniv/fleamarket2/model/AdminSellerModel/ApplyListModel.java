@@ -5,6 +5,15 @@ import java.util.List;
 public class ApplyListModel {
     List<ApplyModel> applyList;
     int applyCount = 200;
+
+    public int getApplyCount() {
+        return applyCount;
+    }
+
+    public void setApplyCount(int applyCount) {
+        this.applyCount = applyCount;
+    }
+
     int page = 1;
 
     public List<ApplyModel> getApplyList() {
