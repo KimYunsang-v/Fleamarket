@@ -1,6 +1,7 @@
-package com.example.skuniv.fleamarket2.viewModel.sellerViewModel;
+package com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
@@ -8,9 +9,10 @@ import android.widget.Toast;
 import com.example.skuniv.fleamarket2.databinding.SignInBinding;
 import com.example.skuniv.fleamarket2.databinding.SignUpBinding;
 import com.example.skuniv.fleamarket2.databinding.FindIdBinding;
-import com.example.skuniv.fleamarket2.model.SellerModel;
+import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
 import com.example.skuniv.fleamarket2.view.MainActivity;
+import com.example.skuniv.fleamarket2.view.adminView.CurrentApplyView;
 import com.example.skuniv.fleamarket2.view.sellerView.FindIdDialog;
 import com.example.skuniv.fleamarket2.view.sellerView.SignInDialog;
 import com.example.skuniv.fleamarket2.view.sellerView.SignUpDialog;
@@ -24,7 +26,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class MainCommand {
 
-    SellerModel sellerModel;
+    UserModel userModel;
     SignInBinding signInBinding;
     SignUpBinding signUpBinding;
     FindIdBinding findIdBinding;
@@ -41,9 +43,9 @@ public class MainCommand {
 
 
 
-    public MainCommand(Context context, SellerModel sellerModel, MainActivity mainActivity) {
+    public MainCommand(Context context, UserModel userModel, MainActivity mainActivity) {
         this.context = context;
-        this.sellerModel = sellerModel;
+        this.userModel = userModel;
         this.mainActivity = mainActivity;
     }
 
@@ -74,21 +76,21 @@ public class MainCommand {
 
     public void signIn(String id, String pw) {
         if (!id.equals("") && !pw.equals("")) {
-            Call<SellerModel> res = NetRetrofit.getInstance().getService().getSignInRepos(id, pw);
+            Call<UserModel> res = NetRetrofit.getInstance().getService().getSignInRepos(id, pw);
             Log.i("signIn", "" + res);
-            res.enqueue(new Callback<SellerModel>() {
+            res.enqueue(new Callback<UserModel>() {
                 @Override
-                public void onResponse(Call<SellerModel> call, Response<SellerModel> response) {
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                     Log.i("Retrofit", response.toString());
                     if (response.body() != null) {
-                        sellerModel = response.body();
-                        Log.i("sign in", "" + gson.toJson(sellerModel));
-                        if (sellerModel.getResponse().equals("success")) {
+                        userModel = response.body();
+                        Log.i("sign in", "" + gson.toJson(userModel));
+                        if (userModel.getResponse().equals("success")) {
                             loginSetting = context.getSharedPreferences("loginSetting", MODE_PRIVATE);
                             editor = loginSetting.edit();
-                            editor.putString("id",sellerModel.getId());
-                            editor.putString("shop",sellerModel.getShop());
-                            editor.putInt("role",sellerModel.getRole());
+                            editor.putString("id",userModel.getId());
+                            editor.putString("shop",userModel.getShop());
+                            editor.putInt("role",userModel.getRole());
                             editor.commit();
 
                             signInDialog.dismiss();
@@ -101,7 +103,7 @@ public class MainCommand {
                 }
 
                 @Override
-                public void onFailure(Call<SellerModel> call, Throwable t) {
+                public void onFailure(Call<UserModel> call, Throwable t) {
                     Log.e("에러", t.getMessage());
                 }
             });
@@ -137,24 +139,24 @@ public class MainCommand {
     }
 
     public void findId(String name, String email){
-        Call<SellerModel> res = NetRetrofit.getInstance().getService().findIdRepos(name, email);
+        Call<UserModel> res = NetRetrofit.getInstance().getService().findIdRepos(name, email);
         Log.i("find Id", "" + res);
-        res.enqueue(new Callback<SellerModel>() {
+        res.enqueue(new Callback<UserModel>() {
             @Override
-            public void onResponse(Call<SellerModel> call, Response<SellerModel> response) {
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 Log.i("Retrofit", response.toString());
                 if (response.body() != null) {
-                    sellerModel = response.body();
-                    Log.i("find id", "" + gson.toJson(sellerModel));
-                    if (sellerModel.getResponse().equals("success")) {
-                        findIdBinding.findText.setText("아이디는 " + sellerModel.getId() + " 입니다.");
+                    userModel = response.body();
+                    Log.i("find id", "" + gson.toJson(userModel));
+                    if (userModel.getResponse().equals("success")) {
+                        findIdBinding.findText.setText("아이디는 " + userModel.getId() + " 입니다.");
                     } else {
                         findIdBinding.findText.setText("아이디 찾기 실패");
                     }
                 }
             }
             @Override
-            public void onFailure(Call<SellerModel> call, Throwable t) {
+            public void onFailure(Call<UserModel> call, Throwable t) {
                 Log.e("에러", t.getMessage());
             }
         });
@@ -162,9 +164,9 @@ public class MainCommand {
 
     public void autoLogin(){
         loginSetting = context.getSharedPreferences("loginSetting", MODE_PRIVATE);
-        sellerModel.setId(loginSetting.getString("id",""));
-        sellerModel.setShop(loginSetting.getString("shop",""));
-        sellerModel.setRole(loginSetting.getInt("role",-1));
+        userModel.setId(loginSetting.getString("id",""));
+        userModel.setShop(loginSetting.getString("shop",""));
+        userModel.setRole(loginSetting.getInt("role",-1));
 
         singInSuccess();
     }
@@ -183,17 +185,24 @@ public class MainCommand {
         Toast.makeText(mainActivity,"로그아웃", Toast.LENGTH_SHORT).show();
     }
 
+    public void moveCurrentApply(){
+        Intent intent = new Intent(mainActivity, CurrentApplyView.class);
+        intent.putExtra("userModel", userModel);
+        mainActivity.startActivity(intent);
+        mainActivity.result.closeDrawer();
+    }
+
     public void signInTest(){
-        sellerModel.setId("test");
-        sellerModel.setShop("a01");
-        sellerModel.setRole(2);
-        sellerModel.setResponse("success");
+        userModel.setId("test");
+        userModel.setShop("a01");
+        userModel.setRole(0);
+        userModel.setResponse("success");
 
         loginSetting = context.getSharedPreferences("loginSetting", MODE_PRIVATE);
         editor = loginSetting.edit();
-        editor.putString("id",sellerModel.getId());
-        editor.putString("shop",sellerModel.getShop());
-        editor.putInt("role",sellerModel.getRole());
+        editor.putString("id",userModel.getId());
+        editor.putString("shop",userModel.getShop());
+        editor.putInt("role",userModel.getRole());
         editor.commit();
 
         signInDialog.dismiss();
@@ -207,10 +216,10 @@ public class MainCommand {
     }
 
     public void findIdTest(){
-        sellerModel.setResponse("success");
-        sellerModel.setId("kim");
-        if (sellerModel.getResponse().equals("success")) {
-            findIdBinding.findText.setText("아이디는 " + sellerModel.getId() + " 입니다.");
+        userModel.setResponse("success");
+        userModel.setId("kim");
+        if (userModel.getResponse().equals("success")) {
+            findIdBinding.findText.setText("아이디는 " + userModel.getId() + " 입니다.");
         } else {
             findIdBinding.findText.setText("아이디 찾기 실패");
         }
@@ -218,19 +227,19 @@ public class MainCommand {
 
     public void singInSuccess() {
         mainActivity.result.removeAllItems();
-        if (sellerModel.getRole() == 0) { // 관리자 로그인
+        if (userModel.getRole() == 0) { // 관리자 로그인
             mainActivity.result.addItem(mainActivity.currentApplyItem);
             Toast.makeText(mainActivity,"관리자 로그인", Toast.LENGTH_SHORT).show();
         }
-        else if (sellerModel.getRole() == 1) { // 신청서 작성 안한 판매자
+        else if (userModel.getRole() == 1) { // 신청서 작성 안한 판매자
             mainActivity.result.addItem(mainActivity.applyItem);
             Toast.makeText(mainActivity,"판매자 로그인", Toast.LENGTH_SHORT).show();
         }
-        else if (sellerModel.getRole() == 2) { // 승인된 판매자
+        else if (userModel.getRole() == 2) { // 승인된 판매자
             mainActivity.result.addItem(mainActivity.goodsSearchItem);
             Toast.makeText(mainActivity,"판매자 로그인", Toast.LENGTH_SHORT).show();
         }
-        else if (sellerModel.getRole() == 3) { // 승인 안된 판매자
+        else if (userModel.getRole() == 3) { // 승인 안된 판매자
             Toast.makeText(mainActivity,"판매자 로그인", Toast.LENGTH_SHORT).show();
         }
         mainActivity.result.addItem(mainActivity.signout);

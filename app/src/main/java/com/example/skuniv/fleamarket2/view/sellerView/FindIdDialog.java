@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.FindIdBinding;
-import com.example.skuniv.fleamarket2.viewModel.sellerViewModel.MainCommand;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.MainCommand;
 
 public class FindIdDialog extends Dialog {
     MainCommand mainCommand;

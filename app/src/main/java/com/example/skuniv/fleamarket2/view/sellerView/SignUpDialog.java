@@ -8,11 +8,10 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.SignUpBinding;
-import com.example.skuniv.fleamarket2.viewModel.sellerViewModel.MainCommand;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.MainCommand;
 
 public class SignUpDialog extends Dialog {
     Context context;

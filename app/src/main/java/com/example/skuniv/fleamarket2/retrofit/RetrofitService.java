@@ -1,23 +1,16 @@
 package com.example.skuniv.fleamarket2.retrofit;
 
-import com.example.skuniv.fleamarket2.model.SellerModel;
+import com.example.skuniv.fleamarket2.model.AdminSellerModel.ApplyData;
+import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.model.categoryModel.CategoryData;
-import com.example.skuniv.fleamarket2.model.categoryModel.CategoryShopModel;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
-import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.model.noticeModel.NoticeData;
-import com.example.skuniv.fleamarket2.model.noticeModel.NoticeModel;
 
-import java.util.List;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Streaming;
-import retrofit2.http.Url;
 
 public interface RetrofitService {
     @GET("location/section/{section}/{sectionNum}")
@@ -33,11 +26,20 @@ public interface RetrofitService {
     Call<NoticeData> getNoticeSearchRepos(@Path("type") String type,@Path("keyword") String keyword, @Path("page") int page);
 
     @POST("user/signin")
-    Call<SellerModel> getSignInRepos(@Field("id") String id, @Field("pw") String pw);
+    Call<UserModel> getSignInRepos(@Field("id") String id, @Field("pw") String pw);
 
     @POST("user/signup")
     Call<String> getSignUnRepos(@Field("id") String id, @Field("pw") String pw, @Field("name") String name, @Field("sex") String sex, @Field("email") String email);
 
     @POST("user/findid")
-    Call<SellerModel> findIdRepos(@Field("name") String name, @Field("email") String email);
+    Call<UserModel> findIdRepos(@Field("name") String name, @Field("email") String email);
+
+    @GET("apply/select/{list_num}")
+    Call<ApplyData> getApplyRepos(@Field("list_num") int list_num);
+
+    @GET("apply/random/{apply_count}/{list_num}")
+    Call<ApplyData> randomApplyRepos(@Field("apply_count") int applyCount, @Field("list_num") int list_num);
+
+    @GET("apply/firstcome/{apply_count}/{list_num}")
+    Call<ApplyData> firstcomeApplyRepos(@Field("apply_count") int applyCount, @Field("list_num") int list_num);
 }

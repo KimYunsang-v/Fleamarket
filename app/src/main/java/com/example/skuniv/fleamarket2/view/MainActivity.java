@@ -1,7 +1,6 @@
 package com.example.skuniv.fleamarket2.view;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,24 +13,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.skuniv.fleamarket2.R;
-import com.example.skuniv.fleamarket2.model.SellerModel;
+import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.view.categoryView.CategoryActivity;
 import com.example.skuniv.fleamarket2.databinding.ActivityMainBinding;
 import com.example.skuniv.fleamarket2.view.locationView.LocationActivity;
 import com.example.skuniv.fleamarket2.view.noticeView.NoticeActivity;
 import com.example.skuniv.fleamarket2.view.sellerView.SignInDialog;
-import com.example.skuniv.fleamarket2.viewModel.sellerViewModel.MainCommand;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.MainCommand;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     private final int MY_PERMISSIONS_REQUEST = 100;
-    SellerModel sellerModel;
+    UserModel userModel;
     Context context;
     public Drawer result;
     MainCommand mainCommand;
@@ -48,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context = this;
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
-        sellerModel = new SellerModel();
-        mainCommand = new MainCommand(context, sellerModel,this);
+        userModel = new UserModel();
+        mainCommand = new MainCommand(context, userModel,this);
 
         loginSetting = context.getSharedPreferences("loginSetting", MODE_PRIVATE);
 
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                             SignInDialog signInDialog = new SignInDialog(context, mainCommand);
                             signInDialog.show();
                         } else if(drawerItem == currentApplyItem){ // 현재 신청한 판매자 목록
-
+                            mainCommand.moveCurrentApply();
                         }else if(drawerItem == goodsSearchItem){  // 상품 조회
 
                         }else if(drawerItem == applyItem){  // 신청서 작성
@@ -76,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
                         }else if(drawerItem == signout){  // 로그아웃
                             mainCommand.signOut();
                         }
-
                         return true;
                     }
                 })

@@ -106,7 +106,6 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
                 else{
                     Toast.makeText(NoticeActivity.this, "키워드를 입력하세요", Toast.LENGTH_SHORT).show();
                     noticeCommand.getNoticeList();
-
                 }
             }
         });

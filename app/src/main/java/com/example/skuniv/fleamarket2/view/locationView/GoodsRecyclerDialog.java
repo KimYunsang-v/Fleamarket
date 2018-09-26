@@ -69,5 +69,4 @@ public class GoodsRecyclerDialog extends Dialog{
             adapter = (GoodsListAdapter) recyclerView.getAdapter();
         }
     }
-
 }

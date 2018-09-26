@@ -10,13 +10,13 @@ import android.view.View;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.SignInBinding;
-import com.example.skuniv.fleamarket2.model.SellerModel;
-import com.example.skuniv.fleamarket2.viewModel.sellerViewModel.MainCommand;
+import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.MainCommand;
 
 public class SignInDialog extends Dialog{
     SignInBinding signInBinding;
     Context context;
-    SellerModel sellerModel;
+    UserModel sellerModel;
     MainCommand mainCommand;
     SignInDialog signInDialog;
 
