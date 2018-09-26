@@ -29,12 +29,6 @@
         android:text="map"
         android:onClick="@{() -> command.mapClickListener(shop)}"/>
 
-    <Button
-        android:id="@+id/infoId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="info"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

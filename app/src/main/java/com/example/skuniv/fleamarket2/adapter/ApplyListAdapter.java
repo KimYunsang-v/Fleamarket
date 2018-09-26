@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.skuniv.fleamarket2.databinding.ApplyItemBinding;
@@ -100,6 +101,12 @@ public class ApplyListAdapter extends RecyclerView.Adapter<ApplyViewHolder> {
     @Override
     public void onBindViewHolder(ApplyViewHolder holder, int position) {
         ApplyItemViewModel apply = applyList.get(position);
+        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         holder.bind(apply);
     }
 

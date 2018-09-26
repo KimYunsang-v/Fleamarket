@@ -27,15 +27,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@{categoryModel.mainCategoryStr}"/>
+                android:text="@{categoryModel.categoryStr}"/>
 
             <Spinner
                 android:id="@+id/spinnerId"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
-
-
             </Spinner>
 
         </LinearLayout>

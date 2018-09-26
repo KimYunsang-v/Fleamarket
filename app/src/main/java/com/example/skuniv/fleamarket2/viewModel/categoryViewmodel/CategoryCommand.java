@@ -48,8 +48,8 @@ public class CategoryCommand {
     }
 
     public void getGoodsList(){
-        if (categoryModel.getMainCategory() >= 0 && categoryModel.getMiddleCategory() >= 0 && categoryModel.getPageNum() >= 0) {
-            Call<CategoryData> res = NetRetrofit.getInstance().getService().getGoodsRepos(categoryModel.getMiddleCategory(),categoryModel.getPageNum());
+        if (categoryModel.categoryList.size() >= 1 && categoryModel.getPageNum() >= 0) {
+            Call<CategoryData> res = NetRetrofit.getInstance().getService().getGoodsRepos(categoryModel.categoryLastValue(),categoryModel.getPageNum());
             Log.i("getGoodsList",""+res);
             res.enqueue(new Callback<CategoryData>() {
                 @Override

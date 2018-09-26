@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.skuniv.fleamarket2.databinding.GoodsItemBinding;
+import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
 
 public class GoodsListAdapter extends RecyclerView.Adapter<GoodsViewHolder>{
@@ -59,8 +60,8 @@ class GoodsViewHolder extends RecyclerView.ViewHolder{
     }
 
     void bind(GoodsViewModel goods) {
-        Log.i("bind","======="+goods.getImage().get());
-        Glide.with(context).load(goods.getImage().get()).override(300,300).into(binding.imageId);
+        Log.i("bind","======="+goods.image.get());
+        Glide.with(context).load(goods.image.get()).override(300,300).into(binding.imageId);
         binding.setGoods(goods);
         //binding.setVariable(BR.goods, goods);
     }

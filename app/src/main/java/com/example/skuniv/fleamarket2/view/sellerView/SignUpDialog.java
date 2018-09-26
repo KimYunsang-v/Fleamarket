@@ -8,16 +8,18 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.SignUpBinding;
+import com.example.skuniv.fleamarket2.model.jsonModel.SignUpJson;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.MainCommand;
 
 public class SignUpDialog extends Dialog {
     Context context;
     SignUpBinding signUpBinding;
     MainCommand mainCommand;
-    String sex;
+    String sex="";
 
 
     public SignUpDialog(@NonNull Context context, MainCommand mainCommand) {
@@ -34,7 +36,7 @@ public class SignUpDialog extends Dialog {
         setContentView(signUpBinding.getRoot());
         mainCommand.setSignUpDialog(this);
 
-        signUpBinding.sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        signUpBinding.sexRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 if(i == R.id.male){
@@ -49,7 +51,7 @@ public class SignUpDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 // 연동 시
-                /*if(signUpBinding.idText.getText().toString().equals("")){
+                if(signUpBinding.idText.getText().toString().equals("")){
                     Toast.makeText(context,"아이디를 입력하세요",Toast.LENGTH_SHORT).show();
                 } else if(signUpBinding.pwText.getText().toString().equals("")){
                     Toast.makeText(context,"비밀번호를 입력하세요",Toast.LENGTH_SHORT).show();
@@ -58,13 +60,15 @@ public class SignUpDialog extends Dialog {
                 } else if(signUpBinding.emailText.getText().toString().equals("")){
                     Toast.makeText(context,"이메일을 입력하세요",Toast.LENGTH_SHORT).show();
                 } else{
-                    //signCommand.signUp(signUpBinding.idText.getText().toString(),signUpBinding.pwText.getText().toString(),
-                            //sex,signUpBinding.nameText.getText().toString(), signUpBinding.emailText.getText().toString());
+                    SignUpJson signUpJson = new SignUpJson(signUpBinding.idText.getText().toString(),signUpBinding.pwText.getText().toString(),
+                            signUpBinding.nameText.getText().toString(),sex,signUpBinding.emailText.getText().toString());
+                    mainCommand.signUp(signUpJson);
+                    //sex,signUpBinding.nameText.getText().toString(), signUpBinding.emailText.getText().toString());
                     System.out.println("아이디 : " + signUpBinding.idText.getText().toString() + "  비밀번호 : " + signUpBinding.pwText.getText().toString() +
                             "  성별 : " + sex + "  이름 : " + signUpBinding.nameText.getText().toString() + "  이메일 : " + signUpBinding.emailText.getText().toString());
-                }*/
+                }
                 // test
-                mainCommand.signUptest();
+                //mainCommand.signUptest();
             }
         });
     }

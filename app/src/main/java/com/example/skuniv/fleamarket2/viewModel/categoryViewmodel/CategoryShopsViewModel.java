@@ -13,9 +13,8 @@ public class CategoryShopsViewModel {
         for(int i =0; i<shopList.size() ;i++){
             shops.add(new CategoryShopViewModel(shopList.get(i)));
         }
-        System.out.println("===================="+shops.get(1));
+        //System.out.println("===================="+shops.get(0));
     }
-
     public ObservableArrayList<CategoryShopViewModel> getShops() {
         return shops;
     }

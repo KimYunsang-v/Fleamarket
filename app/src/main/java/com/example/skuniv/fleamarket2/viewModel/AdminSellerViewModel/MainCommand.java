@@ -10,10 +10,14 @@ import com.example.skuniv.fleamarket2.databinding.SignInBinding;
 import com.example.skuniv.fleamarket2.databinding.SignUpBinding;
 import com.example.skuniv.fleamarket2.databinding.FindIdBinding;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
+import com.example.skuniv.fleamarket2.model.jsonModel.FindIdJson;
+import com.example.skuniv.fleamarket2.model.jsonModel.SignInJson;
+import com.example.skuniv.fleamarket2.model.jsonModel.SignUpJson;
 import com.example.skuniv.fleamarket2.retrofit.NetRetrofit;
 import com.example.skuniv.fleamarket2.view.MainActivity;
 import com.example.skuniv.fleamarket2.view.adminView.CurrentApplyView;
 import com.example.skuniv.fleamarket2.view.sellerView.FindIdDialog;
+import com.example.skuniv.fleamarket2.view.sellerView.SellerGoodsList;
 import com.example.skuniv.fleamarket2.view.sellerView.SignInDialog;
 import com.example.skuniv.fleamarket2.view.sellerView.SignUpDialog;
 import com.google.gson.Gson;
@@ -74,9 +78,9 @@ public class MainCommand {
     }
 
 
-    public void signIn(String id, String pw) {
-        if (!id.equals("") && !pw.equals("")) {
-            Call<UserModel> res = NetRetrofit.getInstance().getService().getSignInRepos(id, pw);
+    public void signIn(SignInJson signInJson) {
+        if (signInJson != null) {
+            Call<UserModel> res = NetRetrofit.getInstance().getService().getSignInRepos(signInJson);
             Log.i("signIn", "" + res);
             res.enqueue(new Callback<UserModel>() {
                 @Override
@@ -93,7 +97,7 @@ public class MainCommand {
                             editor.putInt("role",userModel.getRole());
                             editor.commit();
 
-                            signInDialog.dismiss();
+                            signInDialog.cancel();
                             mainActivity.result.closeDrawer();
                             singInSuccess();
                         } else {
@@ -112,18 +116,18 @@ public class MainCommand {
         }
     }
 
-    public void signUp(String id, String pw, String name, String sex, String email) {
-        Call<String> res = NetRetrofit.getInstance().getService().getSignUnRepos(id, pw, name, sex, email);
+    public void signUp(SignUpJson signUpJson) {
+        Call<UserModel> res = NetRetrofit.getInstance().getService().getSignUpRepos(signUpJson);
         Log.i("signUp", "" + res);
-        res.enqueue(new Callback<String>() {
+        res.enqueue(new Callback<UserModel>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 Log.i("Retrofit", response.toString());
                 if (response.body() != null) {
-                    String result = response.body();
-                    Log.i("sign up", "" + gson.toJson(result));
-                    if (result.equals("success")) {
-                        signUpDialog.dismiss();
+                    userModel = response.body();
+                    Log.i("sign up", "" + gson.toJson(userModel));
+                    if (userModel.getResponse().equals("success")) {
+                        signUpDialog.cancel();
                         signInDialog.show();
                     } else {
                         Toast.makeText(signInBinding.getRoot().getContext(), "회원가입 실패", Toast.LENGTH_SHORT).show();
@@ -132,14 +136,14 @@ public class MainCommand {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<UserModel> call, Throwable t) {
                 Log.e("에러", t.getMessage());
             }
         });
     }
 
-    public void findId(String name, String email){
-        Call<UserModel> res = NetRetrofit.getInstance().getService().findIdRepos(name, email);
+    public void findId(FindIdJson findIdJson){
+        Call<UserModel> res = NetRetrofit.getInstance().getService().findIdRepos(findIdJson);
         Log.i("find Id", "" + res);
         res.enqueue(new Callback<UserModel>() {
             @Override
@@ -176,7 +180,7 @@ public class MainCommand {
         editor = loginSetting.edit();
 
         editor.clear();
-        editor.clear();
+        editor.commit();
 
         mainActivity.result.removeAllItems();
         mainActivity.result.addItem(mainActivity.signInItem);
@@ -192,10 +196,17 @@ public class MainCommand {
         mainActivity.result.closeDrawer();
     }
 
+    public void moveGoodsList(){
+        Intent intent = new Intent(mainActivity, SellerGoodsList.class);
+        intent.putExtra("user",userModel);
+        mainActivity.startActivity(intent);
+        mainActivity.result.closeDrawer();
+    }
+
     public void signInTest(){
         userModel.setId("test");
         userModel.setShop("a01");
-        userModel.setRole(0);
+        userModel.setRole(2);
         userModel.setResponse("success");
 
         loginSetting = context.getSharedPreferences("loginSetting", MODE_PRIVATE);
@@ -236,7 +247,7 @@ public class MainCommand {
             Toast.makeText(mainActivity,"판매자 로그인", Toast.LENGTH_SHORT).show();
         }
         else if (userModel.getRole() == 2) { // 승인된 판매자
-            mainActivity.result.addItem(mainActivity.goodsSearchItem);
+            mainActivity.result.addItem(mainActivity.goodsListItem);
             Toast.makeText(mainActivity,"판매자 로그인", Toast.LENGTH_SHORT).show();
         }
         else if (userModel.getRole() == 3) { // 승인 안된 판매자

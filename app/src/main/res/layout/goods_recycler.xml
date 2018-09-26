@@ -8,8 +8,8 @@
     <import type="android.databinding.ObservableArrayList" />
 
     <variable
-        name="goodsList"
-        type="android.databinding.ObservableArrayList&lt;com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel&gt;"/>
+        name="shop"
+        type="com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel"/>
 
 </data>
 <LinearLayout
@@ -23,7 +23,7 @@
         android:id="@+id/recyclerId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:items="@{goodsList}">
+        app:items="@{shop.goods}">
 
     </android.support.v7.widget.RecyclerView>
 

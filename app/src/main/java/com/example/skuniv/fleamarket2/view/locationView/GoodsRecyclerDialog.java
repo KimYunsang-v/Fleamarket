@@ -15,18 +15,20 @@ import android.view.WindowManager;
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.adapter.GoodsListAdapter;
 import com.example.skuniv.fleamarket2.databinding.GoodsRecyclerBinding;
+import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
+import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 
 public class GoodsRecyclerDialog extends Dialog{
 
-    public ObservableArrayList<GoodsViewModel> goodsList;
+    public ShopViewModel shop;
     private GoodsListAdapter mAdapter;
     public static Context context;
 
-    public GoodsRecyclerDialog(Context context, ObservableArrayList<GoodsViewModel> goodsList) {
+    public GoodsRecyclerDialog(Context context, ShopViewModel shop) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.context = context;
-        this.goodsList = goodsList;
+        this.shop = shop;
     }
 
     @Override
@@ -44,17 +46,17 @@ public class GoodsRecyclerDialog extends Dialog{
                 DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.goods_recycler, null, false);
         setContentView(binding.getRoot());
 
-        Log.i("Goods dialog",""+goodsList.size());
+        Log.i("Goods dialog",""+shop.goods.size());
 
         // 레이아웃 매니져, 어댑터 생성 후 recycler에 set 함
         LinearLayoutManager llm = new LinearLayoutManager(context);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
-        mAdapter = new GoodsListAdapter(goodsList, getContext());
+        mAdapter = new GoodsListAdapter(shop.goods, getContext());
 
         binding.recyclerId.setLayoutManager(llm);
         binding.recyclerId.setAdapter(mAdapter);
-        binding.setGoodsList(goodsList);
+        binding.setShop(shop);
     }
 
     @BindingAdapter("app:items")

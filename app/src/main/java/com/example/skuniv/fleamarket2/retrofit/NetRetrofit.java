@@ -2,6 +2,7 @@ package com.example.skuniv.fleamarket2.retrofit;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class NetRetrofit {
     private static NetRetrofit ourInstance = new NetRetrofit();

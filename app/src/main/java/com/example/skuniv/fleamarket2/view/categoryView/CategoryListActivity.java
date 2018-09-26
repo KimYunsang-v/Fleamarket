@@ -43,15 +43,15 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
     static CategoryData categoryData;
     static CategoryMetaViewModel categoryMetaViewModel;
     ArrayAdapter spinnerAdapter;
-    String categoryStr="";
+    String category="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         categoryListBinding = DataBindingUtil.setContentView(this, R.layout.activity_category_list);
 
-        categoryStr = getIntent().getStringExtra("category");
-        categoryModel = new CategoryModel(categoryStr,1);
+        category = getIntent().getStringExtra("category");
+        categoryModel = new CategoryModel(category,1);
         categoryData = new CategoryData();
 
         categoryShopsViewModel = new CategoryShopsViewModel();
@@ -91,9 +91,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 categoryShopsViewModel.shops.clear();
-                categoryModel.setMiddleCategory(adapterView.getItemAtPosition(i).toString());
-                System.out.println("main === " + categoryModel.getMainCategoryStr() + " " + categoryModel.getMainCategory() +
-                        "middle === " + categoryModel.getMiddleCategoryStr() + " " + categoryModel.getMiddleCategory());
+                categoryModel.addCategory(adapterView.getItemAtPosition(i).toString());
+                System.out.println("category ===="+categoryModel.categoryStr + "   "+categoryModel.categoryList);
                 categoryCommand.getGoodsList();
             }
 
@@ -152,17 +151,17 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
     }
 
     private String[] getList(){
-        if(categoryStr.equals("cloth")){
+        if(category.equals("cloth")){
             return getResources().getStringArray(R.array.cloth);
-        }else if(categoryStr.equals("digital")){
+        }else if(category.equals("digital")){
             return getResources().getStringArray(R.array.digital);
-        }else if(categoryStr.equals("fancy")){
+        }else if(category.equals("fancy")){
             return getResources().getStringArray(R.array.fancy);
-        }else if(categoryStr.equals("acc")){
+        }else if(category.equals("acc")){
             return getResources().getStringArray(R.array.acc);
-        }else if(categoryStr.equals("book")){
+        }else if(category.equals("book")){
             return getResources().getStringArray(R.array.book);
-        }else if(categoryStr.equals("etc")){
+        }else if(category.equals("etc")){
             return getResources().getStringArray(R.array.etc);
         }
         return null;

@@ -35,14 +35,14 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{String.valueOf(goods.price)}"/>
+        android:text="@{String.valueOf(goods.price.get())}"/>
 
 
     <TextView
         android:id="@+id/quantityId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{String.valueOf(goods.quantity)}"/>
+        android:text="@{String.valueOf(goods.quantity.get())}"/>
 
 
 </LinearLayout>

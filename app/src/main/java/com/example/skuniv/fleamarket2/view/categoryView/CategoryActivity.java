@@ -15,7 +15,6 @@ public class CategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         categoryBinding = DataBindingUtil.setContentView(this,R.layout.activity_category);
         categoryBinding.setCategory(this);
-
     }
 
     public void categoryClickListener(String category){

@@ -15,33 +15,20 @@ import android.widget.ListView;
 
 
 import com.example.skuniv.fleamarket2.R;
-import com.example.skuniv.fleamarket2.adapter.GoodsListAdapter;
 import com.example.skuniv.fleamarket2.adapter.ShopListAdapter;
 import com.example.skuniv.fleamarket2.databinding.ActivitySectionBinding;
-import com.example.skuniv.fleamarket2.databinding.ShopItemBinding;
-import com.example.skuniv.fleamarket2.databinding.ShopSelectDialogBinding;
-import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.model.locatonModel.SectionModel;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
-import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
-import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsListViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.SectionCommand;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopMetaViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopsViewModel;
 
-
-import java.util.List;
-
 public class SectionActivity extends AppCompatActivity {
     ShopsViewModel shopsViewModel = new ShopsViewModel();
-
-    private ShopSelectDialogBinding dialogBinding;
     private ShopSelectDialog dialog;
     SectionCommand sectionCommand;
-
     ActivitySectionBinding sectionBinding;
-    ShopItemBinding shopItemBinding;
     SectionModel sectionModel;
     String json;
     ShopData shopData;
@@ -103,7 +90,7 @@ public class SectionActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i("ShopClickListener", "call==========" + i + "======="+l);
 
-                recyclerDialog = new GoodsRecyclerDialog(SectionActivity.this, shopsViewModel.shops.get(i).goods);
+                recyclerDialog = new GoodsRecyclerDialog(SectionActivity.this, shopsViewModel.shops.get(i));
                 recyclerDialog.show();
             }
         });

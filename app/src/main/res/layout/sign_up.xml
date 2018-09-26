@@ -22,10 +22,10 @@
         android:id="@+id/nameText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="ID"/>
+        android:hint="name"/>
 
         <RadioGroup
-            android:id="@+id/sex"
+            android:id="@+id/sexRadio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

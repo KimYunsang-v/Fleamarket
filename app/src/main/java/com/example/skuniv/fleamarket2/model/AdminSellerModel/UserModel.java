@@ -13,6 +13,17 @@ public class UserModel implements Serializable{
     String sex="";
     @SerializedName("name")
     String name="";
+    @SerializedName("email")
+    String email="";
+    @SerializedName("shop")
+    String shop ="";
+    @SerializedName("role")
+    int role=-1;
+    @SerializedName("response")
+    String response;
+
+    public UserModel() {
+    }
 
     public String getPw() {
         return pw;
@@ -45,16 +56,6 @@ public class UserModel implements Serializable{
     public void setEmail(String email) {
         this.email = email;
     }
-
-    @SerializedName("email")
-
-    String email="";
-    @SerializedName("shop")
-    String shop ="";
-    @SerializedName("role")
-    int role=-1;
-    @SerializedName("response")
-    String response;
 
     public String getResponse() {
         return response;

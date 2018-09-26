@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.FindIdBinding;
+import com.example.skuniv.fleamarket2.model.jsonModel.FindIdJson;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.MainCommand;
 
 public class FindIdDialog extends Dialog {
@@ -37,8 +38,9 @@ public class FindIdDialog extends Dialog {
         findIdBinding.findBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mainCommand.findId(findIdBinding.nameId.getText().toString(), findIdBinding.emailId.getText().toString());
-                mainCommand.findIdTest();
+                FindIdJson findIdJson = new FindIdJson(findIdBinding.nameId.getText().toString(), findIdBinding.emailId.getText().toString());
+                mainCommand.findId(findIdJson);
+                //mainCommand.findIdTest();
             }
         });
     }

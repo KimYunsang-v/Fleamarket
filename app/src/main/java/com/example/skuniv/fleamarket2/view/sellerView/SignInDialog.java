@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.SignInBinding;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
+import com.example.skuniv.fleamarket2.model.jsonModel.SignInJson;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.MainCommand;
 
 public class SignInDialog extends Dialog{
@@ -41,9 +42,10 @@ public class SignInDialog extends Dialog{
         signInBinding.signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SignInJson signInJson = new SignInJson(signInBinding.idText.getText().toString(),signInBinding.pwText.getText().toString());
                 //로그인 통신
-                //mainCommand.signIn(signInBinding.idText.getText().toString(),signInBinding.pwText.getText().toString());
-                mainCommand.signInTest();
+                mainCommand.signIn(signInJson);
+                //mainCommand.signInTest();
 
             }
         });
