@@ -62,18 +62,18 @@ public class Category {
 
     public static final HashMap<String, Integer> categoryMap = new HashMap<String, Integer>() {
         {
-            put("cloth", 1);
-            put("etc", 2);
-            put("fancy", 3);
-            put("book", 4);
-            put("digital", 6);
-            put("acc", 5);
+            put("CLOTH", 1);
+            put("ETC", 2);
+            put("FANCY", 3);
+            put("BOOK", 4);
+            put("DIGITAL", 6);
+            put("ACC", 5);
             put("신발", SHOES);
             put("상의", TOP);
             put("하의", BOTTOM);
             put("모자", CAP);
             put("장갑", GLOVES);
-            put("pc", PC);
+            put("PC", PC);
             put("모바일", MOBILE);
             put("가전", APPLIANCES);
             put("차량용품", CAR);

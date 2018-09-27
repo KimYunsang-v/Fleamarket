@@ -16,6 +16,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical">
 
     <LinearLayout
@@ -25,17 +26,24 @@
         android:layout_weight="1">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="no"
+            android:background="@drawable/border"
+            android:textSize="20sp"
+            android:textColor="#3E2723"
             android:gravity="center"
-            android:layout_weight="1"/>
+            android:layout_weight="3"/>
 
         <TextView
             android:id="@+id/noId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="1"
+            android:textSize="30sp"
+            android:background="@drawable/border"
+            android:textColor="#3E2723"
+            android:textStyle="bold"
             android:gravity="center"
             android:text="@{Integer.toString(notice.no.get())}"
             />
@@ -48,17 +56,24 @@
         android:layout_weight="1">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:gravity="center"
+            android:background="@drawable/border"
+            android:textSize="20sp"
+            android:textColor="#3E2723"
             android:text="title"/>
 
         <TextView
             android:id="@+id/titleId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:textSize="30sp"
+            android:textColor="#3E2723"
+            android:textStyle="bold"
             android:gravity="center"
             android:text="@{notice.title.get()}"
             />
@@ -71,17 +86,24 @@
         android:layout_weight="1">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
+            android:textSize="20sp"
+            android:textColor="#3E2723"
+            android:background="@drawable/border"
             android:gravity="center"
             android:text="date"/>
 
         <TextView
             android:id="@+id/dateId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="1"
+            android:textSize="30sp"
+            android:background="@drawable/border"
+            android:textColor="#3E2723"
+            android:textStyle="bold"
             android:gravity="center"
             android:text="@{notice.date.get()}"
             />
@@ -94,17 +116,25 @@
         android:layout_weight="6">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
+            android:textSize="20sp"
+            android:textColor="#3E2723"
+            android:background="@drawable/border"
             android:gravity="center"
             android:text="contents"/>
 
+
         <TextView
             android:id="@+id/contentId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="1"
+            android:textSize="30sp"
+            android:background="@drawable/border"
+            android:textColor="#3E2723"
+            android:textStyle="bold"
             android:gravity="center"
             android:text="@{notice.contents.get()}"
             />
@@ -114,20 +144,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="2">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="3"
+            android:textSize="20sp"
+            android:background="@drawable/border"
+            android:textColor="#3E2723"
             android:gravity="center"
             android:text="files"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerId4"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:background="@drawable/border"
+            android:layout_weight="1"
             android:gravity="center"
             app:items="@{files.fileList}">
 

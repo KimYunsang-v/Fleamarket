@@ -23,19 +23,25 @@
 
         <Button
             android:id="@+id/clothId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#FFCCBC"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
             android:text="cloth"
-            android:onClick="@{() -> category.categoryClickListener(&quot;cloth&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;CLOTH&quot;)}"/>
 
         <Button
             android:id="@+id/digitalId"
-            android:layout_width="wrap_content"
+            android:background="#D1C4E9"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
             android:text="digital"
-            android:onClick="@{() -> category.categoryClickListener(&quot;digital&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;DIGITAL&quot;)}"/>
 
     </LinearLayout>
 
@@ -47,19 +53,25 @@
 
         <Button
             android:id="@+id/fancyId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="fancy"
-            android:onClick="@{() -> category.categoryClickListener(&quot;fancy&quot;)}"/>
+            android:background="#BBDEFB"
+            android:textSize="30sp"
+            android:textColor="#ffffff"
+            android:onClick="@{() -> category.categoryClickListener(&quot;FANCY&quot;)}"/>
 
         <Button
             android:id="@+id/accId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#FFECB3"
+            android:textSize="30sp"
+            android:textColor="#ffffff"
             android:text="acc"
-            android:onClick="@{() -> category.categoryClickListener(&quot;acc&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;ACC&quot;)}"/>
 
     </LinearLayout>
 
@@ -71,19 +83,25 @@
 
         <Button
             android:id="@+id/bookId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#DCEDC8"
+            android:textSize="30sp"
+            android:textColor="#ffffff"
             android:text="book"
-            android:onClick="@{() -> category.categoryClickListener(&quot;book&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;BOOK&quot;)}"/>
 
         <Button
             android:id="@+id/etcId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#F8BBD0"
+            android:textSize="30sp"
+            android:textColor="#ffffff"
             android:text="etc"
-            android:onClick="@{() -> category.categoryClickListener(&quot;etc&quot;)}"/>
+            android:onClick="@{() -> category.categoryClickListener(&quot;ETC&quot;)}"/>
     </LinearLayout>
 
 </LinearLayout>

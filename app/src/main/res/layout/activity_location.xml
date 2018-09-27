@@ -8,71 +8,105 @@
             name="section"
             type="com.example.skuniv.fleamarket2.view.locationView.LocationActivity"/>
     </data>
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.locationView.LocationActivity"
-    android:orientation="vertical">
-
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="2"
+        android:orientation="horizontal"
+        android:rowCount="3">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-                <Button
-                    android:id="@+id/sectionE_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#eeeeee"
-                    android:layout_margin="5dp"
-                    android:onClick="@{() -> section.clickListener(&quot;e&quot;)}"
-                    android:text="E"/>
-        </LinearLayout>
+            android:id="@+id/sectionA_btn"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:background="#D1C4E9"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:onClick="@{() -> section.clickListener(&quot;a&quot;)}"
+            android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_weight="5">
-            <Button
-                android:id="@+id/sectionA_btn"
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#eeeeee"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:onClick="@{() -> section.clickListener(&quot;a&quot;)}"
-                android:text="A"/>
-            <Button
-                android:id="@+id/sectionB_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="#eeeeee"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:onClick="@{() -> section.clickListener(&quot;b&quot;)}"
-                android:text="B"/>
-            <Button
-                android:id="@+id/sectionC_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:background="#eeeeee"
-                android:layout_weight="1"
-                android:onClick="@{() -> section.clickListener(&quot;c&quot;)}"
-                android:text="C"/>
-            <Button
-                android:id="@+id/sectionD_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="#eeeeee"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:onClick="@{() -> section.clickListener(&quot;d&quot;)}"
-                android:text="D"/>
+                android:textSize="70sp"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="#ffffff"
+                android:text="A" />
 
         </LinearLayout>
-</LinearLayout>
+        <LinearLayout
+            android:id="@+id/sectionB_btn"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:background="#FFECB3"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:onClick="@{() -> section.clickListener(&quot;b&quot;)}"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="70sp"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="#ffffff"
+                android:text="B" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/sectionC_btn"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:background="#F8BBD0"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:onClick="@{() -> section.clickListener(&quot;c&quot;)}"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="70sp"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="#ffffff"
+                android:text="C" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/sectionD_btn"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:background="#DCEDC8"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:onClick="@{() -> section.clickListener(&quot;d&quot;)}"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="70sp"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="#ffffff"
+                android:text="D" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/sectionE_btn"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:background="#BBDEFB"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:onClick="@{() -> section.clickListener(&quot;e&quot;)}"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="70sp"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="#ffffff"
+                android:text="E" />
+        </LinearLayout>
+    </GridLayout>
 </layout>

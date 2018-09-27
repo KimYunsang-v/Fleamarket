@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.engine.Resource;
@@ -90,6 +92,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
         categoryListBinding.spinnerId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
+                ((TextView) adapterView.getChildAt(0)).setTextSize(30);
                 categoryShopsViewModel.shops.clear();
                 categoryModel.addCategory(adapterView.getItemAtPosition(i).toString());
                 System.out.println("category ===="+categoryModel.categoryStr + "   "+categoryModel.categoryList);
@@ -151,17 +155,17 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
     }
 
     private String[] getList(){
-        if(category.equals("cloth")){
+        if(category.equals("cloth".toUpperCase())){
             return getResources().getStringArray(R.array.cloth);
-        }else if(category.equals("digital")){
+        }else if(category.equals("digital".toUpperCase())){
             return getResources().getStringArray(R.array.digital);
-        }else if(category.equals("fancy")){
+        }else if(category.equals("fancy".toUpperCase())){
             return getResources().getStringArray(R.array.fancy);
-        }else if(category.equals("acc")){
+        }else if(category.equals("acc".toUpperCase())){
             return getResources().getStringArray(R.array.acc);
-        }else if(category.equals("book")){
+        }else if(category.equals("book".toUpperCase())){
             return getResources().getStringArray(R.array.book);
-        }else if(category.equals("etc")){
+        }else if(category.equals("etc".toUpperCase())){
             return getResources().getStringArray(R.array.etc);
         }
         return null;

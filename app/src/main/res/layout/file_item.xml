@@ -4,8 +4,6 @@
         <variable
             name="file"
             type="com.example.skuniv.fleamarket2.viewModel.noticeViewModel.NoticeFileViewModel"/>
-
-
     </data>
 
 <LinearLayout
@@ -17,6 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:textColor="#3E2723"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:text="@{file.fileName}"/>
 </LinearLayout>
 </layout>
