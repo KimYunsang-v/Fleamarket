@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -19,6 +20,7 @@ import java.util.Map;
 public class NotificationService extends FirebaseMessagingService {
 
     public static  int NOTIFICATION_ID = 1;
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
