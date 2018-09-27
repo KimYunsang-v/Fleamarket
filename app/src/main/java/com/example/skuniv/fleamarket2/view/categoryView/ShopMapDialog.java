@@ -19,12 +19,8 @@ public class ShopMapDialog extends Dialog {
 
 
     CategoryShopViewModel categoryShopViewModel;
-    SelectDialogItemsModel selectDialogItemsModel;
     private ShopMapBinding dialogBinding;
-    String section;
-    Integer shopNum;
-    Boolean[] setBack;
-
+    String shop,shopNum;
     public ShopMapDialog(Context context, CategoryShopViewModel categoryShopViewModel) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.categoryShopViewModel = categoryShopViewModel;
@@ -33,10 +29,12 @@ public class ShopMapDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //selectDialogItemsModel = new SelectDialogItemsModel();
 
-        //section = categoryShopViewModel.location.get();
-        //shopNum = categoryShopViewModel.no.get();
+        //shop = categoryShopViewModel.shop.get();
+        shop = "A02";
+        String location = "a";
+        shopNum = shop.split(location.toUpperCase())[1];
+        System.out.println("shop num    "+shopNum);
 
         // 다이얼로그 외부 화면 흐리게 표현
         WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
@@ -55,15 +53,12 @@ public class ShopMapDialog extends Dialog {
         //setBack[shopNum] = true;
         //dialogBinding.setShopList(setBack);
     }
+
+
     //@BindingAdapter({"bind:setColor"})
     public void setBackground(View view) {
-        /*if(view.getText().equals(Integer.toString(select))){
-            //view.setTextColor(Color.parseColor("#000000"));
-        }
-        else{
 
-        }*/
-        view.getId();
+
         System.out.println("select shop map==="+view.getId());
     }
 }
