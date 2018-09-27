@@ -21,6 +21,7 @@ import com.example.skuniv.fleamarket2.view.noticeView.NoticeActivity;
 import com.example.skuniv.fleamarket2.view.sellerView.SellerGoodsList;
 import com.example.skuniv.fleamarket2.view.sellerView.SignInDialog;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.MainCommand;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         loginSetting = context.getSharedPreferences("loginSetting", MODE_PRIVATE);
 
-
+        System.out.println("token ========" + FirebaseInstanceId.getInstance().getToken());
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(binding.toolbar)
