@@ -35,14 +35,18 @@
         <activity android:name=".view.adminView.CurrentApplyView" />
         <activity android:name=".view.sellerView.SellerGoodsList" />
 
-        <service android:name=".service.NotificationService">
+        <service android:name=".service.NotificationService"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
 
         </service>
 
-        <service android:name=".service.GettingDeviceTokenService">
+        <service android:name=".service.GettingDeviceTokenService"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
