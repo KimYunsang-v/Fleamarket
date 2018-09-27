@@ -47,7 +47,7 @@ public class SellerGoodsUpdateDialog extends Dialog {
     SellerGoodsList sellerGoodsListView;
     SellerCommand sellerCommand;
     Category category;
-
+    Uri fileUri;
 
     public SellerGoodsUpdateDialog(@NonNull Context context, UserModel userModel, ShopViewModel shopViewModel,
                                    SellerGoodsList sellerGoodsListView, SellerCommand sellerCommand) {
@@ -65,8 +65,10 @@ public class SellerGoodsUpdateDialog extends Dialog {
         sellerGoodsUpdateDialogBinding = (SellerGoodsUpdateDialogBinding)
                 DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.seller_goods_update_dialog, null, false);
         setContentView(sellerGoodsUpdateDialogBinding.getRoot());
-
+        sellerCommand.setSellerGoodsUpdateDialog(this);
         category = new Category();
+        //getImage = new GetImage();
+        //getImage.setSellerGoodsUpdateDialogBinding(sellerGoodsUpdateDialogBinding);
 
         // 스피너 셋팅
         mainSpinner = new ArrayAdapter(
@@ -102,8 +104,10 @@ public class SellerGoodsUpdateDialog extends Dialog {
                 ArrayList<Integer> categoryList = new ArrayList<Integer>();
                 categoryList.add(category.getCategoryNum(mainCategory));
                 categoryList.add(category.getCategoryNum(middleCategory));
-                goods.setCategory(categoryList);
-                sellerCommand.addGoods(goods);
+                goods.setCategory(categoryList);;
+                fileUri = sellerGoodsListView.getImageUri();
+                System.out.println("file uri path ======" + fileUri.getPath());
+                sellerCommand.addGoods(shopViewModel,goods,fileUri);
             }
         });
 
