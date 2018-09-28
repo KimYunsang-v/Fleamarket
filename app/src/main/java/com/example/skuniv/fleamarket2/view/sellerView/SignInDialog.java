@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.SignInBinding;
@@ -38,6 +39,11 @@ public class SignInDialog extends Dialog{
         mainCommand.setSignInBinding(signInBinding);
         signInDialog = this;
         mainCommand.setSignInDialog(signInDialog);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(this.getWindow().getAttributes());
+        lp.width = 800;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
         signInBinding.signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
