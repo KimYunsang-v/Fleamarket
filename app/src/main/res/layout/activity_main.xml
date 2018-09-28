@@ -76,7 +76,7 @@
                         android:textColor="#ffffff"
                         android:text="A~E 구역" />
 
-                    <ImageButton
+                    <ImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_gravity="center"
@@ -113,7 +113,7 @@
                         android:textSize="15sp"
                         android:textColor="#ffffff"
                         android:text="옷 디지털 팬시 도서 기타" />
-                    <ImageButton
+                    <ImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_gravity="center"
@@ -151,7 +151,7 @@
                         android:textSize="15sp"
                         android:textColor="#ffffff"
                         android:text="바자회 일정" />
-                    <ImageButton
+                    <ImageView
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_gravity="center"

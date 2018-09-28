@@ -7,11 +7,6 @@
             type="com.example.skuniv.fleamarket2.view.categoryView.ShopMapDialog"/>
     </data>
 
-<data>
-    <variable
-        name="map"
-        type="com.example.skuniv.fleamarket2.view.categoryView.ShopMapDialog"/>
-</data>
 
 <LinearLayout
     android:layout_width="match_parent"
