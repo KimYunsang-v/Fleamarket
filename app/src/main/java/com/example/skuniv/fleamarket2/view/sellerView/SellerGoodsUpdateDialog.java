@@ -96,8 +96,9 @@ public class SellerGoodsUpdateDialog extends Dialog {
                 categoryList.add(category.getCategoryNum(middleCategory));
                 goods.setCategory(categoryList);
                 fileUri = sellerGoodsListView.getImageUri();
-                System.out.println("file uri path ======" + fileUri.getPath());
                 sellerCommand.addGoods(sellerShopViewModel,goods,fileUri);
+                fileUri = null;
+                sellerGoodsListView.setImageUri(null);
             }
         });
 

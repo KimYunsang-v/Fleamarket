@@ -71,16 +71,21 @@ public class SellerCommand extends SellerGoodsList {
     }
 
    public void addGoods(final SellerShopViewModel sellerShopViewModel, Goods goods, Uri fileUri){
-       //File file = new File(fileUri.getPath());
-       File file = FileUtils.getFile(context,fileUri);
-       /*System.out.println("file ==" + file.getName());
-       System.out.println("goods json ======" + gson.toJson(goods));*/
-       RequestBody requestFile =
-               RequestBody.create(MediaType.parse(context.getContentResolver().getType(fileUri)),file );
+       MultipartBody.Part body = null;
+       if(fileUri == null) {
 
-       // MultipartBody.Part is used to send also the actual file name
-       MultipartBody.Part body =
-               MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+       } else {
+           File file = FileUtils.getFile(context,fileUri);
+           System.out.println("file=========" + file);
+           System.out.println("file uri=========" + fileUri);
+           RequestBody requestFile =
+                   RequestBody.create(MediaType.parse(context.getContentResolver().getType(fileUri)),file );
+
+           // MultipartBody.Part is used to send also the actual file name
+           body =
+                   MultipartBody.Part.createFormData("image", file.getName(), requestFile);
+       }
+
 
        RequestBody location = RequestBody.create( MultipartBody.FORM, sellerShopViewModel.location.get());
        //RequestBody location = RequestBody.create( MultipartBody.FORM, "b");

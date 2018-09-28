@@ -114,6 +114,7 @@ public class SellerGoodsList extends AppCompatActivity {
     }
 
     public void getImage(){
+        imageUri = null;
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
         intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -210,8 +211,7 @@ public class SellerGoodsList extends AppCompatActivity {
         if(imagebool)
             return imageUri;
         else {
-            Uri uri = Uri.parse("android.resource://"+context.getPackageName()+"/drawable/default_icon.png");
-            return uri;
+            return null;
         }
     }
 
