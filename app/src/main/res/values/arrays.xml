@@ -15,7 +15,7 @@
     </string-array>
 
     <string-array name="digital">
-        <item>pc</item>
+        <item>PC</item>
         <item>모바일</item>
         <item >가전</item>
         <item >차량용품</item>

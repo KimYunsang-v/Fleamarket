@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.skuniv.fleamarket2.R;
@@ -77,6 +79,7 @@ public class NoticeActivity extends AppCompatActivity implements NoticeListAdapt
         binding.spinnerId.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 type = "";
                 if(adapterView.getItemAtPosition(i).equals("제목")){
                     noticeListModel.setType("title");

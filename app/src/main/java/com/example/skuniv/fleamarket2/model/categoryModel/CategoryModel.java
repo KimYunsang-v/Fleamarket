@@ -16,7 +16,7 @@ public class CategoryModel {
 
     public CategoryModel(String categoryStr, int pageNum){
         category = new Category();
-        this.categoryStr = categoryStr;
+        this.categoryStr = categoryStr.toUpperCase();
         this.categoryList.add(category.getCategoryNum(categoryStr));
         this.pageNum = pageNum;
         /*if(category.equals("cloth")){

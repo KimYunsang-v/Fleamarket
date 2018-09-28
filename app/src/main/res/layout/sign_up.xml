@@ -8,26 +8,27 @@
     <EditText
         android:id="@+id/idText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:hint="ID"/>
 
     <EditText
         android:id="@+id/pwText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:inputType="textPassword"
         android:hint="password"/>
 
     <EditText
         android:id="@+id/nameText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:hint="name"/>
 
         <RadioGroup
             android:id="@+id/sexRadio"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <RadioButton
@@ -50,14 +51,18 @@
     <EditText
         android:id="@+id/emailText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:hint="e-mail"/>
 
     <Button
         android:id="@+id/signUpBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="sign up"/>
+        android:background="#B2EBF2"
+        android:textSize="20sp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="회원가입"/>
 
 </LinearLayout>
 </layout>

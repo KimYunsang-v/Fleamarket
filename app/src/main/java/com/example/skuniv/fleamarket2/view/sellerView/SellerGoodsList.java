@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerGoods
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerShopViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
+import com.google.gson.Gson;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
