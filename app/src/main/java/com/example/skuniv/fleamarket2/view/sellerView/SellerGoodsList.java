@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.example.skuniv.fleamarket2.adapter.GoodsListAdapter;
@@ -17,6 +18,7 @@ import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerCommand;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
+import com.google.gson.Gson;
 
 public class SellerGoodsList extends AppCompatActivity {
     SellerGoodsListBinding sellerGoodsListBinding;
