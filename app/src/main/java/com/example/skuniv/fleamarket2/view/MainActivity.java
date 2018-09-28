@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         userModel = new UserModel();
-        mainCommand = new MainCommand(context, userModel,this);
+        mainCommand = new MainCommand(context, userModel, this);
 
         loginSetting = context.getSharedPreferences("loginSetting", MODE_PRIVATE);
 
@@ -72,16 +72,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         // do something with the clicked item :D
-                        if(drawerItem == signInItem){ // 로그인
+                        if (drawerItem == signInItem) { // 로그인
                             SignInDialog signInDialog = new SignInDialog(context, mainCommand);
                             signInDialog.show();
-                        } else if(drawerItem == currentApplyItem){ // 현재 신청한 판매자 목록
+                        } else if (drawerItem == currentApplyItem) { // 현재 신청한 판매자 목록
                             mainCommand.moveCurrentApply();
-                        }else if(drawerItem == goodsListItem){  // 상품 조회
+                        } else if (drawerItem == goodsListItem) {  // 상품 조회
                             mainCommand.moveGoodsList();
-                        }else if(drawerItem == applyItem){  // 신청서 작성
+                        } else if (drawerItem == applyItem) {  // 신청서 작성
                             mainCommand.sellerApply();
-                        }else if(drawerItem == signout){  // 로그아웃
+                        } else if (drawerItem == signout) {  // 로그아웃
                             mainCommand.signOut();
                         }
                         return true;
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .build();
 
-        if(!loginSetting.getString("id","").equals("")){
+        if (!loginSetting.getString("id", "").equals("")) {
             mainCommand.autoLogin();
         }
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         binding.locationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),LocationActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LocationActivity.class);
                 startActivity(intent);
             }
         });
@@ -113,26 +113,24 @@ public class MainActivity extends AppCompatActivity {
         binding.noticeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),NoticeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), NoticeActivity.class);
                 startActivity(intent);
             }
         });
 
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},MY_PERMISSIONS_REQUEST);
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST);
         }
     }
+
     @Override
     public void onBackPressed() {
         long tempTime = System.currentTimeMillis();
         long intervalTime = tempTime - backPressedTime;
 
-        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
-        {
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
             super.onBackPressed();
-        }
-        else
-        {
+        } else {
             backPressedTime = tempTime;
             Toast.makeText(getApplicationContext(), "뒤로가기 버튼을 누르면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
         }

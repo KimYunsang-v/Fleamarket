@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.skuniv.fleamarket2.R;
@@ -24,6 +25,7 @@ public class GoodsRecyclerDialog extends Dialog{
     public ShopViewModel shop;
     private GoodsListAdapter mAdapter;
     public static Context context;
+    GoodsRecyclerDialog goodsRecyclerDialog;
 
     public GoodsRecyclerDialog(Context context, ShopViewModel shop) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
@@ -35,11 +37,14 @@ public class GoodsRecyclerDialog extends Dialog{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        // 다이얼로그 외부 화면 흐리게 표현
-        WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
-        lpWindow.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        lpWindow.dimAmount = 0.8f;
-        getWindow().setAttributes(lpWindow);
+        goodsRecyclerDialog = this;
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(goodsRecyclerDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        Window window = goodsRecyclerDialog.getWindow();
+        window.setAttributes(lp);
 
         // goods_recycler binding 객체 생성, layout 연결
         GoodsRecyclerBinding binding = (GoodsRecyclerBinding)

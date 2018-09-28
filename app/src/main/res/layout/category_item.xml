@@ -22,20 +22,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/mapId"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="map"
-        android:background="#E1BEE7"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:onClick="@{() -> command.mapClickListener(shop)}"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@{Integer.toString(shop.no)}"/>
+        android:text="@{shop.location}"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{shop.shop}"/>
+
+    </LinearLayout>
 </LinearLayout>
 </layout>

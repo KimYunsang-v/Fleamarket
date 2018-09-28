@@ -66,6 +66,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
         categoryCommand = new CategoryCommand(this, categoryListBinding, categoryModel, categoryShopsViewModel, categoryData,categoryMetaViewModel);
 
         onLoadMoreListener = this;
+        context = this;
 
         llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);

@@ -3,41 +3,40 @@ package com.example.skuniv.fleamarket2.view.categoryView;
 import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.skuniv.fleamarket2.R;
+import com.example.skuniv.fleamarket2.databinding.CategoryGoodsInfoBinding;
+import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
+import com.example.skuniv.fleamarket2.view.locationView.MapDialog;
 import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryShopViewModel;
-import com.example.skuniv.fleamarket2.viewModel.locationViewModel.SelectDialogItemsModel;
-import com.example.skuniv.fleamarket2.databinding.ShopMapBinding;
 
-import org.w3c.dom.Text;
-
-public class ShopMapDialog extends Dialog {
-
-
+public class CategoryGoodsInfoDialog extends Dialog{
     CategoryShopViewModel categoryShopViewModel;
-    private ShopMapBinding dialogBinding;
+    private CategoryGoodsInfoBinding dialogBinding;
+    private CategoryGoodsInfoDialog categoryGoodsInfoDialog;
+    Context context;
 
     TextView[] shopText;
 
     String shop,shopNum;
-    public ShopMapDialog(Context context, CategoryShopViewModel categoryShopViewModel) {
+    public CategoryGoodsInfoDialog(Context context, CategoryShopViewModel categoryShopViewModel) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.categoryShopViewModel = categoryShopViewModel;
+        this.context = context;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        categoryGoodsInfoDialog = this;
         shop = categoryShopViewModel.shop.get();
-        //shop = "A02";
-        //String location = "a";
+
         shopNum = shop.split(categoryShopViewModel.location.get().toUpperCase())[1];
         System.out.println("shop num    "+shopNum);
 
@@ -47,13 +46,22 @@ public class ShopMapDialog extends Dialog {
         lpWindow.dimAmount = 0.8f;
         getWindow().setAttributes(lpWindow);
 
-        dialogBinding = (ShopMapBinding)
-                DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.shop_map, null, false);
+        dialogBinding = (CategoryGoodsInfoBinding)
+                DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.category_goods_info, null, false);
         setContentView(dialogBinding.getRoot());
 
-        dialogBinding.setMap(this);
-
+        dialogBinding.setInfo(categoryGoodsInfoDialog);
+        dialogBinding.setGoods(categoryShopViewModel.goods);
+        Glide.with(context).load(categoryShopViewModel.goods.get().getImage()).override(300, 300).into(dialogBinding.imageId);
         setShopList();
+
+        dialogBinding.mapId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MapDialog mapDialog = new MapDialog(context);
+                mapDialog.show();
+            }
+        });
 
         shopText[Integer.parseInt(shopNum)-1].setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
         //DialogBinding.setSelect(shopNum);
@@ -79,5 +87,5 @@ public class ShopMapDialog extends Dialog {
                 dialogBinding.id51,dialogBinding.id52,dialogBinding.id53,dialogBinding.id54,dialogBinding.id55,dialogBinding.id56,dialogBinding.id57,dialogBinding.id58,dialogBinding.id59,dialogBinding.id60,
                 dialogBinding.id61,dialogBinding.id62,dialogBinding.id63,dialogBinding.id64,dialogBinding.id65,dialogBinding.id66,dialogBinding.id67,dialogBinding.id68,dialogBinding.id69,dialogBinding.id70,
                 dialogBinding.id71,dialogBinding.id72,dialogBinding.id73,dialogBinding.id74,dialogBinding.id75,dialogBinding.id76,dialogBinding.id77,dialogBinding.id78,dialogBinding.id79,dialogBinding.id80 };
-        }
+    }
 }
