@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.FindIdBinding;
@@ -17,6 +19,7 @@ public class FindIdDialog extends Dialog {
     MainCommand mainCommand;
     Context context;
     FindIdBinding findIdBinding;
+    FindIdDialog findIdDialog;
 
     public FindIdDialog(@NonNull Context context, MainCommand mainCommand) {
         super(context);
@@ -34,6 +37,15 @@ public class FindIdDialog extends Dialog {
 
         mainCommand.setFindIdBinding(findIdBinding);
         mainCommand.setFindIdDialog(this);
+
+        findIdDialog = this;
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(findIdDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        Window window = findIdDialog.getWindow();
+        window.setAttributes(lp);
 
         findIdBinding.findBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
@@ -28,8 +29,10 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding;
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
     private final int MY_PERMISSIONS_REQUEST = 100;
+    ActivityMainBinding binding;
     UserModel userModel;
     Context context;
     public Drawer result;
@@ -117,6 +120,21 @@ public class MainActivity extends AppCompatActivity {
 
         if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},MY_PERMISSIONS_REQUEST);
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
+        {
+            super.onBackPressed();
+        }
+        else
+        {
+            backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(), "뒤로가기 버튼을 누르면 앱이 종료됩니다.", Toast.LENGTH_SHORT).show();
         }
     }
 }

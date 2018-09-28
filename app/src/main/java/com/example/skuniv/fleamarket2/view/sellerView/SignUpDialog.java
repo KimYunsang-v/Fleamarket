@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -21,7 +23,7 @@ public class SignUpDialog extends Dialog {
     SignUpBinding signUpBinding;
     MainCommand mainCommand;
     String sex="";
-
+    SignUpDialog signUpDialog;
 
     public SignUpDialog(@NonNull Context context, MainCommand mainCommand) {
         super(context);
@@ -36,6 +38,15 @@ public class SignUpDialog extends Dialog {
                 DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.sign_up, null, false);
         setContentView(signUpBinding.getRoot());
         mainCommand.setSignUpDialog(this);
+
+        signUpDialog = this;
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(signUpDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        Window window = signUpDialog.getWindow();
+        window.setAttributes(lp);
 
         signUpBinding.sexRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
