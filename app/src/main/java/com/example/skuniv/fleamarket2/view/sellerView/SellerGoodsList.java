@@ -30,6 +30,8 @@ import com.example.skuniv.fleamarket2.adapter.SellerGoodsListAdater;
 import com.example.skuniv.fleamarket2.databinding.SellerGoodsListBinding;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerCommand;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerGoodsViewModel;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerShopViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 
@@ -43,10 +45,10 @@ public class SellerGoodsList extends AppCompatActivity {
     private static final int REQ_CODE_SELECT_IMAGE = 100;
     SellerGoodsListBinding sellerGoodsListBinding;
     UserModel userModel;
-    static ShopViewModel shopViewModel;
+    static SellerShopViewModel sellerShopViewModel;
     static Context context;
     SellerCommand sellerCommand;
-
+    boolean imagebool;
     static SellerGoodsListAdater adapter;
     SellerGoodsList sellerGoodsListview;
     SellerGoodsUpdateDialog sellerGoodsUpdateDialog;
@@ -57,10 +59,10 @@ public class SellerGoodsList extends AppCompatActivity {
         sellerGoodsListBinding = DataBindingUtil.setContentView(this, R.layout.seller_goods_list);
 
         userModel = (UserModel) getIntent().getSerializableExtra("user");
-        shopViewModel = new ShopViewModel();
+        sellerShopViewModel = new SellerShopViewModel();
         context = this;
         sellerGoodsListview = this;
-        sellerCommand = new SellerCommand(context, userModel, shopViewModel, sellerGoodsListview);
+        sellerCommand = new SellerCommand(context, userModel, sellerShopViewModel, sellerGoodsListview);
 
         sellerCommand.getShopModel();
 
@@ -68,16 +70,16 @@ public class SellerGoodsList extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(context);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
-        adapter = new SellerGoodsListAdater(shopViewModel.goods, context);
+        adapter = new SellerGoodsListAdater(sellerShopViewModel.goods, context);
 
         sellerGoodsListBinding.recyclerId.setLayoutManager(llm);
         sellerGoodsListBinding.recyclerId.setAdapter(adapter);
-        sellerGoodsListBinding.setShop(shopViewModel);
+        sellerGoodsListBinding.setShop(sellerShopViewModel);
 
         sellerGoodsListBinding.addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sellerGoodsUpdateDialog = new SellerGoodsUpdateDialog(context, userModel, shopViewModel, sellerGoodsListview, sellerCommand);
+                sellerGoodsUpdateDialog = new SellerGoodsUpdateDialog(context, userModel, sellerShopViewModel, sellerGoodsListview, sellerCommand);
                 sellerGoodsUpdateDialog.show();
                 checkPremission();
             }
@@ -98,13 +100,14 @@ public class SellerGoodsList extends AppCompatActivity {
 
 
     @BindingAdapter("app:items")
-    public static void bindItem(RecyclerView recyclerView, ObservableArrayList<GoodsViewModel> goodsList) {
+    public static void bindItem(RecyclerView recyclerView, ObservableArrayList<SellerGoodsViewModel> goodsList) {
         //= (GoodsListAdapter) recyclerView.getAdapter();
         if (recyclerView.getAdapter() == null) {
             adapter = new SellerGoodsListAdater(goodsList, context);
             recyclerView.setAdapter(adapter);
         } else {
             // 있으면 getAdapter
+            System.out.println("seller goods adapter=============");
             adapter = (SellerGoodsListAdater) recyclerView.getAdapter();
             adapter.setItem(goodsList);
         }
@@ -131,6 +134,7 @@ public class SellerGoodsList extends AppCompatActivity {
                     filename = getImageNameToUri(data.getData());
                     //배치해놓은 ImageView에 set
                     sellerGoodsUpdateDialog.sellerGoodsUpdateDialogBinding.imageView.setImageBitmap(image_bitmap);
+                    imagebool = true;
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -203,10 +207,12 @@ public class SellerGoodsList extends AppCompatActivity {
     }
 
     public Uri getImageUri() {
-        if(imageUri != null)
+        if(imagebool)
             return imageUri;
-        else
-            return Uri.parse("android.resource://"+context.getPackageName()+"/drawable/default_icon.png");
+        else {
+            Uri uri = Uri.parse("android.resource://"+context.getPackageName()+"/drawable/default_icon.png");
+            return uri;
+        }
     }
 
     public void setImageUri(Uri imageUri) {

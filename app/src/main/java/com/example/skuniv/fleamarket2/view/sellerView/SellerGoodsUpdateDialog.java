@@ -17,6 +17,7 @@ import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.model.Category;
 import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerCommand;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerShopViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 
@@ -26,7 +27,7 @@ public class SellerGoodsUpdateDialog extends Dialog {
     SellerGoodsUpdateDialogBinding sellerGoodsUpdateDialogBinding;
     Context context;
     GoodsViewModel goodsViewModel;
-    ShopViewModel shopViewModel;
+    SellerShopViewModel sellerShopViewModel;
     UserModel userModel;
     ArrayAdapter mainSpinner, middleSpinner;
     String[] mainC = {"cloth", "digital", "fancy", "acc", "book", "etc"};
@@ -35,13 +36,14 @@ public class SellerGoodsUpdateDialog extends Dialog {
     SellerCommand sellerCommand;
     Category category;
     Uri fileUri;
+    boolean imagebool;
 
-    public SellerGoodsUpdateDialog(@NonNull Context context, UserModel userModel, ShopViewModel shopViewModel,
+    public SellerGoodsUpdateDialog(@NonNull Context context, UserModel userModel, SellerShopViewModel sellerShopViewModel,
                                    SellerGoodsList sellerGoodsListView, SellerCommand sellerCommand) {
         super(context);
         this.context = context;
         this.userModel = userModel;
-        this.shopViewModel = shopViewModel;
+        this.sellerShopViewModel = sellerShopViewModel;
         this.sellerGoodsListView = sellerGoodsListView;
         this.sellerCommand = sellerCommand;
     }
@@ -95,7 +97,7 @@ public class SellerGoodsUpdateDialog extends Dialog {
                 goods.setCategory(categoryList);
                 fileUri = sellerGoodsListView.getImageUri();
                 System.out.println("file uri path ======" + fileUri.getPath());
-                sellerCommand.addGoods(shopViewModel,goods,fileUri);
+                sellerCommand.addGoods(sellerShopViewModel,goods,fileUri);
             }
         });
 
@@ -103,14 +105,11 @@ public class SellerGoodsUpdateDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 sellerGoodsListView.getImage();
-
-
+                imagebool = true;
             }
         });
-
-        sellerGoodsUpdateDialogBinding.imageView.setImageAlpha(R.drawable.default_icon);
-
-
+        System.out.println("package name ====="+context.getPackageName());
+        //sellerGoodsUpdateDialogBinding.imageView.setImageURI(Uri.parse("android.resource://"+context.getPackageName()+"/drawable/default_icon.png"));
 
     }
 

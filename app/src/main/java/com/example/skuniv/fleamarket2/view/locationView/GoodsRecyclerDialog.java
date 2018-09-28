@@ -60,7 +60,7 @@ public class GoodsRecyclerDialog extends Dialog{
     }
 
     @BindingAdapter("app:items")
-    public static void bindItem(RecyclerView recyclerView, ObservableArrayList<GoodsViewModel> goods) {
+    public static void bindItemList(RecyclerView recyclerView, ObservableArrayList<GoodsViewModel> goods) {
         GoodsListAdapter adapter; //= (GoodsListAdapter) recyclerView.getAdapter();
         if(recyclerView.getAdapter() == null){
             adapter = new GoodsListAdapter(goods, context);
@@ -68,6 +68,7 @@ public class GoodsRecyclerDialog extends Dialog{
         }
         else {
             // 있으면 getAdapter
+            System.out.println("seller goods adapter=============");
             adapter = (GoodsListAdapter) recyclerView.getAdapter();
         }
     }

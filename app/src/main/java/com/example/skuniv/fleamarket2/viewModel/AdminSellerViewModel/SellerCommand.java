@@ -27,7 +27,7 @@ import retrofit2.Response;
 public class SellerCommand extends SellerGoodsList {
     Context context;
     UserModel userModel;
-    ShopViewModel shopViewModel;
+    SellerShopViewModel sellerShopViewModel;
     ShopModel shopModel;
     SellerGoodsList sellerGoodsListView;
     Gson gson = new Gson();
@@ -37,10 +37,10 @@ public class SellerCommand extends SellerGoodsList {
         this.sellerGoodsUpdateDialog = sellerGoodsUpdateDialog;
     }
 
-    public SellerCommand(Context context, UserModel userModel, ShopViewModel shopViewModel, SellerGoodsList sellerGoodsListView) {
+    public SellerCommand(Context context, UserModel userModel, SellerShopViewModel sellerShopViewModel, SellerGoodsList sellerGoodsListView) {
         this.context = context;
         this.userModel = userModel;
-        this.shopViewModel = shopViewModel;
+        this.sellerShopViewModel = sellerShopViewModel;
         this.sellerGoodsListView = sellerGoodsListView;
     }
 
@@ -59,7 +59,7 @@ public class SellerCommand extends SellerGoodsList {
                     if (response.body() != null) {
                         shopModel = response.body();
                         Log.i("getShopList", "" + gson.toJson(response.body()));
-                        shopViewModel.setShopViewModel(shopModel);
+                        sellerShopViewModel.setSellerShopViewModel(shopModel);
                     }
                 }
                 @Override
@@ -70,7 +70,7 @@ public class SellerCommand extends SellerGoodsList {
         }
     }
 
-   public void addGoods(final ShopViewModel shopViewModel, Goods goods, Uri fileUri){
+   public void addGoods(final SellerShopViewModel sellerShopViewModel, Goods goods, Uri fileUri){
        //File file = new File(fileUri.getPath());
        File file = FileUtils.getFile(context,fileUri);
        /*System.out.println("file ==" + file.getName());
@@ -82,16 +82,16 @@ public class SellerCommand extends SellerGoodsList {
        MultipartBody.Part body =
                MultipartBody.Part.createFormData("image", file.getName(), requestFile);
 
-       //RequestBody location = RequestBody.create( MultipartBody.FORM, shopViewModel.location.get());
-       RequestBody location = RequestBody.create( MultipartBody.FORM, "b");
-       //RequestBody shop = RequestBody.create( okhttp3.MultipartBody.FORM, shopViewModel.shop.get());
-       RequestBody shop = RequestBody.create( okhttp3.MultipartBody.FORM, "B01");
+       RequestBody location = RequestBody.create( MultipartBody.FORM, sellerShopViewModel.location.get());
+       //RequestBody location = RequestBody.create( MultipartBody.FORM, "b");
+       RequestBody shop = RequestBody.create( okhttp3.MultipartBody.FORM, sellerShopViewModel.shop.get());
+       //RequestBody shop = RequestBody.create( okhttp3.MultipartBody.FORM, "B01");
        RequestBody name = RequestBody.create( okhttp3.MultipartBody.FORM, goods.getName());
        RequestBody price = RequestBody.create( okhttp3.MultipartBody.FORM, String.valueOf(goods.getPrice()));
        RequestBody quantity = RequestBody.create( okhttp3.MultipartBody.FORM, String.valueOf(goods.getQuantity()));
        RequestBody category = RequestBody.create( okhttp3.MultipartBody.FORM, gson.toJson(goods.getCategory()));
 
-       if(shopViewModel != null) {
+       if(sellerShopViewModel != null) {
            Call<ResponseJson> res = NetRetrofit.getInstance().getService().sellerinsertGoodsRepos(body, location,
                    shop,name ,price ,quantity , category);
            Log.i("getShopList", "" + res);
@@ -105,7 +105,7 @@ public class SellerCommand extends SellerGoodsList {
                        if(responseJson.getResponse().equals("success")) {
                            Log.i("sellerApply result", "success");
                            sellerGoodsUpdateDialog.cancel();
-                           shopViewModel.goods.clear();
+                           sellerShopViewModel.goods.clear();
                            getShopModel();
                        }
                        else{

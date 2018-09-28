@@ -35,10 +35,10 @@ public class ShopMapDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //shop = categoryShopViewModel.shop.get();
-        shop = "A02";
-        String location = "a";
-        shopNum = shop.split(location.toUpperCase())[1];
+        shop = categoryShopViewModel.shop.get();
+        //shop = "A02";
+        //String location = "a";
+        shopNum = shop.split(categoryShopViewModel.location.get().toUpperCase())[1];
         System.out.println("shop num    "+shopNum);
 
         // 다이얼로그 외부 화면 흐리게 표현
