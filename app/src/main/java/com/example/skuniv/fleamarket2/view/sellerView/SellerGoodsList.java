@@ -50,7 +50,7 @@ public class SellerGoodsList extends AppCompatActivity {
     UserModel userModel;
     static SellerShopViewModel sellerShopViewModel;
     static Context context;
-    SellerCommand sellerCommand;
+    static SellerCommand sellerCommand;
     boolean imagebool;
     static SellerGoodsListAdater adapter;
     SellerGoodsList sellerGoodsListview;
@@ -73,7 +73,7 @@ public class SellerGoodsList extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(context);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
-        adapter = new SellerGoodsListAdater(sellerShopViewModel.goods, context);
+        adapter = new SellerGoodsListAdater(sellerShopViewModel.goods, context,sellerCommand);
 
         sellerGoodsListBinding.recyclerId.setLayoutManager(llm);
         sellerGoodsListBinding.recyclerId.setAdapter(adapter);
@@ -106,7 +106,7 @@ public class SellerGoodsList extends AppCompatActivity {
     public static void bindItem(RecyclerView recyclerView, ObservableArrayList<SellerGoodsViewModel> goodsList) {
         //= (GoodsListAdapter) recyclerView.getAdapter();
         if (recyclerView.getAdapter() == null) {
-            adapter = new SellerGoodsListAdater(goodsList, context);
+            adapter = new SellerGoodsListAdater(goodsList, context,sellerCommand);
             recyclerView.setAdapter(adapter);
         } else {
             // 있으면 getAdapter

@@ -10,16 +10,22 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.skuniv.fleamarket2.databinding.SellerGoodsItemBinding;
+import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
+import com.example.skuniv.fleamarket2.util.Util;
+import com.example.skuniv.fleamarket2.view.sellerView.GoodsDeleteDialog;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerCommand;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerGoodsViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
 
 public class SellerGoodsListAdater extends RecyclerView.Adapter<SellerGoodsViewHolder>{
     public ObservableArrayList<SellerGoodsViewModel> goodsList;
     Context context;
+    private SellerCommand sellerCommand;
 
-    public SellerGoodsListAdater(ObservableArrayList<SellerGoodsViewModel> goodsList, Context context){
+    public SellerGoodsListAdater(ObservableArrayList<SellerGoodsViewModel> goodsList, Context context,SellerCommand sellerCommand){
         this.goodsList = goodsList;
         this.context = context;
+        this.sellerCommand=sellerCommand;
     }
 
     @Override
@@ -31,11 +37,13 @@ public class SellerGoodsListAdater extends RecyclerView.Adapter<SellerGoodsViewH
 
     @Override
     public void onBindViewHolder(SellerGoodsViewHolder holder, int position) {
-        SellerGoodsViewModel goods = goodsList.get(position);
+        final SellerGoodsViewModel goods = goodsList.get(position);
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                System.out.println(Util.gson.toJson(goods));
+                GoodsDeleteDialog goodsDeleteDialog = new GoodsDeleteDialog(context,goods,sellerCommand);
+                goodsDeleteDialog.show();
             }
         });
         holder.bind(goods);
