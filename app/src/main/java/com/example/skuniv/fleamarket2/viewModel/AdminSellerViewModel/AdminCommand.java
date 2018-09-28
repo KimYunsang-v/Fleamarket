@@ -2,6 +2,7 @@ package com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.ApplyData;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.ApplyListModel;
@@ -26,8 +27,8 @@ public class AdminCommand {
     ApplyItemsViewModel applyItemsViewModel;
     ApplyMetaViewModel applyMetaViewModel;
     ApplyDialog applyDialog;
-
     Gson gson = new Gson();
+
     public AdminCommand(Context context, UserModel userModel, ApplyListModel applyListModel,
                         ApplyItemsViewModel applyItemsViewModel, ApplyMetaViewModel applyMetaViewModel) {
         this.context = context;
@@ -70,29 +71,30 @@ public class AdminCommand {
 
     public void applySendOne(String id, int role){
         final int tempRole = role;
+        System.out.println("role ===== " +  role);
         ApplyOneJson applyOneJson = new ApplyOneJson(id, role);
         if (applyOneJson != null) {
-            Call<ResponseJson> res = NetRetrofit.getInstance().getService().applySendOneRepos(applyOneJson);
+            Call<ApplyData> res = NetRetrofit.getInstance().getService().applySendOneRepos(applyListModel.getPage(),applyOneJson);
             Log.i("getApplyList",""+res);
-            res.enqueue(new Callback<ResponseJson>() {
+            res.enqueue(new Callback<ApplyData>() {
                 @Override
-                public void onResponse(Call<ResponseJson> call, Response<ResponseJson> response) {
+                public void onResponse(Call<ApplyData> call, Response<ApplyData> response) {
                     Log.i("Retrofit", response.toString());
                     if (response.body() != null) {
-                        ResponseJson responseJson = response.body();
-                        Log.i("applySendOne",""+gson.toJson(responseJson));
-                        if(responseJson.getResponse().equals("success")){
-                            applyDialog.applyItemViewModel.role.set(tempRole);
-                            if(applyDialog.applyItemViewModel.role.get() == 2){
-                                applyListModel.setPage(applyListModel.getApplyCount() - 1);
-                            }
-                        } else if (responseJson.getResponse().equals("fail")){
-                            Log.i("respose",responseJson.getResponse());
+                        applyData = new ApplyData();
+                        applyData = response.body();
+                        Log.i("getApplyList",""+gson.toJson(applyData));
+                        applyItemsViewModel.applyList.clear();
+                        applyItemsViewModel.setApplyList(applyData.getItems());
+                        applyMetaViewModel.pageList.clear();
+                        applyMetaViewModel.count.set(applyData.getMeta().getCount());
+                        applyMetaViewModel.setPageList();
+                        System.out.println(applyItemsViewModel);
+                        System.out.println(applyItemsViewModel.getApplyList());
                         }
-                    }
                 }
                 @Override
-                public void onFailure(Call<ResponseJson> call, Throwable t) {
+                public void onFailure(Call<ApplyData> call, Throwable t) {
                     Log.e("에러", t.getMessage());
                 }
             });
@@ -155,6 +157,43 @@ public class AdminCommand {
                 }
                 @Override
                 public void onFailure(Call<ApplyData> call, Throwable t) {
+                    Log.e("에러", t.getMessage());
+                }
+            });
+        } else {
+            Log.e("getApplyList","getApplyList error");
+        }
+    }
+
+    public void sendAdmission(){
+        if (applyListModel.getPage() > 0) {
+            Call<ResponseJson> res = NetRetrofit.getInstance().getService().sendAdmissionRepos();
+            Log.i("getApplyList",""+res);
+            res.enqueue(new Callback<ResponseJson>() {
+                @Override
+                public void onResponse(Call<ResponseJson> call, Response<ResponseJson> response) {
+                    Log.i("Retrofit", response.toString());
+                    if (response.body() != null) {
+                        ResponseJson responseJson = response.body();
+                        //applyData = response.body();
+                        Log.i("getApplyList",""+gson.toJson(responseJson));
+                        if(responseJson.getResponse().equals("success")){
+                            Toast.makeText(context,"success",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(context,"fail",Toast.LENGTH_SHORT).show();
+                        }
+                       /* applyItemsViewModel.applyList.clear();
+                        applyItemsViewModel.setApplyList(applyData.getItems());
+                        applyMetaViewModel.pageList.clear();
+                        applyMetaViewModel.count.set(applyData.getMeta().getCount());
+                        applyMetaViewModel.setPageList();
+                        System.out.println(applyItemsViewModel);
+                        System.out.println(applyItemsViewModel.getApplyList());*/
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseJson> call, Throwable t) {
                     Log.e("에러", t.getMessage());
                 }
             });

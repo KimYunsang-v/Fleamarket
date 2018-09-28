@@ -1,24 +1,16 @@
 package com.example.skuniv.fleamarket2.view.sellerView;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.skuniv.fleamarket2.databinding.SellerGoodsUpdateDialogBinding;
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
@@ -28,12 +20,7 @@ import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerComma
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 public class SellerGoodsUpdateDialog extends Dialog {
     SellerGoodsUpdateDialogBinding sellerGoodsUpdateDialogBinding;
@@ -96,6 +83,7 @@ public class SellerGoodsUpdateDialog extends Dialog {
             public void onNothingSelected(AdapterView<?> adapterView) {      }
         });
 
+
         sellerGoodsUpdateDialogBinding.confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +92,7 @@ public class SellerGoodsUpdateDialog extends Dialog {
                 ArrayList<Integer> categoryList = new ArrayList<Integer>();
                 categoryList.add(category.getCategoryNum(mainCategory));
                 categoryList.add(category.getCategoryNum(middleCategory));
-                goods.setCategory(categoryList);;
+                goods.setCategory(categoryList);
                 fileUri = sellerGoodsListView.getImageUri();
                 System.out.println("file uri path ======" + fileUri.getPath());
                 sellerCommand.addGoods(shopViewModel,goods,fileUri);
@@ -115,8 +103,15 @@ public class SellerGoodsUpdateDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 sellerGoodsListView.getImage();
+
+
             }
         });
+
+        sellerGoodsUpdateDialogBinding.imageView.setImageAlpha(R.drawable.default_icon);
+
+
+
     }
 
     private void setMiddleSpinner(){

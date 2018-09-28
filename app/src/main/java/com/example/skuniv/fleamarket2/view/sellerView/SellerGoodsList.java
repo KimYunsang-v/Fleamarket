@@ -25,8 +25,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.skuniv.fleamarket2.adapter.GoodsListAdapter;
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.adapter.SellerGoodsListAdater;
 import com.example.skuniv.fleamarket2.databinding.SellerGoodsListBinding;
@@ -40,7 +38,7 @@ import java.io.IOException;
 
 public class SellerGoodsList extends AppCompatActivity {
     private static final int PICK_FROM_GALLERY = 1;
-    private Uri imageUri;
+    private Uri imageUri ;
     private String filename;
     private static final int REQ_CODE_SELECT_IMAGE = 100;
     SellerGoodsListBinding sellerGoodsListBinding;
@@ -205,7 +203,10 @@ public class SellerGoodsList extends AppCompatActivity {
     }
 
     public Uri getImageUri() {
-        return imageUri;
+        if(imageUri != null)
+            return imageUri;
+        else
+            return Uri.parse("android.resource://"+context.getPackageName()+"/drawable/default_icon.png");
     }
 
     public void setImageUri(Uri imageUri) {

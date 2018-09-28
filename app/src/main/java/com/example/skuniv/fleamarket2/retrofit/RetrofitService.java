@@ -48,8 +48,8 @@ public interface RetrofitService {
     @POST("user/findid")
     Call<UserModel> findIdRepos(@Body FindIdJson findIdJson);
 
-    @POST("apply/one")
-    Call<ResponseJson> applySendOneRepos(@Body ApplyOneJson applyOneJson);
+    @POST("apply/one/{list_num}")
+    Call<ApplyData> applySendOneRepos(@Path("list_num") int page , @Body ApplyOneJson applyOneJson);
 
     @Multipart
     @POST("seller/insert/goods")
@@ -76,4 +76,7 @@ public interface RetrofitService {
 
     @GET("seller/select/{shop}")
     Call<ShopModel> getSellerGoodsRepos(@Path("shop") String shop);
+
+    @GET("send/admission")
+    Call<ResponseJson> sendAdmissionRepos();
 }

@@ -14,6 +14,7 @@ import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.SignUpBinding;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignUpJson;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.MainCommand;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class SignUpDialog extends Dialog {
     Context context;
@@ -61,7 +62,7 @@ public class SignUpDialog extends Dialog {
                     Toast.makeText(context,"이메일을 입력하세요",Toast.LENGTH_SHORT).show();
                 } else{
                     SignUpJson signUpJson = new SignUpJson(signUpBinding.idText.getText().toString(),signUpBinding.pwText.getText().toString(),
-                            signUpBinding.nameText.getText().toString(),sex,signUpBinding.emailText.getText().toString());
+                            signUpBinding.nameText.getText().toString(),sex,signUpBinding.emailText.getText().toString(), FirebaseInstanceId.getInstance().getToken());
                     mainCommand.signUp(signUpJson);
                     //sex,signUpBinding.nameText.getText().toString(), signUpBinding.emailText.getText().toString());
                     System.out.println("아이디 : " + signUpBinding.idText.getText().toString() + "  비밀번호 : " + signUpBinding.pwText.getText().toString() +

@@ -164,7 +164,7 @@
 
 
         <TextView
-            android:id="@+id/id0"
+            android:id="@+id/id20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{map::setBackground}"
@@ -296,7 +296,7 @@
             android:text="39"/>
 
         <TextView
-            android:id="@+id/id20"
+            android:id="@+id/id40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{map::setBackground}"
@@ -430,11 +430,11 @@
             android:text="59"/>
 
         <TextView
-            android:id="@+id/id40"
+            android:id="@+id/id60"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{map::setBackground}"
-            android:text="40"/>
+            android:text="60"/>
 
     </LinearLayout>
 
@@ -564,7 +564,7 @@
             android:text="79"/>
 
         <TextView
-            android:id="@+id/id60"
+            android:id="@+id/id80"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{map::setBackground}"
