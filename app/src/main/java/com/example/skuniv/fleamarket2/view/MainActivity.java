@@ -21,6 +21,7 @@ import com.example.skuniv.fleamarket2.view.noticeView.NoticeActivity;
 import com.example.skuniv.fleamarket2.view.sellerView.SellerGoodsList;
 import com.example.skuniv.fleamarket2.view.sellerView.SignInDialog;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.MainCommand;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
@@ -40,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
     public PrimaryDrawerItem goodsListItem = new PrimaryDrawerItem().withIdentifier(3).withName("상품조회").withIcon(R.drawable.material_drawer_circle_mask).withIconTintingEnabled(true);
     public PrimaryDrawerItem applyItem = new PrimaryDrawerItem().withIdentifier(4).withName("신청하기").withIcon(R.drawable.material_drawer_circle_mask).withIconTintingEnabled(true);
     public PrimaryDrawerItem signout = new PrimaryDrawerItem().withIdentifier(5).withName("로그아웃").withIcon(R.drawable.material_drawer_circle_mask).withIconTintingEnabled(true);
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         loginSetting = context.getSharedPreferences("loginSetting", MODE_PRIVATE);
 
-
+        System.out.println("token ========" + FirebaseInstanceId.getInstance().getToken());
         result = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(binding.toolbar)

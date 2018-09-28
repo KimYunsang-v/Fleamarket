@@ -83,6 +83,13 @@ public class CurrentApplyView extends AppCompatActivity{
                 adminCommand.sendFirstCome();
             }
         });
+
+        currentApplyBinding.sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adminCommand.sendAdmission();
+            }
+        });
     }
 
     @BindingAdapter("app:items")

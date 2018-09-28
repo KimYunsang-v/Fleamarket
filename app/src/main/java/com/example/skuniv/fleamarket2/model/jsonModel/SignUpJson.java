@@ -7,6 +7,16 @@ public class SignUpJson {
     String sex;
     String email;
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    String token;
+
     public String getId() {
         return id;
     }
@@ -47,12 +57,13 @@ public class SignUpJson {
         this.email = email;
     }
 
-    public SignUpJson(String id, String pw, String name, String sex, String email) {
+    public SignUpJson(String id, String pw, String name, String sex, String email, String token) {
 
         this.id = id;
         this.pw = pw;
         this.name = name;
         this.sex = sex;
         this.email = email;
+        this.token = token;
     }
 }

@@ -97,7 +97,6 @@ public class MainCommand {
                             editor.putString("shop",userModel.getShop());
                             editor.putInt("role",userModel.getRole());
                             editor.commit();
-
                             signInDialog.cancel();
                             mainActivity.result.closeDrawer();
                             singInSuccess();

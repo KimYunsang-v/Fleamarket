@@ -3,10 +3,6 @@
     xmlns:bind="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <data>
-
-    <import type="com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel"/>
-    <import type="android.databinding.ObservableArrayList" />
-
     <variable
         name="shop"
         type="com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel"/>

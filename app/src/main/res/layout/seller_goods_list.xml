@@ -6,10 +6,9 @@
     <data>
         <variable
             name="shop"
-            type="com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel"/>
+            type="com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerShopViewModel"/>
 
     </data>
-
 
 <LinearLayout
     android:layout_width="match_parent"
@@ -21,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <Button
             android:id="@+id/addBtn"
             android:layout_width="wrap_content"
@@ -30,6 +30,11 @@
             android:background="#F8BBD0"
             android:layout_margin="8dp"
             android:text="상품 추가"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>

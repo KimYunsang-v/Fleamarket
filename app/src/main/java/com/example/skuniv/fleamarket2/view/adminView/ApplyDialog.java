@@ -18,6 +18,7 @@ public class ApplyDialog extends Dialog{
     public ApplyItemViewModel applyItemViewModel;
     AdminCommand adminComman;
     Context context;
+    ApplyDialog applyDialog;
 
     public ApplyDialog(@NonNull Context context, ApplyItemViewModel applyItemViewModel, AdminCommand adminCommand) {
         super(context);
@@ -36,11 +37,14 @@ public class ApplyDialog extends Dialog{
 
         applyDialogBinding.setApply(applyItemViewModel);
 
+        applyDialog = this;
+
 
         applyDialogBinding.admissionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 adminComman.applySendOne(applyItemViewModel.id.get(),2);
+                applyDialog.cancel();
             }
         });
 
@@ -48,6 +52,7 @@ public class ApplyDialog extends Dialog{
             @Override
             public void onClick(View view) {
                 adminComman.applySendOne(applyItemViewModel.id.get(),3);
+                applyDialog.cancel();
             }
         });
     }

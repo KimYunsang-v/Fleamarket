@@ -10,15 +10,20 @@ import com.example.skuniv.fleamarket2.model.jsonModel.ResponseJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SellerApplyJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignInJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignUpJson;
+import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.model.noticeModel.NoticeData;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface RetrofitService {
@@ -26,13 +31,13 @@ public interface RetrofitService {
     Call<ShopData> getListRepos(@Path("section") String section, @Path("sectionNum") int sectionNum);
 
     @GET("category/{middleCategory}/{pageNum}")
-    Call<CategoryData> getGoodsRepos(@Path("middleCategory") int middleCategory ,@Path("pageNum") int pageNum);
+    Call<CategoryData> getGoodsRepos(@Path("middleCategory") int middleCategory, @Path("pageNum") int pageNum);
 
     @GET("notice/select/{pageNum}")
     Call<NoticeData> getNoticeRepos(@Path("pageNum") int pageNum);
 
     @GET("notice/search/{type}/{keyword}/{page}")
-    Call<NoticeData> getNoticeSearchRepos(@Path("type") String type,@Path("keyword") String keyword, @Path("page") int page);
+    Call<NoticeData> getNoticeSearchRepos(@Path("type") String type, @Path("keyword") String keyword, @Path("page") int page);
 
     @POST("user/signin")
     Call<UserModel> getSignInRepos(@Body SignInJson signInJson);
@@ -43,11 +48,19 @@ public interface RetrofitService {
     @POST("user/findid")
     Call<UserModel> findIdRepos(@Body FindIdJson findIdJson);
 
-    @POST("apply/one")
-    Call<ResponseJson> applySendOneRepos(@Body ApplyOneJson applyOneJson);
+    @POST("apply/one/{list_num}")
+    Call<ApplyData> applySendOneRepos(@Path("list_num") int page , @Body ApplyOneJson applyOneJson);
 
+    @Multipart
     @POST("seller/insert/goods")
-    Call<ResponseJson> sellerinsertGoodsRepos(@Body GoodsInsertJson goodsInsertJson);
+    Call<ResponseJson> sellerinsertGoodsRepos(@Part MultipartBody.Part file,
+                                              @Part("location") RequestBody location,
+                                              @Part("shop") RequestBody shop,
+                                              @Part("name") RequestBody name,
+                                              @Part("price") RequestBody price,
+                                              @Part("quantity") RequestBody quantity,
+                                              @Part("category") RequestBody category
+    );
 
     @POST("seller/apply")
     Call<ResponseJson> sellerApplyRepos(@Body SellerApplyJson sellerApplyJson);
@@ -62,5 +75,8 @@ public interface RetrofitService {
     Call<ApplyData> firstcomeApplyRepos(@Path("apply_count") int applyCount, @Path("list_num") int list_num);
 
     @GET("seller/select/{shop}")
-    Call<ShopModel> getSellerGoodsRepos(@Path("shop") String  shop);
+    Call<ShopModel> getSellerGoodsRepos(@Path("shop") String shop);
+
+    @GET("send/admission")
+    Call<ResponseJson> sendAdmissionRepos();
 }

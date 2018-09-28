@@ -1,5 +1,6 @@
 package com.example.skuniv.fleamarket2.view.locationView;
 
+import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
