@@ -5,6 +5,7 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -12,7 +13,9 @@ import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.SellerApplyBinding;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.model.jsonModel.SellerApplyJson;
+import com.example.skuniv.fleamarket2.util.Util;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerCommand;
+import com.google.gson.Gson;
 
 public class SellerApplyDialog extends Dialog{
     UserModel userModel;
@@ -27,15 +30,15 @@ public class SellerApplyDialog extends Dialog{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        System.out.println("----------------------------------------------------- SellerApplyDialog Log!!!!!");
         sellerApplyBinding = (SellerApplyBinding)
                 DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.seller_apply, null, false);
         setContentView(sellerApplyBinding.getRoot());
 
         sellerApplyBinding.idId.setText(userModel.getId());
+
         sellerApplyBinding.nameId.setText(userModel.getName());
         sellerCommand = new SellerCommand();
-        sellerApplyDialog = this;
 
         sellerApplyBinding.applyId.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,5 +50,6 @@ public class SellerApplyDialog extends Dialog{
                 }
             }
         });
+        Util.settingDialogSize(this,1000,1700);
     }
 }

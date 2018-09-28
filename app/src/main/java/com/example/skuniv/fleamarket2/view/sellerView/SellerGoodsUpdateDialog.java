@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
@@ -16,6 +17,7 @@ import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.model.Category;
 import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
+import com.example.skuniv.fleamarket2.util.Util;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerCommand;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerShopViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.GoodsViewModel;
@@ -30,7 +32,7 @@ public class SellerGoodsUpdateDialog extends Dialog {
     SellerShopViewModel sellerShopViewModel;
     UserModel userModel;
     ArrayAdapter mainSpinner, middleSpinner;
-    String[] mainC = {"cloth", "digital", "fancy", "acc", "book", "etc"};
+    final String[] mainC = {"옷", "디지털", "잡화", "악세서리", "도서", "기타"};
     String mainCategory, middleCategory;
     SellerGoodsList sellerGoodsListView;
     SellerCommand sellerCommand;
@@ -51,6 +53,7 @@ public class SellerGoodsUpdateDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final SellerGoodsUpdateDialog sellerGoodsUpdateDialog = this;
         sellerGoodsUpdateDialogBinding = (SellerGoodsUpdateDialogBinding)
                 DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.seller_goods_update_dialog, null, false);
         setContentView(sellerGoodsUpdateDialogBinding.getRoot());
@@ -85,7 +88,12 @@ public class SellerGoodsUpdateDialog extends Dialog {
             public void onNothingSelected(AdapterView<?> adapterView) {      }
         });
 
-
+        sellerGoodsUpdateDialogBinding.cancleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sellerGoodsUpdateDialog.dismiss();
+            }
+        });
         sellerGoodsUpdateDialogBinding.confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,7 +119,7 @@ public class SellerGoodsUpdateDialog extends Dialog {
         });
         System.out.println("package name ====="+context.getPackageName());
         //sellerGoodsUpdateDialogBinding.imageView.setImageURI(Uri.parse("android.resource://"+context.getPackageName()+"/drawable/default_icon.png"));
-
+        Util.settingDialogSize(this,1000,1700);
     }
 
     private void setMiddleSpinner(){
@@ -122,17 +130,17 @@ public class SellerGoodsUpdateDialog extends Dialog {
     }
 
     private String[] getList(String mainCategory){
-        if(mainCategory.equals("cloth")){
+        if(mainCategory.equals("옷")){
             return context.getResources().getStringArray(R.array.cloth);
-        }else if(mainCategory.equals("digital")){
+        }else if(mainCategory.equals("디지털")){
             return context.getResources().getStringArray(R.array.digital);
-        }else if(mainCategory.equals("fancy")){
+        }else if(mainCategory.equals("잡화")){
             return context.getResources().getStringArray(R.array.fancy);
-        }else if(mainCategory.equals("acc")){
+        }else if(mainCategory.equals("악세서리")){
             return context.getResources().getStringArray(R.array.acc);
-        }else if(mainCategory.equals("book")){
+        }else if(mainCategory.equals("도서")){
             return context.getResources().getStringArray(R.array.book);
-        }else if(mainCategory.equals("etc")){
+        }else if(mainCategory.equals("기타")){
             return context.getResources().getStringArray(R.array.etc);
         }
         return null;

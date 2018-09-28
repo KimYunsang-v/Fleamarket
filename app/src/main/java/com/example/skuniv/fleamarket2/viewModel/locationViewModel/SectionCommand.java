@@ -53,7 +53,7 @@ public class SectionCommand {
                     if (response.body() != null) {
                         shopData = response.body();
                         Log.i("getShopList",""+gson.toJson(response.body()));
-                        shopsViewModel.setShops(shopData.getShops());
+                        shopsViewModel.setShops(shopData.getItems());
                         shopMetaViewModel.count.set(shopData.getMeta().getShopCount());
                     }
                 }
@@ -71,7 +71,7 @@ public class SectionCommand {
 
         Gson gson = new Gson();
         shopData = gson.fromJson(jsonObject,  ShopData.class);
-        shopsViewModel.setShops(shopData.getShops());
+        shopsViewModel.setShops(shopData.getItems());
         System.out.println("====shop count" + shopData.getMeta().getShopCount());
         shopMetaViewModel.count.set(shopData.getMeta().getShopCount());
         return shops;

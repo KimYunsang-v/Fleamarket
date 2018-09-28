@@ -94,6 +94,7 @@ public class MainCommand {
                             loginSetting = context.getSharedPreferences("loginSetting", MODE_PRIVATE);
                             editor = loginSetting.edit();
                             editor.putString("id",userModel.getId());
+                            editor.putString("name",userModel.getName());
                             editor.putString("shop",userModel.getShop());
                             editor.putInt("role",userModel.getRole());
                             editor.commit();
@@ -171,6 +172,7 @@ public class MainCommand {
     public void autoLogin(){
         loginSetting = context.getSharedPreferences("loginSetting", MODE_PRIVATE);
         userModel.setId(loginSetting.getString("id",""));
+        userModel.setName(loginSetting.getString("id",""));
         userModel.setShop(loginSetting.getString("shop",""));
         userModel.setRole(loginSetting.getInt("role",-1));
 

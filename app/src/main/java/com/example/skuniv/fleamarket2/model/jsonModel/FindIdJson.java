@@ -1,28 +1,16 @@
 package com.example.skuniv.fleamarket2.model.jsonModel;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class FindIdJson {
-    String id;
-    String email;
+    private String id;
+    private String email;
 
     public FindIdJson(String id, String email) {
         this.id = id;
-        this.email = email;
-    }
-
-    public String getId() {
-
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
     }
 }

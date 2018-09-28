@@ -7,18 +7,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.skuniv.fleamarket2.R;
 import com.example.skuniv.fleamarket2.databinding.ApplyDialogBinding;
+import com.example.skuniv.fleamarket2.util.Util;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.AdminCommand;
 import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.ApplyItemViewModel;
 
 public class ApplyDialog extends Dialog{
-    ApplyDialogBinding applyDialogBinding;
+    private ApplyDialogBinding applyDialogBinding;
     public ApplyItemViewModel applyItemViewModel;
-    AdminCommand adminComman;
-    Context context;
-    ApplyDialog applyDialog;
+    private AdminCommand adminComman;
+    private Context context;
+    private ApplyDialog applyDialog;
 
     public ApplyDialog(@NonNull Context context, ApplyItemViewModel applyItemViewModel, AdminCommand adminCommand) {
         super(context);
@@ -37,8 +40,9 @@ public class ApplyDialog extends Dialog{
 
         applyDialogBinding.setApply(applyItemViewModel);
 
-        applyDialog = this;
+        Util.settingDialogSize(this,1000,1700);
 
+        applyDialog = this;
 
         applyDialogBinding.admissionBtn.setOnClickListener(new View.OnClickListener() {
             @Override

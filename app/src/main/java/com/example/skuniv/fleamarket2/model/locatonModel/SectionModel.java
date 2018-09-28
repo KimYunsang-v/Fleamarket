@@ -1,27 +1,16 @@
 package com.example.skuniv.fleamarket2.model.locatonModel;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class SectionModel {
-    String section;
-    int sectionNum;
+    private String section;
+    private int sectionNum;
 
     public SectionModel(String section, int sectionNum){
         this.section = section;
         this.sectionNum = sectionNum;
-    }
-
-    public String getSection() {
-        return section;
-    }
-
-    public int getSectionNum() {
-        return sectionNum;
-    }
-
-    public void setSectionNum(int sectionNum) {
-        this.sectionNum = sectionNum;
-    }
-
-    public void setSection(String section) {
-        this.section = section;
     }
 }
