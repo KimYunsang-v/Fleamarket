@@ -77,5 +77,14 @@ public class SignInDialog extends Dialog{
                 signInDialog.dismiss();
             }
         });
+
+        signInBinding.findPwBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FindPwDialog findPwDialog = new FindPwDialog(context);
+                findPwDialog.show();
+                signInDialog.dismiss();
+            }
+        });
     }
 }

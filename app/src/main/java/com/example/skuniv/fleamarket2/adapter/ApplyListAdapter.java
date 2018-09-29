@@ -45,12 +45,12 @@ public class ApplyListAdapter extends RecyclerView.Adapter<ApplyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ApplyViewHolder holder, int position) {
+    public void onBindViewHolder(ApplyViewHolder holder, final int position) {
         apply = applyList.get(position);
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApplyDialog applyDialog = new ApplyDialog(context, apply,adminCommand);
+                ApplyDialog applyDialog = new ApplyDialog(context, applyList.get(position),adminCommand);
                 applyDialog.show();
             }
         });
