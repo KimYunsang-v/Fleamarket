@@ -92,9 +92,7 @@ public class SellerCommand extends SellerGoodsList {
 
 
        RequestBody location = RequestBody.create( MultipartBody.FORM, sellerShopViewModel.location.get());
-       //RequestBody location = RequestBody.create( MultipartBody.FORM, "b");
        RequestBody shop = RequestBody.create( okhttp3.MultipartBody.FORM, sellerShopViewModel.shop.get());
-       //RequestBody shop = RequestBody.create( okhttp3.MultipartBody.FORM, "B01");
        RequestBody name = RequestBody.create( okhttp3.MultipartBody.FORM, goods.getName());
        RequestBody price = RequestBody.create( okhttp3.MultipartBody.FORM, String.valueOf(goods.getPrice()));
        RequestBody quantity = RequestBody.create( okhttp3.MultipartBody.FORM, String.valueOf(goods.getQuantity()));

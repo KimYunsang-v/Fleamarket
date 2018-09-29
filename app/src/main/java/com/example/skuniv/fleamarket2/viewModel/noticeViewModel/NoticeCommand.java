@@ -179,15 +179,18 @@ public class NoticeCommand {
             {
                 // SD카드가 마운트되어있지 않음
                 futureStudioIconFile = Environment.getRootDirectory();
+                Log.i("SD 카드 마운트 ㅌㅌㅌㅌㅌ","ㅇ");
             }
             else
             {
                 // SD카드가 마운트되어있음
                 futureStudioIconFile = Environment.getExternalStorageDirectory();
+                Log.i("SD 카드 마운트 되어있음","ㅇ");
             }
             String dir = futureStudioIconFile.getAbsolutePath() + "/notice";
-            futureStudioIconFile = new File(dir);
-            System.out.println("========"+dir);
+            futureStudioIconFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/Downloads","WIT");
+
+            System.out.println("========"+Environment.getExternalStorageDirectory().getAbsolutePath());
 
             if(!futureStudioIconFile.exists()) {
                 futureStudioIconFile.mkdirs();
@@ -195,8 +198,8 @@ public class NoticeCommand {
             }
 
             String fileName = fileUrl.substring(fileUrl.lastIndexOf("/"),fileUrl.lastIndexOf("."));
-
-            futureStudioIconFile = new File(dir + File.separator +fileName);
+            System.out.println("file name ======" + fileName);
+            futureStudioIconFile = new File(futureStudioIconFile,fileName);
 
             InputStream inputStream = null;
             OutputStream outputStream = null;

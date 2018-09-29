@@ -175,7 +175,9 @@ public class MainCommand {
         userModel.setId(loginSetting.getString("id",""));
         userModel.setName(loginSetting.getString("id",""));
         userModel.setShop(loginSetting.getString("shop",""));
-        userModel.setRole(loginSetting.getInt("role",-1));
+        userModel.setRole(loginSetting.getInt("role",1));
+
+        System.out.println("user shop========" +userModel.getShop());
 
         singInSuccess();
     }

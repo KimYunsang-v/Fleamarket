@@ -62,7 +62,7 @@ public class CategoryGoodsInfoDialog extends Dialog{
             }
         });
 
-        shopText[Integer.parseInt(shopNum)-1].setBackgroundColor(getContext().getResources().getColor(R.color.yellow));
+        shopText[Integer.parseInt(shopNum)-1].setTextColor(getContext().getResources().getColor(R.color.red));
         //DialogBinding.setSelect(shopNum);
         //setBack = new Boolean[120];
         //setBack[shopNum] = true;
