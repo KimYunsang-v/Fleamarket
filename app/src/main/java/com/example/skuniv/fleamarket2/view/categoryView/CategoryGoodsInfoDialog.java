@@ -8,9 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 import com.example.skuniv.fleamarket2.R;
+import com.bumptech.glide.Glide;
 import com.example.skuniv.fleamarket2.databinding.CategoryGoodsInfoBinding;
 import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.view.locationView.MapDialog;
@@ -63,7 +62,7 @@ public class CategoryGoodsInfoDialog extends Dialog{
             }
         });
 
-        shopText[Integer.parseInt(shopNum)-1].setBackgroundColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
+        shopText[Integer.parseInt(shopNum)-1].setBackgroundColor(getContext().getResources().getColor(R.color.yellow));
         //DialogBinding.setSelect(shopNum);
         //setBack = new Boolean[120];
         //setBack[shopNum] = true;

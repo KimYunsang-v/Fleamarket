@@ -61,27 +61,12 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
 
         // 카테고리모델 셋팅
         categoryListBinding.setCategoryModel(categoryModel);
-        categoryListBinding.setShopsList(categoryShopsViewModel.getShops());
+        categoryListBinding.setShopsList(categoryShopsViewModel);
 
         categoryCommand = new CategoryCommand(this, categoryListBinding, categoryModel, categoryShopsViewModel, categoryData,categoryMetaViewModel);
 
         onLoadMoreListener = this;
         context = this;
-
-        llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        //Log.i("getAdapter","============");
-
-        categoryListBinding.recyclerId2.setLayoutManager(llm);
-
-        /*categoryItemBinding.mapId.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-               });*/
-
-        //categoryCommand.jsonPaser(getJson(categoryModel.getPageNum()));
 
         // Initializing an ArrayAdapter
         spinnerAdapter = new ArrayAdapter(
@@ -96,9 +81,11 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
                 ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLACK);
                 ((TextView) adapterView.getChildAt(0)).setTextSize(30);
                 categoryShopsViewModel.shops.clear();
+                categoryModel.setPageNum(1);
                 categoryModel.addCategory(adapterView.getItemAtPosition(i).toString());
                 System.out.println("category ===="+categoryModel.categoryStr + "   "+categoryModel.categoryList);
                 categoryCommand.getGoodsList();
+
             }
 
             @Override
@@ -106,6 +93,13 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
 
             }
         });
+
+        llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+        categoryListBinding.recyclerId2.setLayoutManager(llm);
+        adapter = new CategoryListAdapter(categoryShopsViewModel.getShops(), context,categoryCommand,onLoadMoreListener,categoryMetaViewModel);
+        categoryListBinding.recyclerId2.setAdapter(adapter);
     }
 
     @Override
@@ -148,7 +142,8 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
         else {
             // 있으면 getAdapter
             adapter = (CategoryListAdapter) recyclerView.getAdapter();
-            adapter.setShopsList(categoryShopsViewModel.getShops());
+            System.out.println("size =========" + categoryShopsViewModel.shops.size());
+            adapter.setShopsList(categoryShopsViewModel.shops);
             System.out.println("get adapter");
         }
         //adapter.addAll(shops);

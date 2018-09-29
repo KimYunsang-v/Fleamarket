@@ -9,7 +9,7 @@
             type="com.example.skuniv.fleamarket2.model.categoryModel.CategoryModel"/>
         <variable
             name="shopsList"
-            type="android.databinding.ObservableArrayList&lt;com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryShopViewModel&gt;"/>
+            type="com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryShopsViewModel"/>
     </data>
 
     <LinearLayout
@@ -54,7 +54,7 @@
                 android:id="@+id/recyclerId2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:items="@{shopsList}">
+                app:items="@{shopsList.shops}">
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </LinearLayout>
