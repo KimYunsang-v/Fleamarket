@@ -22,7 +22,7 @@
 * 판매 신청서 승인(랜덤, 선착순, 개인 지정)
 * 승인 당첨 판매자들에게 메시지 전송
 
-<img src = './image/splash.jpg' width = '270' height = '400'/><img src = './image/main.jpg' width = '270' height = '400'/><img src = './image/10.jpg' width = '270' height = '400'/>
+<img src = './image/splash.jpg' width = '270' height = '400' margin-left='20' margin-right='20' /><img src = './image/main.jpg' width = '270' height = '400'/><img src = './image/10.jpg' width = '270' height = '400'/>
 <br/><br/><br/>
 <img src = './image/12.jpg' width = '270' height = '400'/><img src = './image/5.jpg' width = '270' height = '400'/><img src = './image/6.jpg' width = '270' height = '400'/>
 <br/><br/><br/>
