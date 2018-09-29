@@ -21,6 +21,7 @@ import com.example.skuniv.fleamarket2.view.sellerView.SellerApplyDialog;
 import com.example.skuniv.fleamarket2.view.sellerView.SellerGoodsList;
 import com.example.skuniv.fleamarket2.view.sellerView.SignInDialog;
 import com.example.skuniv.fleamarket2.view.sellerView.SignUpDialog;
+import com.example.skuniv.fleamarket2.view.sellerView.UserInfoDialog;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
@@ -213,6 +214,13 @@ public class MainCommand {
         mainActivity.result.closeDrawer();
     }
 
+    public void info(){
+        UserInfoDialog userInfoDialog = new UserInfoDialog(context, userModel);
+        userInfoDialog.show();
+        mainActivity.result.closeDrawer();
+    }
+
+
     public void signInTest(){
         userModel.setId("test");
         userModel.setShop("a01");
@@ -246,8 +254,10 @@ public class MainCommand {
         }
     }
 
+
     public void singInSuccess() {
         mainActivity.result.removeAllItems();
+        mainActivity.result.addItem(mainActivity.info);
         if (userModel.getRole() == 0) { // 관리자 로그인
             mainActivity.result.addItem(mainActivity.currentApplyItem);
             Toast.makeText(mainActivity,"관리자 로그인", Toast.LENGTH_SHORT).show();
