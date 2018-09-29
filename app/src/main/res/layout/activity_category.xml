@@ -29,7 +29,7 @@
             android:background="#FFCCBC"
             android:textColor="#ffffff"
             android:textSize="30sp"
-            android:text="cloth"
+            android:text="옷"
             android:onClick="@{() -> category.categoryClickListener(&quot;CLOTH&quot;)}"/>
 
         <Button
@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:textColor="#ffffff"
             android:textSize="30sp"
-            android:text="digital"
+            android:text="디지털"
             android:onClick="@{() -> category.categoryClickListener(&quot;DIGITAL&quot;)}"/>
 
     </LinearLayout>
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="fancy"
+            android:text="잡화"
             android:background="#BBDEFB"
             android:textSize="30sp"
             android:textColor="#ffffff"
@@ -70,7 +70,7 @@
             android:background="#FFECB3"
             android:textSize="30sp"
             android:textColor="#ffffff"
-            android:text="acc"
+            android:text="악세서리"
             android:onClick="@{() -> category.categoryClickListener(&quot;ACC&quot;)}"/>
 
     </LinearLayout>
@@ -89,7 +89,7 @@
             android:background="#DCEDC8"
             android:textSize="30sp"
             android:textColor="#ffffff"
-            android:text="book"
+            android:text="도서"
             android:onClick="@{() -> category.categoryClickListener(&quot;BOOK&quot;)}"/>
 
         <Button
@@ -100,7 +100,7 @@
             android:background="#F8BBD0"
             android:textSize="30sp"
             android:textColor="#ffffff"
-            android:text="etc"
+            android:text="기타"
             android:onClick="@{() -> category.categoryClickListener(&quot;ETC&quot;)}"/>
     </LinearLayout>
 

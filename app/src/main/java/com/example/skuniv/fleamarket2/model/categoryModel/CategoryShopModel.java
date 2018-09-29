@@ -3,15 +3,20 @@ package com.example.skuniv.fleamarket2.model.categoryModel;
 import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CategoryShopModel{
     @SerializedName("no")
-    int no;
+    private int no;
     @SerializedName("location")
-    String location;
+    private String location;
     @SerializedName("shop")
-    String shop;
+    private String shop;
     @SerializedName("good")
-    Goods goods;
+    private Goods goods;
 
     public CategoryShopModel(int no, String location, String shop, Goods goods){
         this.no = no;
@@ -19,38 +24,4 @@ public class CategoryShopModel{
         this.shop = shop;
         this.goods = goods;
     }
-
-    public int getNo() {
-        return no;
-    }
-
-    public void setNo(int no) {
-        this.no = no;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getShop() {
-        return shop;
-    }
-
-    public void setShop(String shop) {
-        this.shop = shop;
-    }
-
-    public Goods getGoods() {
-        return goods;
-    }
-
-    public void setGoods(Goods goods) {
-        this.goods = goods;
-    }
-
-
 }

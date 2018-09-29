@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-
     </data>
 
 <LinearLayout
@@ -165,8 +163,6 @@
                     android:background="#D1C4E9"
                     android:text="앨범" />
             </LinearLayout>
-
-
 
         </LinearLayout>
 

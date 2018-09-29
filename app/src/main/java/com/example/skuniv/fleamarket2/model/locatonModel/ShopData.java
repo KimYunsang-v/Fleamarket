@@ -4,25 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ShopData {
     @SerializedName("items")
-    List<ShopModel> items;
+    private List<ShopModel> items;
     @SerializedName("meta")
-    LocationMeta meta;
-
-    public LocationMeta getMeta() {
-        return meta;
-    }
-
-    public void meta(LocationMeta meta) {
-        this.meta = meta;
-    }
-
-    public List<ShopModel> getShops() {
-        return items;
-    }
-
-    public void setShops(List<ShopModel> items) {
-        this.items = items;
-    }
+    private LocationMeta meta;
 }

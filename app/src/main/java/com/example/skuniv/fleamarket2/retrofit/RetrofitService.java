@@ -8,12 +8,14 @@ import com.example.skuniv.fleamarket2.model.jsonModel.FindIdJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.GoodsInsertJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.ResponseJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SellerApplyJson;
+import com.example.skuniv.fleamarket2.model.jsonModel.ShopGoodsJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignInJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignUpJson;
 import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.model.noticeModel.NoticeData;
+import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerGoodsViewModel;
 import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 
 import okhttp3.MultipartBody;
@@ -61,6 +63,8 @@ public interface RetrofitService {
                                               @Part("quantity") RequestBody quantity,
                                               @Part("category") RequestBody category
     );
+    @POST("seller/delete/goods")
+    Call<ResponseJson> sellerdeleteGoodsRepos(@Body ShopGoodsJson shopGoodsJson);
 
     @POST("seller/apply")
     Call<ResponseJson> sellerApplyRepos(@Body SellerApplyJson sellerApplyJson);

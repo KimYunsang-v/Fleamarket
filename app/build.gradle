@@ -50,7 +50,8 @@ dependencies {
     }
     implementation 'com.android.support:support-annotations:27.1.1'
     compile 'com.squareup.retrofit2:converter-scalars:2.1.0'
-
+    compileOnly "org.projectlombok:lombok:1.16.18"
+    annotationProcessor "org.projectlombok:lombok:1.16.18"
 
 }
 apply plugin: 'com.google.gms.google-services'

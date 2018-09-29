@@ -1,13 +1,11 @@
 package com.example.skuniv.fleamarket2.model.categoryModel;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class CategoryMeta {
-    int count;
+    private int count;
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 }

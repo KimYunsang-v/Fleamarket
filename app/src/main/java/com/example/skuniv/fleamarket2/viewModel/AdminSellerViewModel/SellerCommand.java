@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.model.jsonModel.ResponseJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SellerApplyJson;
+import com.example.skuniv.fleamarket2.model.jsonModel.ShopGoodsJson;
 import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.retrofit.FileUtils;
@@ -17,6 +18,7 @@ import com.google.gson.Gson;
 
 import java.io.File;
 
+import lombok.Getter;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -24,7 +26,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@Getter
 public class SellerCommand extends SellerGoodsList {
+
     Context context;
     UserModel userModel;
     SellerShopViewModel sellerShopViewModel;
@@ -115,6 +119,33 @@ public class SellerCommand extends SellerGoodsList {
                        }
                        else{
                            Log.i("sellerApply result", "fail");
+                       }
+                   }
+               }
+               @Override
+               public void onFailure(Call<ResponseJson> call, Throwable t) {
+                   Log.e("에러", t.getMessage());
+               }
+           });
+       }
+   }
+
+   public void sellerGoodsDelete(ShopGoodsJson shopGoodsJson){
+       if(shopGoodsJson != null) {
+           Call<ResponseJson> res = NetRetrofit.getInstance().getService().sellerdeleteGoodsRepos(shopGoodsJson);
+           Log.i("ResponseJson", "" + res);
+           res.enqueue(new Callback<ResponseJson>() {
+               @Override
+               public void onResponse(Call<ResponseJson> call, Response<ResponseJson> response) {
+                   Log.i("Retrofit", response.toString());
+                   if (response.body() != null) {
+                       ResponseJson responseJson = response.body();
+                       if(responseJson.getResponse().equals("success")) {
+                           sellerShopViewModel.goods.clear();
+                           getShopModel();
+                       }
+                       else{
+                           Log.i("상품 삭제 실패", "fail");
                        }
                    }
                }

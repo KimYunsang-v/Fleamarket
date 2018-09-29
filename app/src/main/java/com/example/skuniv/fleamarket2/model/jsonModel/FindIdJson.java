@@ -1,5 +1,14 @@
 package com.example.skuniv.fleamarket2.model.jsonModel;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class FindIdJson {
+    private String id;
+
 import com.google.gson.annotations.SerializedName;
 
 public class FindIdJson {
@@ -8,25 +17,5 @@ public class FindIdJson {
     @SerializedName("email")
     String email;
 
-    public FindIdJson(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
 
-    public String getName() {
-
-        return name;
-    }
-
-    public void setId(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-}
+    

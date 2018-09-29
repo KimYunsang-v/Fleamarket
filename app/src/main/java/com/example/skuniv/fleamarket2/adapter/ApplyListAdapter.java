@@ -2,6 +2,7 @@ package com.example.skuniv.fleamarket2.adapter;
 
 import android.content.Context;
 import android.databinding.ObservableArrayList;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -54,11 +55,11 @@ public class ApplyListAdapter extends RecyclerView.Adapter<ApplyViewHolder> {
             }
         });
         if(apply.role.get() == 1){
-            holder.binding.getRoot().setBackgroundColor(context.getResources().getColor(R.color.red));
+            holder.binding.getRoot().setBackgroundColor(Color.rgb(255,255,255));
         } else if (apply.role.get() == 2){
-            holder.binding.getRoot().setBackgroundColor(context.getResources().getColor(R.color.green));
+            holder.binding.getRoot().setBackgroundColor(Color.rgb(178,235,242));
         }else if (apply.role.get() == 3){
-            holder.binding.getRoot().setBackgroundColor(context.getResources().getColor(R.color.yellow));
+            holder.binding.getRoot().setBackgroundColor(Color.rgb(255,204,188));
         }
         holder.bind(apply);
     }

@@ -151,17 +151,17 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
     }
 
     private String[] getList(){
-        if(category.equals("cloth".toUpperCase())){
+        if(category.equals("옷")){
             return getResources().getStringArray(R.array.cloth);
-        }else if(category.equals("digital".toUpperCase())){
+        }else if(category.equals("디지털")){
             return getResources().getStringArray(R.array.digital);
-        }else if(category.equals("fancy".toUpperCase())){
+        }else if(category.equals("잡화")){
             return getResources().getStringArray(R.array.fancy);
-        }else if(category.equals("acc".toUpperCase())){
+        }else if(category.equals("엑세서리")){
             return getResources().getStringArray(R.array.acc);
-        }else if(category.equals("book".toUpperCase())){
+        }else if(category.equals("도서")){
             return getResources().getStringArray(R.array.book);
-        }else if(category.equals("etc".toUpperCase())){
+        }else if(category.equals("기타")){
             return getResources().getStringArray(R.array.etc);
         }
         return null;

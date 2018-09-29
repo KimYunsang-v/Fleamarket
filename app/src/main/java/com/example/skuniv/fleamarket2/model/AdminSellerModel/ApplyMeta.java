@@ -2,15 +2,13 @@ package com.example.skuniv.fleamarket2.model.AdminSellerModel;
 
 import com.google.gson.annotations.SerializedName;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ApplyMeta {
     @SerializedName("count")
-    int count;
+    private int count;
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
 }

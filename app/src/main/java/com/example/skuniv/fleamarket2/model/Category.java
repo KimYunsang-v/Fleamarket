@@ -68,6 +68,12 @@ public class Category {
             put("BOOK", 4);
             put("DIGITAL", 6);
             put("ACC", 5);
+            put("옷", 1);
+            put("기타", 2);
+            put("잡화", 3);
+            put("도서", 4);
+            put("디지털", 6);
+            put("악세서리", 5);
             put("신발", SHOES);
             put("상의", TOP);
             put("하의", BOTTOM);

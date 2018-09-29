@@ -19,19 +19,6 @@ public class CategoryModel {
         this.categoryStr = categoryStr.toUpperCase();
         this.categoryList.add(category.getCategoryNum(categoryStr));
         this.pageNum = pageNum;
-        /*if(category.equals("cloth")){
-            middleCategory = TOP;
-        }else if(category.equals("digital")){
-            middleCategory = PC;
-        }else if(category.equals("fancy")){
-            middleCategory = NOTE;
-        }else if(category.equals("acc")){
-            middleCategory = RING;
-        }else if(category.equals("book")){
-            middleCategory = NOVEL;
-        }else if(category.equals("etc")){
-            middleCategory = PERFUME;
-        }*/
     }
 
     public void addCategory(String categoryStr){
