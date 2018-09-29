@@ -1,9 +1,9 @@
 # Fleamarket
 2018년 서울시 앱 공모전 출품작(뚝섬나눔장터)
 
-클라이언트 = android(java), firebase-cloud-messaing(서버 연동), alarmmanager, MVVM패턴
-서버 = django, mongodb, fcm연동
-사용 라이브러리 = glide, retrofit, lombok
+1. 클라이언트 = android(java), firebase-cloud-messaing(서버 연동), alarmmanager, MVVM패턴<br/>
+2. 서버 = django, mongodb, fcm연동<br/>
+3. 사용 라이브러리 = glide, retrofit, lombok<br/>
 
 
 기능 - 공통
