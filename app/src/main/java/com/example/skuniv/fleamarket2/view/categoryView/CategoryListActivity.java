@@ -157,7 +157,7 @@ public class CategoryListActivity extends AppCompatActivity implements CategoryL
             return getResources().getStringArray(R.array.digital);
         }else if(category.equals("잡화")){
             return getResources().getStringArray(R.array.fancy);
-        }else if(category.equals("엑세서리")){
+        }else if(category.equals("악세서리")){
             return getResources().getStringArray(R.array.acc);
         }else if(category.equals("도서")){
             return getResources().getStringArray(R.array.book);

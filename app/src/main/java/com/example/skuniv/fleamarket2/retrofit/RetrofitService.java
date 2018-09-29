@@ -5,18 +5,14 @@ import com.example.skuniv.fleamarket2.model.AdminSellerModel.UserModel;
 import com.example.skuniv.fleamarket2.model.categoryModel.CategoryData;
 import com.example.skuniv.fleamarket2.model.jsonModel.ApplyOneJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.FindIdJson;
-import com.example.skuniv.fleamarket2.model.jsonModel.GoodsInsertJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.ResponseJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SellerApplyJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.ShopGoodsJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignInJson;
 import com.example.skuniv.fleamarket2.model.jsonModel.SignUpJson;
-import com.example.skuniv.fleamarket2.model.locatonModel.Goods;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopData;
 import com.example.skuniv.fleamarket2.model.locatonModel.ShopModel;
 import com.example.skuniv.fleamarket2.model.noticeModel.NoticeData;
-import com.example.skuniv.fleamarket2.viewModel.AdminSellerViewModel.SellerGoodsViewModel;
-import com.example.skuniv.fleamarket2.viewModel.locationViewModel.ShopViewModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;

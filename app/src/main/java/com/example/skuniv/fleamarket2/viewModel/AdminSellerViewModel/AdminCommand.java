@@ -179,6 +179,7 @@ public class AdminCommand {
                         Log.i("getApplyList",""+gson.toJson(responseJson));
                         if(responseJson.getResponse().equals("success")){
                             Toast.makeText(context,"success",Toast.LENGTH_SHORT).show();
+                            getApply();
                         }
                         else{
                             Toast.makeText(context,"fail",Toast.LENGTH_SHORT).show();

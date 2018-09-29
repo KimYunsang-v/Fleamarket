@@ -39,6 +39,7 @@ public class SellerApplyDialog extends Dialog{
 
         sellerApplyBinding.nameId.setText(userModel.getName());
         sellerCommand = new SellerCommand();
+        sellerApplyDialog = this;
 
         sellerApplyBinding.applyId.setOnClickListener(new View.OnClickListener() {
             @Override
