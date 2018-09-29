@@ -10,7 +10,6 @@ import com.example.skuniv.fleamarket2.databinding.ActivityCategoryListBinding;
 import com.example.skuniv.fleamarket2.databinding.CategoryItemBinding;
 import com.example.skuniv.fleamarket2.model.categoryModel.CategoryModel;
 import com.example.skuniv.fleamarket2.model.categoryModel.CategoryShopModel;
-import com.example.skuniv.fleamarket2.view.categoryView.ShopMapDialog;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class CategoryCommand {
     List<CategoryShopModel> categoryShopList;
     CategoryShopsViewModel categoryShopsViewModel;
     Gson gson = new Gson();
-    ShopMapDialog dialog;
+    //CategoryGoodsInfoDialog dialog;
     CategoryCommand categoryCommand;
     CategoryData categoryData;
     CategoryMetaViewModel categoryMetaViewModel;
@@ -74,11 +73,11 @@ public class CategoryCommand {
         }
     }
 
-    public void mapClickListener(CategoryShopViewModel shop){
+    /*public void mapClickListener(CategoryShopViewModel shop){
         dialog = new ShopMapDialog(context,shop);
         System.out.println("--=---------mapmap");
         dialog.show();
-    }
+    }*/
 
     public void jsonPaser(String jsonObject){
 

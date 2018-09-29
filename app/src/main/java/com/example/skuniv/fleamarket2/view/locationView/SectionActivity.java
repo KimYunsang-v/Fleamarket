@@ -1,5 +1,6 @@
 package com.example.skuniv.fleamarket2.view.locationView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.example.skuniv.fleamarket2.R;
@@ -35,6 +37,7 @@ public class SectionActivity extends AppCompatActivity {
     ShopData shopData;
     GoodsRecyclerDialog recyclerDialog;
     ShopMetaViewModel shopMetaViewModel;
+    Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +66,7 @@ public class SectionActivity extends AppCompatActivity {
 
         sectionCommand.getShopList();
         //sectionCommand.jsonPaser(getJson());
+        context = this;
 
         //select diaolg 띄우기
         sectionBinding.selectId.setOnClickListener(new View.OnClickListener() {
@@ -70,19 +74,6 @@ public class SectionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 dialog = new ShopSelectDialog(SectionActivity.this,sectionModel,sectionCommand,shopMetaViewModel);
                 dialog.show();
-
-                //디스플레이의 해상도를 가져옴
-                Display display = getWindowManager().getDefaultDisplay();
-                Point size = new Point();
-                display.getSize(size);
-
-                //비율에 맞게 다이얼로그 크기를 지정
-                Window window = dialog.getWindow();
-
-                int x = (int)(size.x * 0.8f);
-                int y = (int)(size.y * 0.9f);
-
-                window.setLayout(x,y);
             }
         });
 
@@ -90,9 +81,20 @@ public class SectionActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i("ShopClickListener", "call==========" + i + "======="+l);
+                if(shopsViewModel.shops.get(i).goods.size() <= 0){
+                    Toast.makeText(context,"등록된 상품이 없습니다.",Toast.LENGTH_SHORT).show();
+                } else {
+                    recyclerDialog = new GoodsRecyclerDialog(SectionActivity.this, shopsViewModel.shops.get(i));
+                    recyclerDialog.show();
+                }
+            }
+        });
 
-                recyclerDialog = new GoodsRecyclerDialog(SectionActivity.this, shopsViewModel.shops.get(i));
-                recyclerDialog.show();
+        sectionBinding.mapId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MapDialog mapDialog = new MapDialog(context);
+                mapDialog.show();
             }
         });
     }

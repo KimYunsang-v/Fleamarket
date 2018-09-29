@@ -22,8 +22,13 @@ public class CategoryModel {
     }
 
     public void addCategory(String categoryStr){
-        this.categoryList.add(category.getCategoryNum(categoryStr));
-        this.categoryStr += ">" + categoryStr;
+        if(categoryList.size() >= 2) {
+            categoryList.remove(1);
+            categoryList.add(category.getCategoryNum(categoryStr));
+            //this.categoryStr += ">" + categoryStr;
+        } else {
+            categoryList.add(category.getCategoryNum(categoryStr));
+        }
         System.out.println("categoryStr=====" + categoryStr);
     }
 

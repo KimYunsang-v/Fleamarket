@@ -7,12 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.skuniv.fleamarket2.databinding.CategoryItemBinding;
 import com.bumptech.glide.Glide;
+import com.example.skuniv.fleamarket2.view.categoryView.CategoryGoodsInfoDialog;
 import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryCommand;
 import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryMetaViewModel;
 import com.example.skuniv.fleamarket2.viewModel.categoryViewmodel.CategoryShopViewModel;
@@ -101,8 +103,15 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryViewHolder
     }
 
     @Override
-    public void onBindViewHolder(CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(CategoryViewHolder holder, final int position) {
         CategoryShopViewModel shop = shopsList.get(position);
+        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CategoryGoodsInfoDialog categoryGoodsInfoDialog = new CategoryGoodsInfoDialog(context, shopsList.get(position));
+                categoryGoodsInfoDialog.show();
+            }
+        });
         holder.bind(shop);
     }
 
@@ -137,7 +146,7 @@ class CategoryViewHolder extends RecyclerView.ViewHolder {
 
     void bind(CategoryShopViewModel shop) {
         Log.i("bind", "=======" + shop.goods.get().getImage());
-        //Glide.with(context).load(shop.goods.get().getImage()).override(300, 300).into(binding.imageId);
+        Glide.with(context).load(shop.goods.get().getImage()).override(300, 300).into(binding.imageId);
         binding.setShop(shop);
     }
 }

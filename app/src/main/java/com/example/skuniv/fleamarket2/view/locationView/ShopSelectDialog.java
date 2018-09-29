@@ -9,6 +9,7 @@ import android.databinding.ObservableArrayList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -31,6 +32,7 @@ public class ShopSelectDialog extends Dialog {
     private ShopSelectDialogBinding dialogBinding;
     SectionCommand sectionCommand;
     ShopMetaViewModel shopMetaViewModel;
+    ShopSelectDialog shopSelectDialog;
 
 
     public ShopSelectDialog(Context context, SectionModel sectionModel, SectionCommand sectionCommand,ShopMetaViewModel shopMetaViewModel) {
@@ -45,11 +47,20 @@ public class ShopSelectDialog extends Dialog {
         super.onCreate(savedInstanceState);
         selectDialogItemsModel = new SelectDialogItemsModel();
 
-        // 다이얼로그 외부 화면 흐리게 표현
+        /*// 다이얼로그 외부 화면 흐리게 표현
         WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
         lpWindow.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         lpWindow.dimAmount = 0.8f;
-        getWindow().setAttributes(lpWindow);
+        getWindow().setAttributes(lpWindow);*/
+
+        shopSelectDialog = this;
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(shopSelectDialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        Window window = shopSelectDialog.getWindow();
+        window.setAttributes(lp);
 
         dialogBinding = (ShopSelectDialogBinding)
                 DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.shop_select_dialog, null, false);
