@@ -2,8 +2,9 @@
 2018년 서울시 앱 공모전 출품작(뚝섬나눔장터)
 
 클라이언트 = android(java), firebase-cloud-messaing(서버 연동), alarmmanager, MVVM패턴
-  사용 라이브러리 = glide, retrofit, lombok
+  * 사용 라이브러리 = glide, retrofit, lombok
 서버 = django, mongodb, fcm연동
+
 
 기능 - 공통
 * 로그인, 로그아웃, 회원가입
@@ -21,10 +22,10 @@
 * 판매 신청서 승인(랜덤, 선착순, 개인 지정)
 * 승인 당첨 판매자들에게 메시지 전송
 
-<img src = './image/splash.jpg' width = '270' height = '330'/><img src = './image/main.jpg' width = '270' height = '330'/><img src = './image/10.jpg' width = '270' height = '330'/>
+<img src = './image/splash.jpg' width = '270' height = '400'/><img src = './image/main.jpg' width = '270' height = '400'/><img src = './image/10.jpg' width = '270' height = '400'/>
 <br/><br/><br/>
-<img src = './image/12.jpg' width = '270' height = '330'/><img src = './image/5.jpg' width = '270' height = '330'/><img src = './image/6.jpg' width = '270' height = '330'/>
+<img src = './image/12.jpg' width = '270' height = '400'/><img src = './image/5.jpg' width = '270' height = '400'/><img src = './image/6.jpg' width = '270' height = '400'/>
 <br/><br/><br/>
-<img src = './image/7.jpg' width = '270' height = '330'/><img src = './image/15.jpg' width = '270' height = '330'/><img src = './image/8.jpg' width = '270' height = '330'/>
+<img src = './image/7.jpg' width = '270' height = '400'/><img src = './image/15.jpg' width = '270' height = '400'/><img src = './image/8.jpg' width = '270' height = '400'/>
 <br/><br/><br/>
-<img src = './image/9.jpg' width = '270' height = '330'/><img src = './image/11.jpg' width = '270' height = '330'/><img src = './image/12.jpg' width = '270' height = '330'/>
+<img src = './image/9.jpg' width = '270' height = '400'/><img src = './image/11.jpg' width = '270' height = '400'/><img src = './image/12.jpg' width = '270' height = '400'/>
